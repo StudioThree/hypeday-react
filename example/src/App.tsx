@@ -1,4 +1,5 @@
 import HypeDayReact from "hypeday-react";
+import "hypeday-react/dist/style.css";
 import "./App.css";
 
 function App() {

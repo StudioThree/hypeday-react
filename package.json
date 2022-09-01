@@ -13,6 +13,10 @@
     ".": {
       "import": "./dist/hypeday-react.js",
       "require": "./dist/hypeday-react.umd.cjs"
+    },
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
     }
   },
   "scripts": {

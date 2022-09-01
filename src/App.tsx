@@ -2,7 +2,7 @@ import HypeDayReact from "./lib/HypeDayReact";
 
 function App() {
   return (
-    <div className="app-wrapper">
+    <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
       <HypeDayReact />
     </div>
   );
