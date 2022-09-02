@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import DiscordSection from "./components/DiscordSection";
 import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
 import classes from "./style.module.css";
@@ -22,18 +23,7 @@ export default function HypeDayReact({ projectId }: HypeDayReactProps) {
     <div className={classes.wrapper}>
       <WalletSection projectData={projectData} />
       <TwitterSection projectData={projectData} />
-
-      <section className={classes.reqSection}>
-        <header>
-          <h3>Discord</h3>
-          <button className={classes.hypeButton}>Connect</button>
-        </header>
-        <span className={classes.sectionInfo}>
-          Join the <b>HYPE.DAY</b> server before <b>1/1/2020, 3:00:00 PM</b>
-          <br />
-          and have the &quot;<b>Hype Team</b>&quot; role(s)
-        </span>
-      </section>
+      <DiscordSection projectData={projectData} />
 
       <section className={classes.reqSection}>
         <header>
