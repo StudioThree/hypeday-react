@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import DiscordSection from "./components/DiscordSection";
+import EmailSection from "./components/EmailSection";
 import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
 import classes from "./style.module.css";
@@ -24,16 +25,7 @@ export default function HypeDayReact({ projectId }: HypeDayReactProps) {
       <WalletSection projectData={projectData} />
       <TwitterSection projectData={projectData} />
       <DiscordSection projectData={projectData} />
-
-      <section className={classes.reqSection}>
-        <header>
-          <h3>Email</h3>
-          <button className={classes.hypeButton}>Connect</button>
-        </header>
-        <span className={classes.sectionInfo}>
-          Have a verified email address
-        </span>
-      </section>
+      <EmailSection projectData={projectData} />
 
       <section className={classes.reqSection}>
         <header>
