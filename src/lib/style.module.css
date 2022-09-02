@@ -64,6 +64,7 @@ h3 {
   border-radius: 8px;
   background-color: var(--gray5);
   font-size: 0.9em;
+  font-family: inherit;
   box-sizing: border-box;
   width: 100%;
 }

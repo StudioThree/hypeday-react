@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import DiscordSection from "./components/DiscordSection";
 import EmailSection from "./components/EmailSection";
+import OpenResponseSection from "./components/OpenResponseSection";
 import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
 import classes from "./style.module.css";
@@ -26,14 +27,7 @@ export default function HypeDayReact({ projectId }: HypeDayReactProps) {
       <TwitterSection projectData={projectData} />
       <DiscordSection projectData={projectData} />
       <EmailSection projectData={projectData} />
-
-      <section className={classes.reqSection}>
-        <header>
-          <h3>Open Response</h3>
-        </header>
-        <span className={classes.sectionInfo}>Write us something!</span>
-        <input className={classes.responseInput} type="text" />
-      </section>
+      <OpenResponseSection projectData={projectData} />
 
       <button className={`${classes.hypeButton} ${classes.registerButton}`}>
         Click to Register
