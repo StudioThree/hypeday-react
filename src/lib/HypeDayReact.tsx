@@ -1,20 +1,25 @@
+import { useEffect, useState } from "react";
+import WalletSection from "./components/WalletSection";
 import classes from "./style.module.css";
 
-export default function HypeDayReact() {
+interface HypeDayReactProps {
+  projectId: string;
+}
+
+export default function HypeDayReact({ projectId }: HypeDayReactProps) {
+  const [projectData, setProjectData] = useState({});
+
+  useEffect(() => {
+    if (!projectId) return;
+
+    fetch(`https://apitest.hype.day/getProject?projectid=${projectId}`)
+      .then((response) => response.json())
+      .then((data) => setProjectData(data));
+  }, []);
+
   return (
     <div className={classes.wrapper}>
-      <section className={classes.reqSection}>
-        <header>
-          <h3>Wallet</h3>
-          <button className={classes.hypeButton}>Connect</button>
-        </header>
-        <span className={classes.sectionInfo}>
-          Have at least 0.001 ETH in your wallet
-        </span>
-        <span className={classes.sectionInfo}>
-          Hold a FLOW token from RaribleNFT
-        </span>
-      </section>
+      <WalletSection projectData={projectData} />
 
       <section className={classes.reqSection}>
         <header>
