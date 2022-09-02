@@ -50,7 +50,7 @@ function m() {
     className: t.responseInput,
     type: "text"
   })), /* @__PURE__ */ e.createElement("button", {
-    className: t.registerButton
+    className: `${t.hypeButton} ${t.registerButton}`
   }, "Click to Register"));
 }
 export {

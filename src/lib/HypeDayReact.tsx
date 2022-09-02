@@ -73,7 +73,9 @@ export default function HypeDayReact() {
         <input className={classes.responseInput} type="text" />
       </section>
 
-      <button className={classes.registerButton}>Click to Register</button>
+      <button className={`${classes.hypeButton} ${classes.registerButton}`}>
+        Click to Register
+      </button>
     </div>
   );
 }
