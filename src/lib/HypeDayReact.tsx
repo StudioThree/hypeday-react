@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
 import classes from "./style.module.css";
 
@@ -20,33 +21,7 @@ export default function HypeDayReact({ projectId }: HypeDayReactProps) {
   return (
     <div className={classes.wrapper}>
       <WalletSection projectData={projectData} />
-
-      <section className={classes.reqSection}>
-        <header>
-          <h3>Twitter</h3>
-          <button className={classes.hypeButton}>Connect</button>
-        </header>
-        <span className={classes.sectionInfo}>
-          Have an account created before <b>1/1/2020</b>
-        </span>
-        <span className={classes.sectionInfo}>
-          Follow these account(s):
-          <ul>
-            <li>
-              <b>@_emirsavran_</b>
-            </li>
-            <li>
-              <b>@hypedotday</b>
-            </li>
-          </ul>
-        </span>
-        <span className={classes.sectionInfo}>
-          Have at least <b>5 follower(s)</b>
-        </span>
-        <span className={classes.sectionInfo}>
-          Retweet <b>this tweet</b>
-        </span>
-      </section>
+      <TwitterSection projectData={projectData} />
 
       <section className={classes.reqSection}>
         <header>
