@@ -1,58 +1,163 @@
-import e from "react";
-const n = "_wrapper_1h5lo_1", a = "_reqSection_1h5lo_37", l = "_sectionInfo_1h5lo_49", c = "_responseInput_1h5lo_60", s = "_hypeButton_1h5lo_71", r = "_registerButton_1h5lo_92", t = {
-  wrapper: n,
-  reqSection: a,
-  sectionInfo: l,
-  responseInput: c,
-  hypeButton: s,
-  registerButton: r
+import t, { useState as m, useEffect as p } from "react";
+const E = "_wrapper_1d0xw_1", h = "_reqSection_1d0xw_37", f = "_sectionInfo_1d0xw_49", g = "_responseInput_1d0xw_60", R = "_hypeButton_1d0xw_72", b = "_registerButton_1d0xw_93", c = {
+  wrapper: E,
+  reqSection: h,
+  sectionInfo: f,
+  responseInput: g,
+  hypeButton: R,
+  registerButton: b
 };
-function m() {
-  return /* @__PURE__ */ e.createElement("div", {
-    className: t.wrapper
-  }, /* @__PURE__ */ e.createElement("section", {
-    className: t.reqSection
-  }, /* @__PURE__ */ e.createElement("header", null, /* @__PURE__ */ e.createElement("h3", null, "Wallet"), /* @__PURE__ */ e.createElement("button", {
-    className: t.hypeButton
-  }, "Connect")), /* @__PURE__ */ e.createElement("span", {
-    className: t.sectionInfo
-  }, "Have at least 0.001 ETH in your wallet"), /* @__PURE__ */ e.createElement("span", {
-    className: t.sectionInfo
-  }, "Hold a FLOW token from RaribleNFT")), /* @__PURE__ */ e.createElement("section", {
-    className: t.reqSection
-  }, /* @__PURE__ */ e.createElement("header", null, /* @__PURE__ */ e.createElement("h3", null, "Twitter"), /* @__PURE__ */ e.createElement("button", {
-    className: t.hypeButton
-  }, "Connect")), /* @__PURE__ */ e.createElement("span", {
-    className: t.sectionInfo
-  }, "Have an account created before ", /* @__PURE__ */ e.createElement("b", null, "1/1/2020")), /* @__PURE__ */ e.createElement("span", {
-    className: t.sectionInfo
-  }, "Follow these account(s):", /* @__PURE__ */ e.createElement("ul", null, /* @__PURE__ */ e.createElement("li", null, /* @__PURE__ */ e.createElement("b", null, "@_emirsavran_")), /* @__PURE__ */ e.createElement("li", null, /* @__PURE__ */ e.createElement("b", null, "@hypedotday")))), /* @__PURE__ */ e.createElement("span", {
-    className: t.sectionInfo
-  }, "Have at least ", /* @__PURE__ */ e.createElement("b", null, "5 follower(s)")), /* @__PURE__ */ e.createElement("span", {
-    className: t.sectionInfo
-  }, "Retweet ", /* @__PURE__ */ e.createElement("b", null, "this tweet"))), /* @__PURE__ */ e.createElement("section", {
-    className: t.reqSection
-  }, /* @__PURE__ */ e.createElement("header", null, /* @__PURE__ */ e.createElement("h3", null, "Discord"), /* @__PURE__ */ e.createElement("button", {
-    className: t.hypeButton
-  }, "Connect")), /* @__PURE__ */ e.createElement("span", {
-    className: t.sectionInfo
-  }, "Join the ", /* @__PURE__ */ e.createElement("b", null, "HYPE.DAY"), " server before ", /* @__PURE__ */ e.createElement("b", null, "1/1/2020, 3:00:00 PM"), /* @__PURE__ */ e.createElement("br", null), 'and have the "', /* @__PURE__ */ e.createElement("b", null, "Hype Team"), '" role(s)')), /* @__PURE__ */ e.createElement("section", {
-    className: t.reqSection
-  }, /* @__PURE__ */ e.createElement("header", null, /* @__PURE__ */ e.createElement("h3", null, "Email"), /* @__PURE__ */ e.createElement("button", {
-    className: t.hypeButton
-  }, "Connect")), /* @__PURE__ */ e.createElement("span", {
-    className: t.sectionInfo
-  }, "Have a verified email address")), /* @__PURE__ */ e.createElement("section", {
-    className: t.reqSection
-  }, /* @__PURE__ */ e.createElement("header", null, /* @__PURE__ */ e.createElement("h3", null, "Open Response")), /* @__PURE__ */ e.createElement("span", {
-    className: t.sectionInfo
-  }, "Write us something!"), /* @__PURE__ */ e.createElement("input", {
-    className: t.responseInput,
-    type: "text"
-  })), /* @__PURE__ */ e.createElement("button", {
-    className: `${t.hypeButton} ${t.registerButton}`
+function u({
+  title: a,
+  buttonLabel: e = "Connect",
+  onClick: n,
+  info: r
+}) {
+  return /* @__PURE__ */ t.createElement("section", {
+    className: c.reqSection
+  }, /* @__PURE__ */ t.createElement("header", null, /* @__PURE__ */ t.createElement("h3", null, a), /* @__PURE__ */ t.createElement("button", {
+    className: c.hypeButton,
+    onClick: n
+  }, e)), r.map((l, o) => /* @__PURE__ */ t.createElement("span", {
+    key: o,
+    className: c.sectionInfo
+  }, l)));
+}
+function q({ projectData: a }) {
+  const { discord: e, discord2: n } = a;
+  if (!(e != null && e.enabled) && !(n != null && n.enabled))
+    return null;
+  const r = [];
+  e != null && e.enabled && r.push(e), n != null && n.enabled && r.push(n);
+  const l = [];
+  return r.forEach((o) => {
+    var s;
+    if (o.isServerRequired) {
+      const i = /* @__PURE__ */ t.createElement(t.Fragment, null, "Join the", " ", /* @__PURE__ */ t.createElement("a", {
+        href: o == null ? void 0 : o.serverLink,
+        target: "_blank",
+        rel: "noreferrer"
+      }, /* @__PURE__ */ t.createElement("strong", null, o == null ? void 0 : o.serverDisplayName)), " ", "server on Discord", o.isShouldJoinBeforeRequired ? /* @__PURE__ */ t.createElement(t.Fragment, null, " ", "before", " ", /* @__PURE__ */ t.createElement("strong", null, new Date(o.shouldJoinBefore).toLocaleString())) : null);
+      l.push(i);
+    }
+    if (o.isRoleRequired) {
+      const i = /* @__PURE__ */ t.createElement(t.Fragment, null, 'and have the "', (s = o == null ? void 0 : o.roleDisplayNames) == null ? void 0 : s.join(", "), '" role(s)');
+      l.push(i);
+    }
+  }), /* @__PURE__ */ t.createElement(u, {
+    title: "Discord",
+    onClick: () => console.log("discord button clicked"),
+    info: l
+  });
+}
+function _({ projectData: a }) {
+  const { email: e } = a;
+  return e != null && e.isEmailRequired ? /* @__PURE__ */ t.createElement(u, {
+    title: "Email",
+    onClick: () => console.log("email button clicked"),
+    info: ["Have a verified email address"]
+  }) : null;
+}
+function y({ projectData: a }) {
+  const { customfield: e } = a;
+  return e != null && e.enabled ? /* @__PURE__ */ t.createElement("section", {
+    className: c.reqSection
+  }, /* @__PURE__ */ t.createElement("header", null, /* @__PURE__ */ t.createElement("h3", null, "Open Response")), /* @__PURE__ */ t.createElement("span", {
+    className: c.sectionInfo
+  }, e.labels[0]), /* @__PURE__ */ t.createElement("input", {
+    className: c.responseInput,
+    type: "text",
+    placeholder: e.labels[0]
+  })) : null;
+}
+function d({ projectData: a }) {
+  var r;
+  const { twitter: e } = a;
+  if (!(e != null && e.enabled))
+    return null;
+  const n = [];
+  if (e != null && e.isAccountCreatedRequired) {
+    const l = /* @__PURE__ */ t.createElement(t.Fragment, null, "Have an account created before", " ", /* @__PURE__ */ t.createElement("strong", null, new Date(e.accountCreated).toLocaleDateString()));
+    n.push(l);
+  }
+  if (e != null && e.isFollowRequired) {
+    const l = (r = e == null ? void 0 : e.follow) == null ? void 0 : r.split(","), o = /* @__PURE__ */ t.createElement(t.Fragment, null, "Follow these account(s):", /* @__PURE__ */ t.createElement("ul", null, l == null ? void 0 : l.map((s) => /* @__PURE__ */ t.createElement("li", {
+      key: s
+    }, /* @__PURE__ */ t.createElement("a", {
+      href: `https://twitter.com/${s.trim()}`,
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ t.createElement("strong", null, "@", s))))));
+    n.push(o);
+  }
+  if (e != null && e.isMinFollowersRequired) {
+    const l = /* @__PURE__ */ t.createElement(t.Fragment, null, "Have at least ", /* @__PURE__ */ t.createElement("b", null, e.minFollowers, " follower(s)"));
+    n.push(l);
+  }
+  if (e != null && e.isRetweetRequired) {
+    const l = /* @__PURE__ */ t.createElement(t.Fragment, null, "Retweet", " ", /* @__PURE__ */ t.createElement("a", {
+      href: e.retweetUrl,
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ t.createElement("strong", null, "this tweet")));
+    n.push(l);
+  }
+  return /* @__PURE__ */ t.createElement(u, {
+    title: "Twitter",
+    onClick: () => console.log("twitter button clicked"),
+    info: n
+  });
+}
+const w = {
+  ethereum: "ETH",
+  solana: "SOL",
+  polygon: "MATIC",
+  avalanche: "AVAX",
+  flow: "FLOW"
+};
+function F({ projectData: a }) {
+  const { wallet: e } = a;
+  if (!e)
+    return null;
+  const n = [];
+  if (e != null && e.isBalanceRequired) {
+    const r = /* @__PURE__ */ t.createElement(t.Fragment, null, "Have at least", /* @__PURE__ */ t.createElement("strong", null, " " + e.balance + " " + w[a.chain] + " "), "in your wallet");
+    n.push(r);
+  }
+  if (e != null && e.isNftRequired) {
+    const { nftCollection: r } = e, l = /* @__PURE__ */ t.createElement(t.Fragment, null, "Hold a ", /* @__PURE__ */ t.createElement("strong", null, r.chain.toUpperCase()), " NFT from", " ", /* @__PURE__ */ t.createElement("strong", null, /* @__PURE__ */ t.createElement("a", {
+      href: r.url,
+      target: "_blank",
+      rel: "noreferrer"
+    }, r.name)));
+    n.push(l);
+  }
+  return /* @__PURE__ */ t.createElement(u, {
+    title: "Wallet",
+    onClick: () => console.log("wallet button clicked"),
+    info: n
+  });
+}
+function k({ projectId: a }) {
+  const [e, n] = m({});
+  return p(() => {
+    !a || fetch(`https://apitest.hype.day/getProject?projectid=${a}`).then((r) => r.json()).then((r) => n(r));
+  }, []), /* @__PURE__ */ t.createElement("div", {
+    className: c.wrapper
+  }, /* @__PURE__ */ t.createElement(F, {
+    projectData: e
+  }), /* @__PURE__ */ t.createElement(d, {
+    projectData: e
+  }), /* @__PURE__ */ t.createElement(q, {
+    projectData: e
+  }), /* @__PURE__ */ t.createElement(_, {
+    projectData: e
+  }), /* @__PURE__ */ t.createElement(y, {
+    projectData: e
+  }), /* @__PURE__ */ t.createElement("button", {
+    className: `${c.hypeButton} ${c.registerButton}`
   }, "Click to Register"));
 }
 export {
-  m as default
+  k as default
 };
