@@ -1,1 +1,4 @@
-export default function TwitterSection({ projectData }: any): JSX.Element | null;
+import type { GetProjectResponse } from "../../types";
+export default function TwitterSection({ projectData, }: {
+    projectData?: GetProjectResponse;
+}): JSX.Element | null;

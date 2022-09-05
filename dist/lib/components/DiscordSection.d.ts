@@ -1,1 +1,4 @@
-export default function DiscordSection({ projectData }: any): JSX.Element | null;
+import type { GetProjectResponse } from "../../types";
+export default function DiscordSection({ projectData, }: {
+    projectData?: GetProjectResponse;
+}): JSX.Element | null;

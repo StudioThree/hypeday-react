@@ -5,7 +5,7 @@ import "./App.css";
 function App() {
   return (
     <div className="App">
-      <HypeDayReact />
+      <HypeDayReact appId="testId" projectId="OqdTSUuzrCIbapvSQWbL" />
     </div>
   );
 }
