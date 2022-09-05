@@ -70,7 +70,7 @@ export default function TwitterSection({
   return (
     <Section
       title="Twitter"
-      onClick={() => console.log("twitter button clicked")}
+      onClick={() => alert("This is going to redirect user to Twitter")}
       info={infoArray}
       buttonLabel={userInfo?.twitter?.username}
     />

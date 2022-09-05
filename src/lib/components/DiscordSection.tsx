@@ -53,7 +53,7 @@ export default function DiscordSection({
   return (
     <Section
       title="Discord"
-      onClick={() => console.log("discord button clicked")}
+      onClick={() => alert("This is going to redirect user to Discord")}
       info={infoArray}
       buttonLabel={userInfo?.discord?.username}
     />
