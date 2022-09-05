@@ -67,6 +67,7 @@ h3 {
   font-family: inherit;
   box-sizing: border-box;
   width: 100%;
+  color: var(--white);
 }
 
 .hypeButton {
