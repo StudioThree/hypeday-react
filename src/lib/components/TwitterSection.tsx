@@ -1,19 +1,23 @@
+import type { GetProjectResponse } from "../../types";
 import Section from "./Section";
 
-// @TODO: Properly type projectData
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function TwitterSection({ projectData }: any) {
+export default function TwitterSection({
+  projectData,
+}: {
+  projectData?: GetProjectResponse;
+}) {
+  if (!projectData?.twitter?.enabled) return null;
+
   const { twitter } = projectData;
-
-  if (!twitter?.enabled) return null;
-
   const infoArray = [];
 
   if (twitter?.isAccountCreatedRequired) {
     const creationReq = (
       <>
         Have an account created before{" "}
-        <strong>{new Date(twitter.accountCreated).toLocaleDateString()}</strong>
+        <strong>
+          {new Date(twitter?.accountCreated || "").toLocaleDateString()}
+        </strong>
       </>
     );
     infoArray.push(creationReq);

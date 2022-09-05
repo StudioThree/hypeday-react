@@ -1,12 +1,16 @@
+import type { GetProjectResponse } from "../../types";
 import Section from "./Section";
 
-// @TODO: Properly type projectData
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function DiscordSection({ projectData }: any) {
+export default function DiscordSection({
+  projectData,
+}: {
+  projectData?: GetProjectResponse;
+}) {
+  if (!projectData?.discord?.enabled && !projectData?.discord2?.enabled) {
+    return null;
+  }
+
   const { discord, discord2 } = projectData;
-
-  if (!discord?.enabled && !discord2?.enabled) return null;
-
   const discordFields = [];
   if (discord?.enabled) discordFields.push(discord);
   if (discord2?.enabled) discordFields.push(discord2);
@@ -27,7 +31,7 @@ export default function DiscordSection({ projectData }: any) {
               {" "}
               before{" "}
               <strong>
-                {new Date(field.shouldJoinBefore).toLocaleString()}
+                {new Date(field?.shouldJoinBefore || "").toLocaleString()}
               </strong>
             </>
           ) : null}

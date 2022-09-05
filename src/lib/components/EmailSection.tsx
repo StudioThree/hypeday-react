@@ -1,17 +1,21 @@
+import type { GetProjectResponse } from "../../types";
 import Section from "./Section";
 
-// @TODO: Properly type projectData
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function EmailSection({ projectData }: any) {
-  const { email } = projectData;
+export default function EmailSection({
+  projectData,
+}: {
+  projectData?: GetProjectResponse;
+}) {
+  if (!projectData?.email?.isEmailRequired) return null;
 
-  if (!email?.isEmailRequired) return null;
+  const { userInfo } = projectData;
 
   return (
     <Section
       title="Email"
       onClick={() => console.log("email button clicked")}
       info={["Have a verified email address"]}
+      buttonLabel={userInfo?.email}
     />
   );
 }

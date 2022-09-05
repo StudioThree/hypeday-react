@@ -1,11 +1,14 @@
+import type { GetProjectResponse } from "../../types";
 import classes from "./../style.module.css";
 
-// @TODO: Properly type projectData
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function OpenResponseSection({ projectData }: any) {
-  const { customfield } = projectData;
+export default function OpenResponseSection({
+  projectData,
+}: {
+  projectData?: GetProjectResponse;
+}) {
+  if (!projectData?.customfield?.enabled) return null;
 
-  if (!customfield?.enabled) return null;
+  const { customfield } = projectData;
 
   return (
     <section className={classes.reqSection}>

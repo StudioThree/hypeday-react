@@ -1,3 +1,4 @@
+import type { GetProjectResponse } from "../../types";
 import Section from "./Section";
 
 const chainToCurrency = {
@@ -8,13 +9,14 @@ const chainToCurrency = {
   flow: "FLOW",
 };
 
-// @TODO: Properly type projectData
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function WalletSection({ projectData }: any) {
+export default function WalletSection({
+  projectData,
+}: {
+  projectData?: GetProjectResponse;
+}) {
+  if (!projectData?.wallet) return null;
+
   const { wallet } = projectData;
-
-  if (!wallet) return null;
-
   const infoArray = [];
 
   if (wallet?.isBalanceRequired) {
@@ -38,10 +40,10 @@ export default function WalletSection({ projectData }: any) {
     const { nftCollection } = wallet;
     const nftRq = (
       <>
-        Hold a <strong>{nftCollection.chain.toUpperCase()}</strong> NFT from{" "}
+        Hold a <strong>{nftCollection?.chain?.toUpperCase()}</strong> NFT from{" "}
         <strong>
-          <a href={nftCollection.url} target="_blank" rel="noreferrer">
-            {nftCollection.name}
+          <a href={nftCollection?.url} target="_blank" rel="noreferrer">
+            {nftCollection?.name}
           </a>
         </strong>
       </>
