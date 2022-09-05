@@ -40,7 +40,7 @@ export default function WalletSection({
     const { nftCollection } = wallet;
     const nftRq = (
       <>
-        Hold a <strong>{nftCollection?.chain?.toUpperCase()}</strong> NFT from{" "}
+        Hold an NFT from{" "}
         <strong>
           <a href={nftCollection?.url} target="_blank" rel="noreferrer">
             {nftCollection?.name}
