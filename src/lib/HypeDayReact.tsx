@@ -3,6 +3,7 @@ import type { GetProjectResponse } from "../types";
 import DiscordSection from "./components/DiscordSection";
 import EmailSection from "./components/EmailSection";
 import OpenResponseSection from "./components/OpenResponseSection";
+import SignupAccessSection from "./components/SignupAccessSection";
 import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
 import classes from "./style.module.css";
@@ -38,6 +39,7 @@ export default function HypeDayReact({
 
   return (
     <div className={classes.wrapper}>
+      <SignupAccessSection projectData={projectData} />
       <WalletSection projectData={projectData} />
       <TwitterSection projectData={projectData} />
       <DiscordSection projectData={projectData} />

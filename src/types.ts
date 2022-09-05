@@ -23,6 +23,12 @@ export interface GetProjectResponse {
   id: string;
   chain: SupportedChains;
   createdAt: string;
+  signupAccess?: {
+    isStartDateRequired?: boolean;
+    isEndDateRequired?: boolean;
+    startDate?: string;
+    endDate?: string;
+  };
   customfield?: {
     enabled: boolean;
     labels: string[];
