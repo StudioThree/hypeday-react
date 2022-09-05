@@ -5,3 +5,22 @@ React component to embed Hype.Day project registration into your website.
 ## Development
 
 Run `npm run dev` to start Vite in development mode. `main.tsx` and `App.tsx` are only for development purposes. The bundle entry point is `lib/HypeDayReact.tsx`.
+
+## Example Usage
+
+To install:
+
+```bash
+npm i github:StudioThree/hypeday-react
+```
+
+```tsx
+import HypeDayReact from "hypeday-react";
+import "hypeday-react/dist/style.css";
+
+<HypeDayReact
+  appId="YOUR_APP_ID" // required, you can request this from Hype.Day
+  projectId="OqdTSUuzrCIbapvSQWbL" // required, Hype.Day project ID
+  userId="OitNn0A1Ehs8sia1XwoN" // optional, encrypted user wallet address
+/>;
+```
