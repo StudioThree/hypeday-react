@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { GetProjectResponse } from "../types";
 import DiscordSection from "./components/DiscordSection";
-import EmailSection from "./components/EmailSection";
 import OpenResponseSection from "./components/OpenResponseSection";
 import SignupAccessSection from "./components/SignupAccessSection";
 import TwitterSection from "./components/TwitterSection";
@@ -43,7 +42,6 @@ export default function HypeDayReact({
       <WalletSection projectData={projectData} />
       <TwitterSection projectData={projectData} />
       <DiscordSection projectData={projectData} />
-      <EmailSection projectData={projectData} />
       <OpenResponseSection projectData={projectData} />
 
       <button className={classes.registerButton} onClick={handleRegister}>

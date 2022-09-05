@@ -33,9 +33,6 @@ export interface GetProjectResponse {
     enabled: boolean;
     labels: string[];
   };
-  email?: {
-    isEmailRequired?: boolean;
-  };
   discord?: DiscordRequirement;
   discord2?: DiscordRequirement;
   twitter?: {
