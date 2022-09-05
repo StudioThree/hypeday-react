@@ -8,7 +8,7 @@ export default function TwitterSection({
 }) {
   if (!projectData?.twitter?.enabled) return null;
 
-  const { twitter } = projectData;
+  const { twitter, userInfo } = projectData;
   const infoArray = [];
 
   if (twitter?.isAccountCreatedRequired) {
@@ -72,6 +72,7 @@ export default function TwitterSection({
       title="Twitter"
       onClick={() => console.log("twitter button clicked")}
       info={infoArray}
+      buttonLabel={userInfo?.twitter?.username}
     />
   );
 }

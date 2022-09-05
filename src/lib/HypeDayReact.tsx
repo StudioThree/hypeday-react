@@ -8,18 +8,23 @@ import WalletSection from "./components/WalletSection";
 import classes from "./style.module.css";
 
 interface HypeDayReactProps {
+  appId: string;
   projectId: string;
-  userId: string;
+  userId?: string;
 }
 
-export default function HypeDayReact({ projectId, userId }: HypeDayReactProps) {
+export default function HypeDayReact({
+  appId,
+  projectId,
+  userId,
+}: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
 
   useEffect(() => {
     if (!projectId) return;
 
     fetch(
-      `https://apitest.hype.day/getProject?projectid=${projectId}&userid=${userId}`
+      `https://apitest.hype.day/getProject?appId=${appId}&projectid=${projectId}&userid=${userId}`
     )
       .then((response) => response.json())
       .then((data) => setProjectData(data));

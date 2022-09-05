@@ -10,7 +10,7 @@ export default function DiscordSection({
     return null;
   }
 
-  const { discord, discord2 } = projectData;
+  const { discord, discord2, userInfo } = projectData;
   const discordFields = [];
   if (discord?.enabled) discordFields.push(discord);
   if (discord2?.enabled) discordFields.push(discord2);
@@ -55,6 +55,7 @@ export default function DiscordSection({
       title="Discord"
       onClick={() => console.log("discord button clicked")}
       info={infoArray}
+      buttonLabel={userInfo?.discord?.username}
     />
   );
 }
