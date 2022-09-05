@@ -9,7 +9,7 @@ interface SectionProps {
 
 export default function Section({
   title,
-  buttonLabel = "Connect",
+  buttonLabel,
   onClick,
   info,
 }: SectionProps) {
@@ -17,8 +17,12 @@ export default function Section({
     <section className={classes.reqSection}>
       <header>
         <h3>{title}</h3>
-        <button className={classes.hypeButton} onClick={onClick}>
-          {buttonLabel}
+        <button
+          className={classes.hypeButton}
+          onClick={onClick}
+          disabled={!!buttonLabel}
+        >
+          {buttonLabel || "Connect"}
         </button>
       </header>
       {info.map((el, i) => (
