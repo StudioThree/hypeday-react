@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { GetProjectResponse } from "../types";
+import type { GetProjectResponse } from "./types";
 import DiscordSection from "./components/DiscordSection";
 import OpenResponseSection from "./components/OpenResponseSection";
 import SignupAccessSection from "./components/SignupAccessSection";

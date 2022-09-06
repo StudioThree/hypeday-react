@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { GetProjectResponse } from "../../types";
+import type { GetProjectResponse } from "../types";
 import DateCountdown from "./DateCountdown";
 import classes from "./../style.module.css";
 

@@ -1,4 +1,4 @@
-import type { GetProjectResponse } from "../../types";
+import type { GetProjectResponse } from "../types";
 import classes from "./../style.module.css";
 
 export default function OpenResponseSection({
