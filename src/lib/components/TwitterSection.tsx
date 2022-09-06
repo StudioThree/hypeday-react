@@ -1,10 +1,15 @@
+import { getTwitterUrl } from "../api";
 import type { GetProjectResponse } from "../types";
 import Section from "./Section";
 
 export default function TwitterSection({
   projectData,
+  appId,
+  userId,
 }: {
   projectData?: GetProjectResponse;
+  appId: string;
+  userId?: string;
 }) {
   if (!projectData?.twitter?.enabled) return null;
 
@@ -67,10 +72,23 @@ export default function TwitterSection({
     infoArray.push(retweetReq);
   }
 
+  const handleConnect = async () => {
+    if (!appId || !userId || !projectData?.id) return;
+
+    const { url } = await getTwitterUrl({
+      appId,
+      userId,
+      projectId: projectData.id,
+      returnUrl: window.location.href,
+    });
+
+    window.location.assign(url);
+  };
+
   return (
     <Section
       title="Twitter"
-      onClick={() => alert("This is going to redirect user to Twitter")}
+      onClick={handleConnect}
       info={infoArray}
       buttonLabel={userInfo?.twitter?.username}
     />

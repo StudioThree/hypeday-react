@@ -6,6 +6,7 @@ import SignupAccessSection from "./components/SignupAccessSection";
 import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
 import classes from "./style.module.css";
+import { getProject } from "./api";
 
 interface HypeDayReactProps {
   appId: string;
@@ -23,11 +24,9 @@ export default function HypeDayReact({
   useEffect(() => {
     if (!projectId) return;
 
-    fetch(
-      `https://apitest.hype.day/getProject?appId=${appId}&projectid=${projectId}&userid=${userId}`
-    )
-      .then((response) => response.json())
-      .then((data) => setProjectData(data));
+    getProject({ appId, projectId, userId }).then((data) =>
+      setProjectData(data)
+    );
   }, []);
 
   const handleRegister = () => {
@@ -40,7 +39,7 @@ export default function HypeDayReact({
     <div className={classes.wrapper}>
       <SignupAccessSection projectData={projectData} />
       <WalletSection projectData={projectData} />
-      <TwitterSection projectData={projectData} />
+      <TwitterSection projectData={projectData} appId={appId} userId={userId} />
       <DiscordSection projectData={projectData} />
       <OpenResponseSection projectData={projectData} />
 
