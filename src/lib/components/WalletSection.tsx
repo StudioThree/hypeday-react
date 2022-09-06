@@ -56,7 +56,7 @@ export default function WalletSection({
       title="Wallet"
       onClick={() => console.log("wallet button clicked")}
       info={infoArray}
-      showButton={false}
+      rightText=" "
     />
   );
 }

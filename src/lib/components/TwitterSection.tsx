@@ -90,7 +90,8 @@ export default function TwitterSection({
       title="Twitter"
       onClick={handleConnect}
       info={infoArray}
-      buttonLabel={userInfo?.twitter?.username}
+      rightText={userInfo?.twitter?.username}
+      buttonDisabled={!userId}
     />
   );
 }

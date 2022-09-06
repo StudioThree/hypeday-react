@@ -3,8 +3,12 @@ import Section from "./Section";
 
 export default function DiscordSection({
   projectData,
+  appId,
+  userId,
 }: {
   projectData?: GetProjectResponse;
+  appId: string;
+  userId?: string;
 }) {
   if (!projectData?.discord?.enabled && !projectData?.discord2?.enabled) {
     return null;
@@ -50,12 +54,18 @@ export default function DiscordSection({
     }
   });
 
+  const handleConnect = () => {
+    console.log(appId);
+    alert("This is going to redirect user to Discord");
+  };
+
   return (
     <Section
       title="Discord"
-      onClick={() => alert("This is going to redirect user to Discord")}
+      onClick={handleConnect}
       info={infoArray}
-      buttonLabel={userInfo?.discord?.username}
+      rightText={userInfo?.discord?.username}
+      buttonDisabled={!userId}
     />
   );
 }

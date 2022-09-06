@@ -2,16 +2,16 @@ import classes from "./../style.module.css";
 
 interface SectionProps {
   title: string;
-  showButton?: boolean;
-  buttonLabel?: string;
+  buttonDisabled?: boolean;
+  rightText?: string;
   onClick: () => void;
   info: (JSX.Element | string)[];
 }
 
 export default function Section({
   title,
-  showButton = true,
-  buttonLabel,
+  rightText,
+  buttonDisabled = false,
   onClick,
   info,
 }: SectionProps) {
@@ -19,13 +19,16 @@ export default function Section({
     <section className={classes.reqSection}>
       <header>
         <h3>{title}</h3>
-        {showButton && (
+        {rightText ? (
+          <span className={classes.sectionInfo}>{rightText}</span>
+        ) : (
           <button
             className={classes.hypeButton}
             onClick={onClick}
-            disabled={!!buttonLabel}
+            disabled={buttonDisabled}
+            title={buttonDisabled ? "Please login first" : undefined}
           >
-            {buttonLabel || "Connect"}
+            Connect
           </button>
         )}
       </header>

@@ -40,7 +40,7 @@ export default function HypeDayReact({
       <SignupAccessSection projectData={projectData} />
       <WalletSection projectData={projectData} />
       <TwitterSection projectData={projectData} appId={appId} userId={userId} />
-      <DiscordSection projectData={projectData} />
+      <DiscordSection projectData={projectData} appId={appId} userId={userId} />
       <OpenResponseSection projectData={projectData} />
 
       <button className={classes.registerButton} onClick={handleRegister}>

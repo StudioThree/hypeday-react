@@ -87,9 +87,7 @@ h3 {
 }
 
 .hypeButton:disabled {
-  color: var(--gray100);
-  background-color: transparent;
-  cursor: auto;
+  cursor: not-allowed;
 }
 
 .hypeButton:focus,
