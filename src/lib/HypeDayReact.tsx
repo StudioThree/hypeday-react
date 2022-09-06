@@ -44,9 +44,9 @@ export default function HypeDayReact({
       <OpenResponseSection projectData={projectData} />
 
       <button className="hypeday-register-button" onClick={handleRegister}>
-        {projectData?.userInfo?.registered
-          ? "Registered! 🎉"
-          : "Click to Register"}
+        {!projectData && "Loading..."}
+        {projectData && projectData?.userInfo?.registered && "Registered"}
+        {projectData && !projectData.userInfo?.registered && "Register"}
       </button>
     </div>
   );
