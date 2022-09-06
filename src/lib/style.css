@@ -1,4 +1,4 @@
-.wrapper {
+.hypeday-wrapper {
   --white: #ffffff;
   --gray5: rgb(20, 21, 25);
   --gray60: rgb(138, 145, 158);
@@ -30,34 +30,34 @@
   border-radius: 8px;
 }
 
-h3 {
+.hypeday-h3 {
   margin: 0;
 }
 
-.reqSection {
+.hypeday-section {
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
 
-.reqSection header {
+.hypeday-section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
 }
 
-.sectionInfo {
+.hypeday-info {
   font-size: 0.9em;
   display: block;
   color: var(--gray100);
 }
 
-.sectionInfo ul {
+.hypeday-info-ul {
   padding-left: 24px;
   margin: 4px 0;
 }
 
-.responseInput {
+.hypeday-input {
   margin-top: 8px;
   padding: 8px 12px;
   border: 1px solid rgba(91, 99, 110, 0.5);
@@ -70,7 +70,7 @@ h3 {
   color: var(--white);
 }
 
-.hypeButton {
+.hypeday-button {
   border-radius: 4px;
   border: none;
   padding: 8px 16px;
@@ -82,20 +82,20 @@ h3 {
   transition: background-color 0.25s;
 }
 
-.hypeButton:hover {
+.hypeday-button:hover {
   background-color: var(--blue600);
 }
 
-.hypeButton:disabled {
+.hypeday-button:disabled {
   cursor: not-allowed;
 }
 
-.hypeButton:focus,
-.hypeButton:focus-visible {
+.hypeday-button:focus,
+.hypeday-button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.registerButton {
+.hypeday-register-button {
   background-color: var(--green400);
   font-size: 1em;
   width: 100%;
@@ -107,6 +107,6 @@ h3 {
   cursor: pointer;
 }
 
-.registerButton:hover {
+.hypeday-register-button:hover {
   background-color: var(--green600);
 }

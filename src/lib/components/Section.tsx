@@ -1,5 +1,3 @@
-import classes from "./../style.module.css";
-
 interface SectionProps {
   title: string;
   buttonDisabled?: boolean;
@@ -16,14 +14,14 @@ export default function Section({
   info,
 }: SectionProps) {
   return (
-    <section className={classes.reqSection}>
-      <header>
-        <h3>{title}</h3>
+    <section className="hypeday-section">
+      <header className="hypeday-section-header">
+        <h3 className="hypeday-h3">{title}</h3>
         {rightText ? (
-          <span className={classes.sectionInfo}>{rightText}</span>
+          <span className="hypeday-info">{rightText}</span>
         ) : (
           <button
-            className={classes.hypeButton}
+            className="hypeday-button"
             onClick={onClick}
             disabled={buttonDisabled}
             title={buttonDisabled ? "Please login first" : undefined}
@@ -33,7 +31,7 @@ export default function Section({
         )}
       </header>
       {info.map((el, i) => (
-        <span key={i} className={classes.sectionInfo}>
+        <span key={i} className="hypeday-info">
           {el}
         </span>
       ))}

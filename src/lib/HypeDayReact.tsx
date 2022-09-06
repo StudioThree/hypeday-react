@@ -5,8 +5,8 @@ import OpenResponseSection from "./components/OpenResponseSection";
 import SignupAccessSection from "./components/SignupAccessSection";
 import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
-import classes from "./style.module.css";
 import { getProject } from "./api";
+import "./style.css";
 
 interface HypeDayReactProps {
   appId: string;
@@ -36,14 +36,14 @@ export default function HypeDayReact({
   };
 
   return (
-    <div className={classes.wrapper}>
+    <div className="hypeday-wrapper">
       <SignupAccessSection projectData={projectData} />
       <WalletSection projectData={projectData} />
       <TwitterSection projectData={projectData} appId={appId} userId={userId} />
       <DiscordSection projectData={projectData} appId={appId} userId={userId} />
       <OpenResponseSection projectData={projectData} />
 
-      <button className={classes.registerButton} onClick={handleRegister}>
+      <button className="hypeday-register-button" onClick={handleRegister}>
         {projectData?.userInfo?.registered
           ? "Registered! 🎉"
           : "Click to Register"}

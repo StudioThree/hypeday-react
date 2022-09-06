@@ -1,5 +1,4 @@
 import type { GetProjectResponse } from "../types";
-import classes from "./../style.module.css";
 
 export default function OpenResponseSection({
   projectData,
@@ -11,13 +10,13 @@ export default function OpenResponseSection({
   const { customfield } = projectData;
 
   return (
-    <section className={classes.reqSection}>
-      <header>
-        <h3>Open Response</h3>
+    <section className="hypeday-section">
+      <header className="hypeday-section-header">
+        <h3 className="hypeday-h3">Open Response</h3>
       </header>
-      <span className={classes.sectionInfo}>{customfield.labels[0]}</span>
+      <span className="hypeday-info">{customfield.labels[0]}</span>
       <input
-        className={classes.responseInput}
+        className="hypeday-input"
         type="text"
         placeholder={customfield.labels[0]}
       />

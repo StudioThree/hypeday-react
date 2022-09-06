@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { GetProjectResponse } from "../types";
 import DateCountdown from "./DateCountdown";
-import classes from "./../style.module.css";
 
 function SectionBase({
   children,
@@ -11,11 +10,11 @@ function SectionBase({
   title: string;
 }) {
   return (
-    <section className={classes.reqSection}>
-      <header>
-        <h3>{title}</h3>
+    <section className="hypeday-section">
+      <header className="hypeday-section-header">
+        <h3 className="hypeday-h3">{title}</h3>
       </header>
-      <span className={classes.sectionInfo}>{children}</span>
+      <span className="hypeday-info">{children}</span>
     </section>
   );
 }
@@ -85,12 +84,10 @@ export default function SignupAccessSection({
   ) {
     return (
       <SectionBase title="Registration ends in:">
-        <span className={classes.sectionInfo}>
-          <DateCountdown
-            dateString={projectData?.signupAccess?.endDate}
-            message="Registration is closed."
-          />
-        </span>
+        <DateCountdown
+          dateString={projectData?.signupAccess?.endDate}
+          message="Registration is closed."
+        />
       </SectionBase>
     );
   }
