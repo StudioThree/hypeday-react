@@ -27,7 +27,7 @@ export default function HypeDayReact({
     getProject({ appId, projectId, userId }).then((data) =>
       setProjectData(data)
     );
-  }, []);
+  }, [appId, projectId, userId]);
 
   const handleRegister = () => {
     if (projectData?.userInfo?.registered) return;
