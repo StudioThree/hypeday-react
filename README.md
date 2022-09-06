@@ -2,6 +2,10 @@
 
 React component to embed Hype.Day project registration into your website.
 
+## Preview
+
+You can test the library on: https://hypeday-react.vercel.app/
+
 ## Development
 
 Run `npm run dev` to start Vite in development mode. `main.tsx` and `App.tsx` are only for development purposes. The bundle entry point is `lib/HypeDayReact.tsx`.
