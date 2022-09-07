@@ -7,6 +7,7 @@
   --blue600: #2b6cb0;
   --green400: #48bb78;
   --green600: #2f855a;
+  --red400: #f56565;
 
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: 16px;
@@ -32,6 +33,12 @@
 
 .hypeday-h3 {
   margin: 0;
+}
+
+.hypeday-error {
+  display: block;
+  color: var(--red400);
+  padding-bottom: 12px;
 }
 
 .hypeday-section {

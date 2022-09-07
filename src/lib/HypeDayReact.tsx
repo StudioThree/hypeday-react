@@ -21,17 +21,28 @@ export default function HypeDayReact({
 }: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
 
-  useEffect(() => {
+  const fetchProjectData = async () => {
     if (!projectId || !appId) {
       console.error("HypeDayReact: projectId and appId props are required.");
       return;
     }
 
+    setIsLoading(true);
+    setHasError(false);
     getProject({ appId, projectId, userId })
       .then((data) => setProjectData(data))
+      .catch((err) => {
+        console.error("HypeDayReact: Error fetching project data", err);
+        setHasError(true);
+      })
       .finally(() => setIsLoading(false));
+  };
+
+  useEffect(() => {
+    fetchProjectData();
   }, [appId, projectId, userId]);
 
   const handleRegister = () => {
@@ -49,6 +60,19 @@ export default function HypeDayReact({
         style={{ display: "flex", justifyContent: "center" }}
       >
         <div className="hypeday-spinner" />
+      </div>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <div className="hypeday-wrapper">
+        <span className="hypeday-error">
+          Something went wrong. Please check your connection.
+        </span>
+        <button className="hypeday-button" onClick={fetchProjectData}>
+          Retry
+        </button>
       </div>
     );
   }
