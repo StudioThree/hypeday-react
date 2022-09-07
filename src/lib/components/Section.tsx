@@ -4,6 +4,7 @@ interface SectionProps {
   rightText?: string;
   onClick: () => void;
   info: (JSX.Element | string)[];
+  isLoading?: boolean;
 }
 
 export default function Section({
@@ -12,6 +13,7 @@ export default function Section({
   buttonDisabled = false,
   onClick,
   info,
+  isLoading = false,
 }: SectionProps) {
   return (
     <section className="hypeday-section">
@@ -23,10 +25,15 @@ export default function Section({
           <button
             className="hypeday-button"
             onClick={onClick}
-            disabled={buttonDisabled}
+            disabled={isLoading || buttonDisabled}
             title={buttonDisabled ? "Please login first" : undefined}
           >
-            Connect
+            {isLoading && (
+              <div className="hypeday-spinner hypeday-btn-spinner" />
+            )}
+            <span style={{ visibility: isLoading ? "hidden" : "initial" }}>
+              Connect
+            </span>
           </button>
         )}
       </header>

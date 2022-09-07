@@ -20,20 +20,38 @@ export default function HypeDayReact({
   userId,
 }: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   useEffect(() => {
-    if (!projectId) return;
+    if (!projectId || !appId) {
+      console.error("HypeDayReact: projectId and appId props are required.");
+      return;
+    }
 
-    getProject({ appId, projectId, userId }).then((data) =>
-      setProjectData(data)
-    );
+    getProject({ appId, projectId, userId })
+      .then((data) => setProjectData(data))
+      .finally(() => setIsLoading(false));
   }, [appId, projectId, userId]);
 
   const handleRegister = () => {
     if (projectData?.userInfo?.registered) return;
 
+    setIsRegistering(true);
+    setTimeout(() => setIsRegistering(false), 3000);
     console.log("register button clicked");
   };
+
+  if (isLoading) {
+    return (
+      <div
+        className="hypeday-wrapper"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <div className="hypeday-spinner" />
+      </div>
+    );
+  }
 
   return (
     <div className="hypeday-wrapper">
@@ -43,10 +61,17 @@ export default function HypeDayReact({
       <DiscordSection projectData={projectData} appId={appId} userId={userId} />
       <OpenResponseSection projectData={projectData} />
 
-      <button className="hypeday-register-button" onClick={handleRegister}>
-        {!projectData && "Loading..."}
-        {projectData && projectData?.userInfo?.registered && "Registered"}
-        {projectData && !projectData.userInfo?.registered && "Register"}
+      <button
+        className="hypeday-register-button"
+        onClick={handleRegister}
+        disabled={isRegistering}
+      >
+        {isRegistering && (
+          <div className="hypeday-spinner hypeday-btn-spinner" />
+        )}
+        <span style={{ visibility: isRegistering ? "hidden" : "initial" }}>
+          {projectData?.userInfo?.registered ? "Registered" : "Register"}
+        </span>
       </button>
     </div>
   );

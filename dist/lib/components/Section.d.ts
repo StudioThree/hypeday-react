@@ -4,6 +4,7 @@ interface SectionProps {
     rightText?: string;
     onClick: () => void;
     info: (JSX.Element | string)[];
+    isLoading?: boolean;
 }
-export default function Section({ title, rightText, buttonDisabled, onClick, info, }: SectionProps): JSX.Element;
+export default function Section({ title, rightText, buttonDisabled, onClick, info, isLoading, }: SectionProps): JSX.Element;
 export {};

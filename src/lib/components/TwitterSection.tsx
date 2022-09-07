@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { getTwitterUrl } from "../api";
 import type { GetProjectResponse } from "../types";
 import Section from "./Section";
@@ -11,6 +12,8 @@ export default function TwitterSection({
   appId: string;
   userId?: string;
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   if (!projectData?.twitter?.enabled) return null;
 
   const { twitter, userInfo } = projectData;
@@ -75,14 +78,21 @@ export default function TwitterSection({
   const handleConnect = async () => {
     if (!appId || !userId || !projectData?.id) return;
 
-    const { url } = await getTwitterUrl({
-      appId,
-      userId,
-      projectId: projectData.id,
-      returnUrl: window.location.href,
-    });
+    try {
+      setIsLoading(true);
+      const { url } = await getTwitterUrl({
+        appId,
+        userId,
+        projectId: projectData.id,
+        returnUrl: window.location.href,
+      });
 
-    window.location.assign(url);
+      window.location.assign(url);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -92,6 +102,7 @@ export default function TwitterSection({
       info={infoArray}
       rightText={userInfo?.twitter?.username}
       buttonDisabled={!userId}
+      isLoading={isLoading}
     />
   );
 }
