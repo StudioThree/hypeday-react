@@ -30,6 +30,7 @@
     "react-dom": "^16.8.0 || 17 || 18"
   },
   "devDependencies": {
+    "@ethersproject/providers": "^5.7.0",
     "@types/node": "^16.11.56",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { JsonRpcSigner } from "@ethersproject/providers";
 import type { GetProjectResponse } from "./types";
 import DiscordSection from "./components/DiscordSection";
 import OpenResponseSection from "./components/OpenResponseSection";
@@ -12,12 +13,14 @@ interface HypeDayReactProps {
   appId: string;
   projectId: string;
   userId?: string;
+  signer?: JsonRpcSigner;
 }
 
 export default function HypeDayReact({
   appId,
   projectId,
   userId,
+  signer,
 }: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
 
@@ -31,6 +34,15 @@ export default function HypeDayReact({
 
   const handleRegister = () => {
     if (projectData?.userInfo?.registered) return;
+
+    if (signer) {
+      // const address = await signer.getAddress();
+      // generate a message to sign
+      // const { nonce } = await api.addWallet({ chain, address })
+      // const signature = await signer.signMessage(nonce);
+      // send signature with register request
+      // in order to not keep token or cookie
+    }
 
     console.log("register button clicked");
   };
