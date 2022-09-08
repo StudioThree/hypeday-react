@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { getTwitterUrl } from "../api";
 import type { GetProjectResponse } from "../types";
 import Section from "./Section";
@@ -14,66 +14,70 @@ export default function TwitterSection({
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
-  if (!projectData?.twitter?.enabled) return null;
+  const info = useMemo(() => {
+    if (!projectData?.twitter?.enabled) return [];
 
-  const { twitter, userInfo } = projectData;
-  const infoArray = [];
+    const { twitter } = projectData;
+    const infoArray = [];
 
-  if (twitter?.isAccountCreatedRequired) {
-    const creationReq = (
-      <>
-        Have an account created before{" "}
-        <strong>
-          {new Date(twitter?.accountCreated || "").toLocaleDateString()}
-        </strong>
-      </>
-    );
-    infoArray.push(creationReq);
-  }
+    if (twitter?.isAccountCreatedRequired) {
+      const creationReq = (
+        <>
+          Have an account created before{" "}
+          <strong>
+            {new Date(twitter?.accountCreated || "").toLocaleDateString()}
+          </strong>
+        </>
+      );
+      infoArray.push(creationReq);
+    }
 
-  if (twitter?.isFollowRequired) {
-    const followList = twitter?.follow?.split(",");
-    const followReq = (
-      <>
-        Follow these account(s):
-        <ul>
-          {followList?.map((account: string) => (
-            <li key={account}>
-              <a
-                href={`https://twitter.com/${account.trim()}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <strong>@{account}</strong>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </>
-    );
-    infoArray.push(followReq);
-  }
+    if (twitter?.isFollowRequired) {
+      const followList = twitter?.follow?.split(",");
+      const followReq = (
+        <>
+          Follow these account(s):
+          <ul>
+            {followList?.map((account: string) => (
+              <li key={account}>
+                <a
+                  href={`https://twitter.com/${account.trim()}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <strong>@{account}</strong>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      );
+      infoArray.push(followReq);
+    }
 
-  if (twitter?.isMinFollowersRequired) {
-    const minFollowersReq = (
-      <>
-        Have at least <b>{twitter.minFollowers} follower(s)</b>
-      </>
-    );
-    infoArray.push(minFollowersReq);
-  }
+    if (twitter?.isMinFollowersRequired) {
+      const minFollowersReq = (
+        <>
+          Have at least <b>{twitter.minFollowers} follower(s)</b>
+        </>
+      );
+      infoArray.push(minFollowersReq);
+    }
 
-  if (twitter?.isRetweetRequired) {
-    const retweetReq = (
-      <>
-        Retweet{" "}
-        <a href={twitter.retweetUrl} target="_blank" rel="noreferrer">
-          <strong>this tweet</strong>
-        </a>
-      </>
-    );
-    infoArray.push(retweetReq);
-  }
+    if (twitter?.isRetweetRequired) {
+      const retweetReq = (
+        <>
+          Retweet{" "}
+          <a href={twitter.retweetUrl} target="_blank" rel="noreferrer">
+            <strong>this tweet</strong>
+          </a>
+        </>
+      );
+      infoArray.push(retweetReq);
+    }
+
+    return infoArray;
+  }, [projectData]);
 
   const handleConnect = async () => {
     if (!appId || !userId || !projectData?.id) return;
@@ -95,12 +99,14 @@ export default function TwitterSection({
     }
   };
 
+  if (!projectData?.twitter?.enabled) return null;
+
   return (
     <Section
       title="Twitter"
       onClick={handleConnect}
-      info={infoArray}
-      rightText={userInfo?.twitter?.username}
+      info={info}
+      rightText={projectData?.userInfo?.twitter?.username}
       buttonDisabled={!userId}
       isLoading={isLoading}
     />

@@ -1,11 +1,11 @@
-import n, { useState as f, useEffect as A } from "react";
-function T({
+import n, { useMemo as T, useState as b, useEffect as A, useCallback as k } from "react";
+function q({
   title: e,
-  rightText: t,
-  buttonDisabled: i = !1,
-  onClick: s,
-  info: c,
-  isLoading: l = !1
+  rightText: l,
+  buttonDisabled: s = !1,
+  onClick: i,
+  info: r,
+  isLoading: m = !1
 }) {
   return /* @__PURE__ */ n.createElement("section", {
     className: "hypeday-section"
@@ -13,66 +13,68 @@ function T({
     className: "hypeday-section-header"
   }, /* @__PURE__ */ n.createElement("h3", {
     className: "hypeday-h3"
-  }, e), t ? /* @__PURE__ */ n.createElement("span", {
+  }, e), l ? /* @__PURE__ */ n.createElement("span", {
     className: "hypeday-info"
-  }, t) : /* @__PURE__ */ n.createElement("button", {
+  }, l) : /* @__PURE__ */ n.createElement("button", {
     className: "hypeday-button",
-    onClick: s,
-    disabled: l || i,
-    title: i ? "Please login first" : void 0
-  }, l && /* @__PURE__ */ n.createElement("div", {
+    onClick: i,
+    disabled: m || s,
+    title: s ? "Please login first" : void 0
+  }, m && /* @__PURE__ */ n.createElement("div", {
     className: "hypeday-spinner hypeday-btn-spinner"
   }), /* @__PURE__ */ n.createElement("span", {
-    style: { visibility: l ? "hidden" : "initial" }
-  }, "Connect"))), c.map((o, u) => /* @__PURE__ */ n.createElement("span", {
-    key: u,
+    style: { visibility: m ? "hidden" : "initial" }
+  }, "Connect"))), r.map((h, a) => /* @__PURE__ */ n.createElement("span", {
+    key: a,
     className: "hypeday-info"
-  }, o)));
+  }, h)));
 }
-function F({
+function C({
   projectData: e,
-  appId: t,
-  userId: i
+  appId: l,
+  userId: s
 }) {
-  var m, d, h;
-  if (!((m = e == null ? void 0 : e.discord) != null && m.enabled) && !((d = e == null ? void 0 : e.discord2) != null && d.enabled))
-    return null;
-  const { discord: s, discord2: c, userInfo: l } = e, o = [];
-  s != null && s.enabled && o.push(s), c != null && c.enabled && o.push(c);
-  const u = [];
-  o.forEach((r) => {
-    var g;
-    if (r.isServerRequired) {
-      const a = /* @__PURE__ */ n.createElement(n.Fragment, null, "Join the", " ", /* @__PURE__ */ n.createElement("a", {
-        href: r == null ? void 0 : r.serverLink,
-        target: "_blank",
-        rel: "noreferrer"
-      }, /* @__PURE__ */ n.createElement("strong", null, r == null ? void 0 : r.serverDisplayName)), " ", "server on Discord", r.isShouldJoinBeforeRequired ? /* @__PURE__ */ n.createElement(n.Fragment, null, " ", "before", " ", /* @__PURE__ */ n.createElement("strong", null, new Date((r == null ? void 0 : r.shouldJoinBefore) || "").toLocaleString())) : null);
-      u.push(a);
-    }
-    if (r.isRoleRequired) {
-      const a = /* @__PURE__ */ n.createElement(n.Fragment, null, 'and have the "', (g = r == null ? void 0 : r.roleDisplayNames) == null ? void 0 : g.join(", "), '" role(s)');
-      u.push(a);
-    }
-  });
-  const y = () => {
-    console.log(t), alert("This is going to redirect user to Discord");
+  var m, h, a, y;
+  const i = T(() => {
+    var g, c;
+    if (!((g = e == null ? void 0 : e.discord) != null && g.enabled) && !((c = e == null ? void 0 : e.discord2) != null && c.enabled))
+      return [];
+    const { discord: d, discord2: t } = e, o = [];
+    d != null && d.enabled && o.push(d), t != null && t.enabled && o.push(t);
+    const E = [];
+    return o.forEach((u) => {
+      var f;
+      if (u.isServerRequired) {
+        const R = /* @__PURE__ */ n.createElement(n.Fragment, null, "Join the", " ", /* @__PURE__ */ n.createElement("a", {
+          href: u == null ? void 0 : u.serverLink,
+          target: "_blank",
+          rel: "noreferrer"
+        }, /* @__PURE__ */ n.createElement("strong", null, u == null ? void 0 : u.serverDisplayName)), " ", "server on Discord", u.isShouldJoinBeforeRequired ? /* @__PURE__ */ n.createElement(n.Fragment, null, " ", "before", " ", /* @__PURE__ */ n.createElement("strong", null, new Date((u == null ? void 0 : u.shouldJoinBefore) || "").toLocaleString())) : null);
+        E.push(R);
+      }
+      if (u.isRoleRequired) {
+        const R = /* @__PURE__ */ n.createElement(n.Fragment, null, 'and have the "', (f = u == null ? void 0 : u.roleDisplayNames) == null ? void 0 : f.join(", "), '" role(s)');
+        E.push(R);
+      }
+    }), E;
+  }, [e]), r = () => {
+    console.log(l), alert("This is going to redirect user to Discord");
   };
-  return /* @__PURE__ */ n.createElement(T, {
+  return !((m = e == null ? void 0 : e.discord) != null && m.enabled) && !((h = e == null ? void 0 : e.discord2) != null && h.enabled) ? null : /* @__PURE__ */ n.createElement(q, {
     title: "Discord",
-    onClick: y,
-    info: u,
-    rightText: (h = l == null ? void 0 : l.discord) == null ? void 0 : h.username,
-    buttonDisabled: !i
+    onClick: r,
+    info: i,
+    rightText: (y = (a = e == null ? void 0 : e.userInfo) == null ? void 0 : a.discord) == null ? void 0 : y.username,
+    buttonDisabled: !s
   });
 }
-function k({
+function P({
   projectData: e
 }) {
-  var i;
-  if (!((i = e == null ? void 0 : e.customfield) != null && i.enabled))
+  var s;
+  if (!((s = e == null ? void 0 : e.customfield) != null && s.enabled))
     return null;
-  const { customfield: t } = e;
+  const { customfield: l } = e;
   return /* @__PURE__ */ n.createElement("section", {
     className: "hypeday-section"
   }, /* @__PURE__ */ n.createElement("header", {
@@ -81,36 +83,36 @@ function k({
     className: "hypeday-h3"
   }, "Open Response")), /* @__PURE__ */ n.createElement("span", {
     className: "hypeday-info"
-  }, t.labels[0]), /* @__PURE__ */ n.createElement("input", {
+  }, l.labels[0]), /* @__PURE__ */ n.createElement("input", {
     className: "hypeday-input",
     type: "text",
-    placeholder: t.labels[0]
+    placeholder: l.labels[0]
   }));
 }
-function q({
+function v({
   dateString: e,
-  message: t
+  message: l
 }) {
-  const [i, s] = f(!1), [c, l] = f(0), [o, u] = f(0), [y, m] = f(0), [d, h] = f(0);
+  const [s, i] = b(!1), [r, m] = b(0), [h, a] = b(0), [y, d] = b(0), [t, o] = b(0);
   return A(() => {
-    const r = new Date(e).getTime(), g = setInterval(() => {
-      const a = new Date().getTime(), E = r - a, R = Math.floor(E / (1e3 * 60 * 60 * 24)), b = Math.floor(
-        E % (1e3 * 60 * 60 * 24) / (1e3 * 60 * 60)
-      ), w = Math.floor(E % (1e3 * 60 * 60) / (1e3 * 60)), N = Math.floor(E % (1e3 * 60) / 1e3);
-      if (E <= 0) {
-        clearInterval(g), s(!0), l(0), u(0), m(0), h(0);
+    const E = new Date(e).getTime(), g = setInterval(() => {
+      const c = new Date().getTime(), u = E - c, f = Math.floor(u / (1e3 * 60 * 60 * 24)), R = Math.floor(
+        u % (1e3 * 60 * 60 * 24) / (1e3 * 60 * 60)
+      ), w = Math.floor(u % (1e3 * 60 * 60) / (1e3 * 60)), N = Math.floor(u % (1e3 * 60) / 1e3);
+      if (u <= 0) {
+        clearInterval(g), i(!0), m(0), a(0), d(0), o(0);
         return;
       }
-      l(R), u(b), m(w), h(N);
+      m(f), a(R), d(w), o(N);
     }, 1e3);
     return () => clearInterval(g);
-  }, [e]), !i && !c && !o && !y && !d ? /* @__PURE__ */ n.createElement("span", {
+  }, [e]), !s && !r && !h && !y && !t ? /* @__PURE__ */ n.createElement("span", {
     style: { visibility: "hidden" }
-  }, "Calculating..") : i ? /* @__PURE__ */ n.createElement(n.Fragment, null, t) : /* @__PURE__ */ n.createElement(n.Fragment, null, c > 0 && `${c} days, `, o > 0 && `${o} hours, `, y > 0 && `${y} minutes, `, d > 0 && `${d} seconds`);
+  }, "Calculating..") : s ? /* @__PURE__ */ n.createElement(n.Fragment, null, l) : /* @__PURE__ */ n.createElement(n.Fragment, null, r > 0 && `${r} days, `, h > 0 && `${h} hours, `, y > 0 && `${y} minutes, `, t > 0 && `${t} seconds`);
 }
 function S({
   children: e,
-  title: t
+  title: l
 }) {
   return /* @__PURE__ */ n.createElement("section", {
     className: "hypeday-section"
@@ -118,81 +120,81 @@ function S({
     className: "hypeday-section-header"
   }, /* @__PURE__ */ n.createElement("h3", {
     className: "hypeday-h3"
-  }, t)), /* @__PURE__ */ n.createElement("span", {
+  }, l)), /* @__PURE__ */ n.createElement("span", {
     className: "hypeday-info"
   }, e));
 }
-function C({
+function H({
   projectData: e
 }) {
-  var c, l, o, u, y, m, d, h, r, g, a, E;
-  const [t, i] = f(), s = ((c = e == null ? void 0 : e.signupAccess) == null ? void 0 : c.isEndDateRequired) && ((l = e == null ? void 0 : e.signupAccess) == null ? void 0 : l.endDate) && new Date((o = e == null ? void 0 : e.signupAccess) == null ? void 0 : o.endDate).getTime() < Date.now();
+  var r, m, h, a, y, d, t, o, E, g, c, u;
+  const [l, s] = b(), i = ((r = e == null ? void 0 : e.signupAccess) == null ? void 0 : r.isEndDateRequired) && ((m = e == null ? void 0 : e.signupAccess) == null ? void 0 : m.endDate) && new Date((h = e == null ? void 0 : e.signupAccess) == null ? void 0 : h.endDate).getTime() < Date.now();
   return A(() => {
-    var R, b, w, N;
-    (R = e == null ? void 0 : e.signupAccess) != null && R.isStartDateRequired && i(
-      !!(((b = e == null ? void 0 : e.signupAccess) == null ? void 0 : b.isStartDateRequired) && ((w = e == null ? void 0 : e.signupAccess) == null ? void 0 : w.startDate) && new Date((N = e == null ? void 0 : e.signupAccess) == null ? void 0 : N.startDate).getTime() > Date.now())
+    var f, R, w, N;
+    (f = e == null ? void 0 : e.signupAccess) != null && f.isStartDateRequired && s(
+      !!(((R = e == null ? void 0 : e.signupAccess) == null ? void 0 : R.isStartDateRequired) && ((w = e == null ? void 0 : e.signupAccess) == null ? void 0 : w.startDate) && new Date((N = e == null ? void 0 : e.signupAccess) == null ? void 0 : N.startDate).getTime() > Date.now())
     );
   }, [e]), A(() => {
-    var R, b;
-    if (t && ((R = e == null ? void 0 : e.signupAccess) == null ? void 0 : R.startDate)) {
+    var f, R;
+    if (l && ((f = e == null ? void 0 : e.signupAccess) == null ? void 0 : f.startDate)) {
       const w = setTimeout(
-        () => i(!1),
-        new Date((b = e == null ? void 0 : e.signupAccess) == null ? void 0 : b.startDate).getTime() - Date.now()
+        () => s(!1),
+        new Date((R = e == null ? void 0 : e.signupAccess) == null ? void 0 : R.startDate).getTime() - Date.now()
       );
       return () => clearTimeout(w);
     }
-  }, [t, (u = e == null ? void 0 : e.signupAccess) == null ? void 0 : u.startDate]), s && ((y = e.signupAccess) == null ? void 0 : y.endDate) ? /* @__PURE__ */ n.createElement(S, {
+  }, [l, (a = e == null ? void 0 : e.signupAccess) == null ? void 0 : a.startDate]), i && ((y = e.signupAccess) == null ? void 0 : y.endDate) ? /* @__PURE__ */ n.createElement(S, {
     title: "Registration is closed"
-  }, "Registration is closed on", " ", (d = new Date((m = e.signupAccess) == null ? void 0 : m.endDate)) == null ? void 0 : d.toUTCString(), ". Thank you for your interest.") : t && ((h = e == null ? void 0 : e.signupAccess) == null ? void 0 : h.startDate) ? /* @__PURE__ */ n.createElement(S, {
+  }, "Registration is closed on", " ", (t = new Date((d = e.signupAccess) == null ? void 0 : d.endDate)) == null ? void 0 : t.toUTCString(), ". Thank you for your interest.") : l && ((o = e == null ? void 0 : e.signupAccess) == null ? void 0 : o.startDate) ? /* @__PURE__ */ n.createElement(S, {
     title: "Registration starts in:"
-  }, /* @__PURE__ */ n.createElement(q, {
-    dateString: (r = e == null ? void 0 : e.signupAccess) == null ? void 0 : r.startDate,
+  }, /* @__PURE__ */ n.createElement(v, {
+    dateString: (E = e == null ? void 0 : e.signupAccess) == null ? void 0 : E.startDate,
     message: "Registration is open."
-  })) : !s && !t && ((g = e == null ? void 0 : e.signupAccess) == null ? void 0 : g.isEndDateRequired) && ((a = e == null ? void 0 : e.signupAccess) == null ? void 0 : a.endDate) ? /* @__PURE__ */ n.createElement(S, {
+  })) : !i && !l && ((g = e == null ? void 0 : e.signupAccess) == null ? void 0 : g.isEndDateRequired) && ((c = e == null ? void 0 : e.signupAccess) == null ? void 0 : c.endDate) ? /* @__PURE__ */ n.createElement(S, {
     title: "Registration ends in:"
-  }, /* @__PURE__ */ n.createElement(q, {
-    dateString: (E = e == null ? void 0 : e.signupAccess) == null ? void 0 : E.endDate,
+  }, /* @__PURE__ */ n.createElement(v, {
+    dateString: (u = e == null ? void 0 : e.signupAccess) == null ? void 0 : u.endDate,
     message: "Registration is closed."
   })) : null;
 }
-const P = "https://apitest.hype.day";
-function v(e) {
-  return e.text().then((t) => {
-    const i = t && JSON.parse(t);
+const L = "https://apitest.hype.day";
+function F(e) {
+  return e.text().then((l) => {
+    const s = l && JSON.parse(l);
     if (!e.ok) {
-      const s = i && i.message || e.statusText;
-      return Promise.reject(s);
+      const i = s && s.message || e.statusText;
+      return Promise.reject(i);
     }
-    return i;
+    return s;
   });
 }
-function H({
+function M({
   appId: e,
-  projectId: t,
-  userId: i
+  projectId: l,
+  userId: s
 }) {
-  const s = {
+  const i = {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
     }
   };
   return fetch(
-    `${P}/getProject?` + new URLSearchParams({
+    `${L}/getProject?` + new URLSearchParams({
       appid: e,
-      userid: i || "",
-      projectid: t
+      userid: s || "",
+      projectid: l
     }),
-    s
-  ).then(v);
+    i
+  ).then(F);
 }
-function L({
+function U({
   appId: e,
-  projectId: t,
-  userId: i,
-  returnUrl: s
+  projectId: l,
+  userId: s,
+  returnUrl: i
 }) {
-  const c = {
+  const r = {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
@@ -201,167 +203,172 @@ function L({
   return fetch(
     "https://us-central1-hype-testing.cloudfunctions.net/tGetUrlForApp?" + new URLSearchParams({
       appid: e,
-      userid: i,
-      projectid: t,
-      returnurl: s
+      userid: s,
+      projectid: l,
+      returnurl: i
     }),
-    c
-  ).then(v);
+    r
+  ).then(F);
 }
-function U({
+function O({
   projectData: e,
-  appId: t,
-  userId: i
+  appId: l,
+  userId: s
 }) {
-  var m, d, h;
-  const [s, c] = f(!1);
-  if (!((m = e == null ? void 0 : e.twitter) != null && m.enabled))
-    return null;
-  const { twitter: l, userInfo: o } = e, u = [];
-  if (l != null && l.isAccountCreatedRequired) {
-    const r = /* @__PURE__ */ n.createElement(n.Fragment, null, "Have an account created before", " ", /* @__PURE__ */ n.createElement("strong", null, new Date((l == null ? void 0 : l.accountCreated) || "").toLocaleDateString()));
-    u.push(r);
-  }
-  if (l != null && l.isFollowRequired) {
-    const r = (d = l == null ? void 0 : l.follow) == null ? void 0 : d.split(","), g = /* @__PURE__ */ n.createElement(n.Fragment, null, "Follow these account(s):", /* @__PURE__ */ n.createElement("ul", null, r == null ? void 0 : r.map((a) => /* @__PURE__ */ n.createElement("li", {
-      key: a
-    }, /* @__PURE__ */ n.createElement("a", {
-      href: `https://twitter.com/${a.trim()}`,
-      target: "_blank",
-      rel: "noreferrer"
-    }, /* @__PURE__ */ n.createElement("strong", null, "@", a))))));
-    u.push(g);
-  }
-  if (l != null && l.isMinFollowersRequired) {
-    const r = /* @__PURE__ */ n.createElement(n.Fragment, null, "Have at least ", /* @__PURE__ */ n.createElement("b", null, l.minFollowers, " follower(s)"));
-    u.push(r);
-  }
-  if (l != null && l.isRetweetRequired) {
-    const r = /* @__PURE__ */ n.createElement(n.Fragment, null, "Retweet", " ", /* @__PURE__ */ n.createElement("a", {
-      href: l.retweetUrl,
-      target: "_blank",
-      rel: "noreferrer"
-    }, /* @__PURE__ */ n.createElement("strong", null, "this tweet")));
-    u.push(r);
-  }
-  const y = async () => {
-    if (!(!t || !i || !(e != null && e.id)))
+  var a, y, d;
+  const [i, r] = b(!1), m = T(() => {
+    var E, g;
+    if (!((E = e == null ? void 0 : e.twitter) != null && E.enabled))
+      return [];
+    const { twitter: t } = e, o = [];
+    if (t != null && t.isAccountCreatedRequired) {
+      const c = /* @__PURE__ */ n.createElement(n.Fragment, null, "Have an account created before", " ", /* @__PURE__ */ n.createElement("strong", null, new Date((t == null ? void 0 : t.accountCreated) || "").toLocaleDateString()));
+      o.push(c);
+    }
+    if (t != null && t.isFollowRequired) {
+      const c = (g = t == null ? void 0 : t.follow) == null ? void 0 : g.split(","), u = /* @__PURE__ */ n.createElement(n.Fragment, null, "Follow these account(s):", /* @__PURE__ */ n.createElement("ul", null, c == null ? void 0 : c.map((f) => /* @__PURE__ */ n.createElement("li", {
+        key: f
+      }, /* @__PURE__ */ n.createElement("a", {
+        href: `https://twitter.com/${f.trim()}`,
+        target: "_blank",
+        rel: "noreferrer"
+      }, /* @__PURE__ */ n.createElement("strong", null, "@", f))))));
+      o.push(u);
+    }
+    if (t != null && t.isMinFollowersRequired) {
+      const c = /* @__PURE__ */ n.createElement(n.Fragment, null, "Have at least ", /* @__PURE__ */ n.createElement("b", null, t.minFollowers, " follower(s)"));
+      o.push(c);
+    }
+    if (t != null && t.isRetweetRequired) {
+      const c = /* @__PURE__ */ n.createElement(n.Fragment, null, "Retweet", " ", /* @__PURE__ */ n.createElement("a", {
+        href: t.retweetUrl,
+        target: "_blank",
+        rel: "noreferrer"
+      }, /* @__PURE__ */ n.createElement("strong", null, "this tweet")));
+      o.push(c);
+    }
+    return o;
+  }, [e]), h = async () => {
+    if (!(!l || !s || !(e != null && e.id)))
       try {
-        c(!0);
-        const { url: r } = await L({
-          appId: t,
-          userId: i,
+        r(!0);
+        const { url: t } = await U({
+          appId: l,
+          userId: s,
           projectId: e.id,
           returnUrl: window.location.href
         });
-        window.location.assign(r);
-      } catch (r) {
-        console.error(r);
+        window.location.assign(t);
+      } catch (t) {
+        console.error(t);
       } finally {
-        c(!1);
+        r(!1);
       }
   };
-  return /* @__PURE__ */ n.createElement(T, {
+  return (a = e == null ? void 0 : e.twitter) != null && a.enabled ? /* @__PURE__ */ n.createElement(q, {
     title: "Twitter",
-    onClick: y,
-    info: u,
-    rightText: (h = o == null ? void 0 : o.twitter) == null ? void 0 : h.username,
-    buttonDisabled: !i,
-    isLoading: s
-  });
+    onClick: h,
+    info: m,
+    rightText: (d = (y = e == null ? void 0 : e.userInfo) == null ? void 0 : y.twitter) == null ? void 0 : d.username,
+    buttonDisabled: !s,
+    isLoading: i
+  }) : null;
 }
-const M = {
+const x = {
   ethereum: "ETH",
   solana: "SOL",
   polygon: "MATIC",
   avalanche: "AVAX",
   flow: "FLOW"
 };
-function O({
+function $({
   projectData: e
 }) {
-  if (!(e != null && e.wallet))
-    return null;
-  const { wallet: t } = e, i = [];
-  if (t != null && t.isBalanceRequired) {
-    const s = /* @__PURE__ */ n.createElement(n.Fragment, null, "Have at least", /* @__PURE__ */ n.createElement("strong", null, " " + t.balance + " " + M[e.chain] + " "), "in your wallet");
-    i.push(s);
-  }
-  if (t != null && t.isNftRequired) {
-    const { nftCollection: s } = t, c = /* @__PURE__ */ n.createElement(n.Fragment, null, "Hold an NFT from", " ", /* @__PURE__ */ n.createElement("strong", null, /* @__PURE__ */ n.createElement("a", {
-      href: s == null ? void 0 : s.url,
-      target: "_blank",
-      rel: "noreferrer"
-    }, s == null ? void 0 : s.name)));
-    i.push(c);
-  }
-  return /* @__PURE__ */ n.createElement(T, {
+  const l = T(() => {
+    if (!(e != null && e.wallet))
+      return [];
+    const { wallet: s } = e, i = [];
+    if (s != null && s.isBalanceRequired) {
+      const r = /* @__PURE__ */ n.createElement(n.Fragment, null, "Have at least", /* @__PURE__ */ n.createElement("strong", null, " " + s.balance + " " + x[e.chain] + " "), "in your wallet");
+      i.push(r);
+    }
+    if (s != null && s.isNftRequired) {
+      const { nftCollection: r } = s, m = /* @__PURE__ */ n.createElement(n.Fragment, null, "Hold an NFT from", " ", /* @__PURE__ */ n.createElement("strong", null, /* @__PURE__ */ n.createElement("a", {
+        href: r == null ? void 0 : r.url,
+        target: "_blank",
+        rel: "noreferrer"
+      }, r == null ? void 0 : r.name)));
+      i.push(m);
+    }
+    return i;
+  }, [e]);
+  return e != null && e.wallet ? /* @__PURE__ */ n.createElement(q, {
     title: "Wallet",
     onClick: () => console.log("wallet button clicked"),
-    info: i,
+    info: l,
     rightText: " "
-  });
+  }) : null;
 }
-function $({
+function _({
   appId: e,
-  projectId: t,
-  userId: i
+  projectId: l,
+  userId: s
 }) {
   var g;
-  const [s, c] = f(), [l, o] = f(!0), [u, y] = f(!1), [m, d] = f(!1), h = async () => {
-    if (!t || !e) {
+  const [i, r] = b(), [m, h] = b(!0), [a, y] = b(!1), [d, t] = b(!1), o = k(async () => {
+    if (!l || !e) {
       console.error("HypeDayReact: projectId and appId props are required.");
       return;
     }
-    o(!0), y(!1), H({ appId: e, projectId: t, userId: i }).then((a) => c(a)).catch((a) => {
-      console.error("HypeDayReact: Error fetching project data", a), y(!0);
-    }).finally(() => o(!1));
-  };
+    h(!0), y(!1), M({ appId: e, projectId: l, userId: s }).then((c) => r(c)).catch((c) => {
+      console.error("HypeDayReact: Error fetching project data", c), y(!0);
+    }).finally(() => h(!1));
+  }, [e, l, s]);
   A(() => {
-    h();
-  }, [e, t, i]);
-  const r = () => {
-    var a;
-    (a = s == null ? void 0 : s.userInfo) != null && a.registered || (d(!0), setTimeout(() => d(!1), 3e3), console.log("register button clicked"));
+    o();
+  }, [o]);
+  const E = () => {
+    var c;
+    (c = i == null ? void 0 : i.userInfo) != null && c.registered || (t(!0), setTimeout(() => t(!1), 3e3), console.log("register button clicked"));
   };
-  return l ? /* @__PURE__ */ n.createElement("div", {
+  return m ? /* @__PURE__ */ n.createElement("div", {
     className: "hypeday-wrapper",
     style: { display: "flex", justifyContent: "center" }
   }, /* @__PURE__ */ n.createElement("div", {
     className: "hypeday-spinner"
-  })) : u ? /* @__PURE__ */ n.createElement("div", {
+  })) : a ? /* @__PURE__ */ n.createElement("div", {
     className: "hypeday-wrapper"
   }, /* @__PURE__ */ n.createElement("span", {
     className: "hypeday-error"
   }, "Something went wrong. Please check your connection."), /* @__PURE__ */ n.createElement("button", {
     className: "hypeday-button",
-    onClick: h
+    onClick: o
   }, "Retry")) : /* @__PURE__ */ n.createElement("div", {
     className: "hypeday-wrapper"
-  }, /* @__PURE__ */ n.createElement(C, {
-    projectData: s
+  }, /* @__PURE__ */ n.createElement(H, {
+    projectData: i
+  }), /* @__PURE__ */ n.createElement($, {
+    projectData: i
   }), /* @__PURE__ */ n.createElement(O, {
-    projectData: s
-  }), /* @__PURE__ */ n.createElement(U, {
-    projectData: s,
+    projectData: i,
     appId: e,
-    userId: i
-  }), /* @__PURE__ */ n.createElement(F, {
-    projectData: s,
+    userId: s
+  }), /* @__PURE__ */ n.createElement(C, {
+    projectData: i,
     appId: e,
-    userId: i
-  }), /* @__PURE__ */ n.createElement(k, {
-    projectData: s
+    userId: s
+  }), /* @__PURE__ */ n.createElement(P, {
+    projectData: i
   }), /* @__PURE__ */ n.createElement("button", {
     className: "hypeday-register-button",
-    onClick: r,
-    disabled: m
-  }, m && /* @__PURE__ */ n.createElement("div", {
+    onClick: E,
+    disabled: d
+  }, d && /* @__PURE__ */ n.createElement("div", {
     className: "hypeday-spinner hypeday-btn-spinner"
   }), /* @__PURE__ */ n.createElement("span", {
-    style: { visibility: m ? "hidden" : "initial" }
-  }, (g = s == null ? void 0 : s.userInfo) != null && g.registered ? "Registered" : "Register")));
+    style: { visibility: d ? "hidden" : "initial" }
+  }, (g = i == null ? void 0 : i.userInfo) != null && g.registered ? "Registered" : "Register")));
 }
 export {
-  $ as default
+  _ as default
 };
