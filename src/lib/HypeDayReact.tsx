@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import type { GetProjectResponse } from "./types";
 import DiscordSection from "./components/DiscordSection";
 import OpenResponseSection from "./components/OpenResponseSection";
@@ -24,7 +24,7 @@ export default function HypeDayReact({
   const [hasError, setHasError] = useState(false);
   const [isRegistering, setIsRegistering] = useState(false);
 
-  const fetchProjectData = async () => {
+  const fetchProjectData = useCallback(async () => {
     if (!projectId || !appId) {
       console.error("HypeDayReact: projectId and appId props are required.");
       return;
@@ -39,11 +39,11 @@ export default function HypeDayReact({
         setHasError(true);
       })
       .finally(() => setIsLoading(false));
-  };
+  }, [appId, projectId, userId]);
 
   useEffect(() => {
     fetchProjectData();
-  }, [appId, projectId, userId]);
+  }, [fetchProjectData]);
 
   const handleRegister = () => {
     if (projectData?.userInfo?.registered) return;
