@@ -40,12 +40,14 @@ export function getProject({
   ).then(handleResponse);
 }
 
-export function getTwitterUrl({
+export function getOauthUrl({
+  provider,
   appId,
   projectId,
   userId,
   returnUrl,
 }: {
+  provider: "twitter" | "discord";
   appId: string;
   projectId: string;
   userId: string;
@@ -59,7 +61,9 @@ export function getTwitterUrl({
   };
 
   return fetch(
-    `https://us-central1-hype-testing.cloudfunctions.net/tGetUrlForApp?` +
+    `https://us-central1-hype-testing.cloudfunctions.net/${
+      provider === "twitter" ? "t" : "d"
+    }GetUrlForApp?` +
       new URLSearchParams({
         appid: appId,
         userid: userId,

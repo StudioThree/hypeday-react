@@ -1,4 +1,5 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { getOauthUrl } from "../api";
 import type { GetProjectResponse } from "../types";
 import Section from "./Section";
 
@@ -11,6 +12,8 @@ export default function DiscordSection({
   appId: string;
   userId?: string;
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const info = useMemo(() => {
     if (!projectData?.discord?.enabled && !projectData?.discord2?.enabled) {
       return [];
@@ -60,9 +63,25 @@ export default function DiscordSection({
     return infoArray;
   }, [projectData]);
 
-  const handleConnect = () => {
-    console.log(appId);
-    alert("This is going to redirect user to Discord");
+  const handleConnect = async () => {
+    if (!appId || !userId || !projectData?.id) return;
+
+    try {
+      setIsLoading(true);
+      const { url } = await getOauthUrl({
+        provider: "discord",
+        appId,
+        userId,
+        projectId: projectData.id,
+        returnUrl: window.location.href,
+      });
+
+      window.location.assign(url);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (!projectData?.discord?.enabled && !projectData?.discord2?.enabled) {
@@ -76,6 +95,7 @@ export default function DiscordSection({
       info={info}
       rightText={projectData?.userInfo?.discord?.username}
       buttonDisabled={!userId}
+      isLoading={isLoading}
     />
   );
 }

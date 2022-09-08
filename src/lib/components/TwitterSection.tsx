@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { getTwitterUrl } from "../api";
+import { getOauthUrl } from "../api";
 import type { GetProjectResponse } from "../types";
 import Section from "./Section";
 
@@ -84,7 +84,8 @@ export default function TwitterSection({
 
     try {
       setIsLoading(true);
-      const { url } = await getTwitterUrl({
+      const { url } = await getOauthUrl({
+        provider: "twitter",
         appId,
         userId,
         projectId: projectData.id,
