@@ -1,12 +1,14 @@
-export declare function getProject({ appId, projectId, userId, }: {
+import type { SupportedChains } from "./types";
+export declare function getProject({ appId, projectId, walletAddress, }: {
     appId: string;
     projectId: string;
-    userId?: string;
+    walletAddress?: string;
 }): Promise<any>;
-export declare function getOauthUrl({ provider, appId, projectId, userId, returnUrl, }: {
+export declare function getOauthUrl({ provider, appId, projectId, chain, walletAddress, returnUrl, }: {
     provider: "twitter" | "discord";
     appId: string;
     projectId: string;
-    userId: string;
+    chain: SupportedChains;
+    walletAddress: string;
     returnUrl: string;
 }): Promise<any>;

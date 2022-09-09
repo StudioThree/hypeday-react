@@ -11,13 +11,13 @@ import "./style.css";
 interface HypeDayReactProps {
   appId: string;
   projectId: string;
-  userId?: string;
+  walletAddress?: string;
 }
 
 export default function HypeDayReact({
   appId,
   projectId,
-  userId,
+  walletAddress,
 }: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
   const [isLoading, setIsLoading] = useState(true);
@@ -32,14 +32,14 @@ export default function HypeDayReact({
 
     setIsLoading(true);
     setHasError(false);
-    getProject({ appId, projectId, userId })
+    getProject({ appId, projectId, walletAddress })
       .then((data) => setProjectData(data))
       .catch((err) => {
         console.error("HypeDayReact: Error fetching project data", err);
         setHasError(true);
       })
       .finally(() => setIsLoading(false));
-  }, [appId, projectId, userId]);
+  }, [appId, projectId, walletAddress]);
 
   useEffect(() => {
     fetchProjectData();
@@ -81,8 +81,16 @@ export default function HypeDayReact({
     <div className="hypeday-wrapper">
       <SignupAccessSection projectData={projectData} />
       <WalletSection projectData={projectData} />
-      <TwitterSection projectData={projectData} appId={appId} userId={userId} />
-      <DiscordSection projectData={projectData} appId={appId} userId={userId} />
+      <TwitterSection
+        projectData={projectData}
+        appId={appId}
+        walletAddress={walletAddress}
+      />
+      <DiscordSection
+        projectData={projectData}
+        appId={appId}
+        walletAddress={walletAddress}
+      />
       <OpenResponseSection projectData={projectData} />
 
       <button

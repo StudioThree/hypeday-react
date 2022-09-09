@@ -6,7 +6,7 @@ function App() {
       <HypeDayReact
         appId="testId"
         projectId="OqdTSUuzrCIbapvSQWbL"
-        // userId="OitNn0A1Ehs8sia1XwoN"
+        // walletAddress="0x69E5F8349D18930f99432612eCC10E9A7B8Fb3B2"
       />
     </div>
   );

@@ -6,11 +6,11 @@ import Section from "./Section";
 export default function DiscordSection({
   projectData,
   appId,
-  userId,
+  walletAddress,
 }: {
   projectData?: GetProjectResponse;
   appId: string;
-  userId?: string;
+  walletAddress?: string;
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -64,14 +64,15 @@ export default function DiscordSection({
   }, [projectData]);
 
   const handleConnect = async () => {
-    if (!appId || !userId || !projectData?.id) return;
+    if (!appId || !walletAddress || !projectData?.id) return;
 
     try {
       setIsLoading(true);
       const { url } = await getOauthUrl({
         provider: "discord",
         appId,
-        userId,
+        walletAddress,
+        chain: projectData.chain,
         projectId: projectData.id,
         returnUrl: window.location.href,
       });
@@ -94,7 +95,7 @@ export default function DiscordSection({
       onClick={handleConnect}
       info={info}
       rightText={projectData?.userInfo?.discord?.username}
-      buttonDisabled={!userId}
+      buttonDisabled={!walletAddress}
       isLoading={isLoading}
     />
   );

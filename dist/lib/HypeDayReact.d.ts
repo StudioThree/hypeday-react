@@ -1,7 +1,7 @@
 interface HypeDayReactProps {
     appId: string;
     projectId: string;
-    userId?: string;
+    walletAddress?: string;
 }
-export default function HypeDayReact({ appId, projectId, userId, }: HypeDayReactProps): JSX.Element;
+export default function HypeDayReact({ appId, projectId, walletAddress, }: HypeDayReactProps): JSX.Element;
 export {};

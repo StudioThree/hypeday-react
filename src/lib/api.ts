@@ -1,3 +1,5 @@
+import type { SupportedChains } from "./types";
+
 const BASE_URL = "https://apitest.hype.day";
 
 function handleResponse(response: Response) {
@@ -16,11 +18,11 @@ function handleResponse(response: Response) {
 export function getProject({
   appId,
   projectId,
-  userId,
+  walletAddress,
 }: {
   appId: string;
   projectId: string;
-  userId?: string;
+  walletAddress?: string;
 }) {
   const requestOptions = {
     method: "GET",
@@ -33,7 +35,7 @@ export function getProject({
     `${BASE_URL}/getProject?` +
       new URLSearchParams({
         appid: appId,
-        userid: userId || "",
+        userid: walletAddress || "",
         projectid: projectId,
       }),
     requestOptions
@@ -44,32 +46,35 @@ export function getOauthUrl({
   provider,
   appId,
   projectId,
-  userId,
+  chain,
+  walletAddress,
   returnUrl,
 }: {
   provider: "twitter" | "discord";
   appId: string;
   projectId: string;
-  userId: string;
+  chain: SupportedChains;
+  walletAddress: string;
   returnUrl: string;
 }) {
   const requestOptions = {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      appId,
+      chain,
+      walletAddress,
+      projectId,
+      returnUrl,
+    }),
   };
 
   return fetch(
     `https://us-central1-hype-testing.cloudfunctions.net/${
       provider === "twitter" ? "t" : "d"
-    }GetUrlForApp?` +
-      new URLSearchParams({
-        appid: appId,
-        userid: userId,
-        projectid: projectId,
-        returnurl: returnUrl,
-      }),
+    }GetUrlForApp`,
     requestOptions
   ).then(handleResponse);
 }

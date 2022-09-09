@@ -1,6 +1,6 @@
 import type { GetProjectResponse } from "../types";
-export default function DiscordSection({ projectData, appId, userId, }: {
+export default function DiscordSection({ projectData, appId, walletAddress, }: {
     projectData?: GetProjectResponse;
     appId: string;
-    userId?: string;
+    walletAddress?: string;
 }): JSX.Element | null;
