@@ -59,6 +59,7 @@ export default function WalletSection({
   }, [projectData]);
 
   if (!projectData?.wallet) return null;
+  if (!info.length) return null;
 
   return (
     <Section
