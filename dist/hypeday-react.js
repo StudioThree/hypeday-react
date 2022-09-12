@@ -407,13 +407,15 @@ function z({
   projectId: i,
   walletAddress: s
 }) {
-  const [r, t] = b(), [m, d] = b(!0), [h, y] = b(!1), f = L(null), l = H(async () => {
+  const [r, t] = b(), [m, d] = b(!0), [h, y] = b(""), f = L(null), l = H(async () => {
     if (!i || !e) {
       console.error("HypeDayReact: projectId and appId props are required.");
       return;
     }
-    d(!0), y(!1), x({ appId: e, projectId: i, walletAddress: s }).then((u) => t(u)).catch((u) => {
-      console.error("HypeDayReact: Error fetching project data", u), y(!0);
+    d(!0), y(""), x({ appId: e, projectId: i, walletAddress: s }).then((u) => t(u)).catch((u) => {
+      console.error("HypeDayReact: Error fetching project data", u), y(
+        u.message || "Something went wrong. Please check your connection."
+      );
     }).finally(() => d(!1));
   }, [e, i, s]);
   return q(() => {
@@ -427,7 +429,7 @@ function z({
     className: "hypeday-wrapper"
   }, /* @__PURE__ */ n.createElement("span", {
     className: "hypeday-error"
-  }, "Something went wrong. Please check your connection."), /* @__PURE__ */ n.createElement("button", {
+  }, h), /* @__PURE__ */ n.createElement("button", {
     className: "hypeday-button",
     onClick: l
   }, "Retry")) : /* @__PURE__ */ n.createElement("div", {

@@ -22,7 +22,7 @@ export default function HypeDayReact({
 }: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
   const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const fetchProjectData = useCallback(async () => {
@@ -32,12 +32,14 @@ export default function HypeDayReact({
     }
 
     setIsLoading(true);
-    setHasError(false);
+    setError("");
     getProject({ appId, projectId, walletAddress })
       .then((data) => setProjectData(data))
       .catch((err) => {
         console.error("HypeDayReact: Error fetching project data", err);
-        setHasError(true);
+        setError(
+          err.message || "Something went wrong. Please check your connection."
+        );
       })
       .finally(() => setIsLoading(false));
   }, [appId, projectId, walletAddress]);
@@ -57,12 +59,10 @@ export default function HypeDayReact({
     );
   }
 
-  if (hasError) {
+  if (error) {
     return (
       <div className="hypeday-wrapper">
-        <span className="hypeday-error">
-          Something went wrong. Please check your connection.
-        </span>
+        <span className="hypeday-error">{error}</span>
         <button className="hypeday-button" onClick={fetchProjectData}>
           Retry
         </button>
