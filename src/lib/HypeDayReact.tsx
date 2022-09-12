@@ -91,6 +91,17 @@ export default function HypeDayReact({
         walletAddress={walletAddress}
         inputRef={inputRef}
       />
+      <span style={{ fontSize: "0.8em", float: "right", paddingTop: 12 }}>
+        Powered by{" "}
+        <a
+          href="https://hype.day"
+          target="_blank"
+          rel="noreferrer"
+          style={{ textDecoration: "none" }}
+        >
+          Hype.Day
+        </a>
+      </span>
     </div>
   );
 }
