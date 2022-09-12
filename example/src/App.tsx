@@ -6,12 +6,16 @@ import "./App.css";
 function App() {
   const [projectId, setProjectId] = useState("OqdTSUuzrCIbapvSQWbL");
   const [walletAddress, setWalletAddress] = useState("");
+  const [loadingInitial, setLoadingInitial] = useState(true);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setProjectId(params.get("projectId") || "OqdTSUuzrCIbapvSQWbL");
     setWalletAddress(params.get("walletAddress") || "");
+    setLoadingInitial(false);
   }, []);
+
+  if (loadingInitial) return <div>Loading...</div>;
 
   return (
     <div className="App">
