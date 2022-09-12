@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { register } from "../api";
 import type { GetProjectResponse } from "../types";
 
@@ -15,15 +15,14 @@ export default function RegisterButton({
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
+
+  useEffect(() => {
+    setIsRegistered(!!projectData?.userInfo?.registered);
+  }, [projectData]);
 
   const handleRegister = async () => {
-    if (
-      !appId ||
-      !walletAddress ||
-      !projectData?.id ||
-      projectData?.userInfo?.registered
-    )
-      return;
+    if (!appId || !walletAddress || !projectData?.id || isRegistered) return;
 
     try {
       setError("");
@@ -36,8 +35,12 @@ export default function RegisterButton({
         customField: inputRef?.current?.value || "",
       });
 
-      console.error("Register error", error);
-      setError(error.message);
+      if (error) {
+        console.error("Register error", error);
+        return setError(error.message);
+      }
+
+      setIsRegistered(true);
     } catch (err) {
       console.error(err);
     } finally {
@@ -48,7 +51,6 @@ export default function RegisterButton({
   const isButtonDisabled =
     isLoading ||
     !walletAddress ||
-    projectData?.userInfo?.registered ||
     (projectData?.discord?.enabled &&
       !projectData?.userInfo?.discord?.username) ||
     (projectData?.discord2?.enabled &&
@@ -65,7 +67,7 @@ export default function RegisterButton({
       >
         {isLoading && <div className="hypeday-spinner hypeday-btn-spinner" />}
         <span style={{ visibility: isLoading ? "hidden" : "initial" }}>
-          {projectData?.userInfo?.registered ? "Registered" : "Register"}
+          {isRegistered ? "Registered! 🎉" : "Register"}
         </span>
       </button>
       {!!error && <span className="hypeday-register-error">{error}</span>}
