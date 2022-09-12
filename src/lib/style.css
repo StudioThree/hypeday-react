@@ -38,7 +38,14 @@
 .hypeday-error {
   display: block;
   color: var(--red400);
-  padding: 8px 0;
+  padding-bottom: 12px;
+}
+
+.hypeday-register-error {
+  display: block;
+  color: var(--red400);
+  padding-top: 12px;
+  font-size: 0.9em;
 }
 
 .hypeday-section {

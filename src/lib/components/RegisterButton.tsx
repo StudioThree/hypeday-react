@@ -68,7 +68,7 @@ export default function RegisterButton({
           {projectData?.userInfo?.registered ? "Registered" : "Register"}
         </span>
       </button>
-      {!!error && <span className="hypeday-error">{error}</span>}
+      {!!error && <span className="hypeday-register-error">{error}</span>}
     </>
   );
 }
