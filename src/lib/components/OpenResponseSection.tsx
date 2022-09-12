@@ -1,10 +1,14 @@
+import React from "react";
 import type { GetProjectResponse } from "../types";
 
-export default function OpenResponseSection({
-  projectData,
-}: {
-  projectData?: GetProjectResponse;
-}) {
+const OpenResponseSection = React.forwardRef(function OpenResponseSection(
+  {
+    projectData,
+  }: {
+    projectData?: GetProjectResponse;
+  },
+  ref: React.Ref<HTMLInputElement>
+) {
   if (!projectData?.customfield?.enabled) return null;
 
   const { customfield } = projectData;
@@ -19,7 +23,10 @@ export default function OpenResponseSection({
         className="hypeday-input"
         type="text"
         placeholder={customfield.labels[0]}
+        ref={ref}
       />
     </section>
   );
-}
+});
+
+export default OpenResponseSection;

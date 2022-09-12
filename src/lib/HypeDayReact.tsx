@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { GetProjectResponse } from "./types";
 import DiscordSection from "./components/DiscordSection";
 import OpenResponseSection from "./components/OpenResponseSection";
@@ -7,6 +7,7 @@ import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
 import { getProject } from "./api";
 import "./style.css";
+import RegisterButton from "./components/RegisterButton";
 
 interface HypeDayReactProps {
   appId: string;
@@ -22,7 +23,7 @@ export default function HypeDayReact({
   const [projectData, setProjectData] = useState<GetProjectResponse>();
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const [isRegistering, setIsRegistering] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const fetchProjectData = useCallback(async () => {
     if (!projectId || !appId) {
@@ -44,14 +45,6 @@ export default function HypeDayReact({
   useEffect(() => {
     fetchProjectData();
   }, [fetchProjectData]);
-
-  const handleRegister = () => {
-    if (projectData?.userInfo?.registered) return;
-
-    setIsRegistering(true);
-    setTimeout(() => setIsRegistering(false), 3000);
-    console.log("register button clicked");
-  };
 
   if (isLoading) {
     return (
@@ -91,20 +84,13 @@ export default function HypeDayReact({
         appId={appId}
         walletAddress={walletAddress}
       />
-      <OpenResponseSection projectData={projectData} />
-
-      <button
-        className="hypeday-register-button"
-        onClick={handleRegister}
-        disabled={isRegistering}
-      >
-        {isRegistering && (
-          <div className="hypeday-spinner hypeday-btn-spinner" />
-        )}
-        <span style={{ visibility: isRegistering ? "hidden" : "initial" }}>
-          {projectData?.userInfo?.registered ? "Registered" : "Register"}
-        </span>
-      </button>
+      <OpenResponseSection projectData={projectData} ref={inputRef} />
+      <RegisterButton
+        projectData={projectData}
+        appId={appId}
+        walletAddress={walletAddress}
+        inputRef={inputRef}
+      />
     </div>
   );
 }

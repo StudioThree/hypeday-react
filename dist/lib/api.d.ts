@@ -12,3 +12,10 @@ export declare function getOauthUrl({ provider, appId, projectId, chain, walletA
     walletAddress: string;
     returnUrl: string;
 }): Promise<any>;
+export declare function register({ appId, projectId, chain, wallet, customField, }: {
+    appId: string;
+    projectId: string;
+    chain: SupportedChains;
+    wallet: string;
+    customField: string;
+}): Promise<any>;

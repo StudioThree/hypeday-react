@@ -72,9 +72,39 @@ export function getOauthUrl({
   };
 
   return fetch(
-    `https://us-central1-hype-testing.cloudfunctions.net/${
-      provider === "twitter" ? "t" : "d"
-    }GetUrlForApp`,
+    `${BASE_URL}/${provider === "twitter" ? "t" : "d"}GetUrlForApp`,
     requestOptions
   ).then(handleResponse);
+}
+
+export function register({
+  appId,
+  projectId,
+  chain,
+  wallet,
+  customField,
+}: {
+  appId: string;
+  projectId: string;
+  chain: SupportedChains;
+  wallet: string;
+  customField: string;
+}) {
+  const requestOptions = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      appId,
+      chain,
+      wallet,
+      projectId,
+      customField,
+    }),
+  };
+
+  return fetch(`${BASE_URL}/validateForAppProject`, requestOptions).then(
+    handleResponse
+  );
 }

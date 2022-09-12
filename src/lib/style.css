@@ -38,7 +38,7 @@
 .hypeday-error {
   display: block;
   color: var(--red400);
-  padding-bottom: 12px;
+  padding: 8px 0;
 }
 
 .hypeday-section {

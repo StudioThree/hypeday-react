@@ -25,4 +25,9 @@ module.exports = {
     "react/react-in-jsx-scope": "off",
   },
   ignorePatterns: ["node_modules/", "dist/"],
+  settings: {
+    react: {
+      version: "18",
+    },
+  },
 };

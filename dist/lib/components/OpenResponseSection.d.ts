@@ -1,4 +1,6 @@
+import React from "react";
 import type { GetProjectResponse } from "../types";
-export default function OpenResponseSection({ projectData, }: {
-    projectData?: GetProjectResponse;
-}): JSX.Element | null;
+declare const OpenResponseSection: React.ForwardRefExoticComponent<{
+    projectData?: GetProjectResponse | undefined;
+} & React.RefAttributes<HTMLInputElement>>;
+export default OpenResponseSection;
