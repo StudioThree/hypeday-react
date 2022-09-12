@@ -1,6 +1,6 @@
 import n, { useState as b, useMemo as F, useEffect as q, useRef as L, useCallback as H } from "react";
-const k = "https://apitest.hype.day";
-function A(e) {
+const C = "https://apitest.hype.day";
+function k(e) {
   return e.text().then((i) => {
     const s = i && JSON.parse(i);
     if (!e.ok) {
@@ -10,7 +10,7 @@ function A(e) {
     return s;
   });
 }
-function $({
+function x({
   appId: e,
   projectId: i,
   walletAddress: s
@@ -22,13 +22,13 @@ function $({
     }
   };
   return fetch(
-    `${k}/getProject?` + new URLSearchParams({
+    `${C}/getProject?` + new URLSearchParams({
       appid: e,
       wallet: s || "",
       projectid: i
     }),
     r
-  ).then(A);
+  ).then(k);
 }
 function I({
   provider: e,
@@ -52,11 +52,11 @@ function I({
     })
   };
   return fetch(
-    `${k}/${e === "twitter" ? "t" : "d"}GetUrlForApp`,
+    `${C}/${e === "twitter" ? "t" : "d"}GetUrlForApp`,
     d
-  ).then(A);
+  ).then(k);
 }
-function M({
+function $({
   appId: e,
   projectId: i,
   chain: s,
@@ -76,11 +76,11 @@ function M({
       customField: t
     })
   };
-  return fetch(`${k}/validateForAppProject`, m).then(
-    A
+  return fetch(`${C}/validateForAppProject`, m).then(
+    k
   );
 }
-function C({
+function A({
   title: e,
   rightText: i,
   buttonDisabled: s = !1,
@@ -110,7 +110,7 @@ function C({
     className: "hypeday-info"
   }, d)));
 }
-function U({
+function M({
   projectData: e,
   appId: i,
   walletAddress: s
@@ -157,7 +157,7 @@ function U({
         t(!1);
       }
   };
-  return !((h = e == null ? void 0 : e.discord) != null && h.enabled) && !((y = e == null ? void 0 : e.discord2) != null && y.enabled) ? null : /* @__PURE__ */ n.createElement(C, {
+  return !((h = e == null ? void 0 : e.discord) != null && h.enabled) && !((y = e == null ? void 0 : e.discord2) != null && y.enabled) ? null : /* @__PURE__ */ n.createElement(A, {
     title: "Discord",
     onClick: d,
     info: m,
@@ -166,7 +166,7 @@ function U({
     isLoading: r
   });
 }
-const x = n.forwardRef(function({
+const U = n.forwardRef(function({
   projectData: i
 }, s) {
   var t;
@@ -313,7 +313,7 @@ function J({
         t(!1);
       }
   };
-  return (h = e == null ? void 0 : e.twitter) != null && h.enabled ? /* @__PURE__ */ n.createElement(C, {
+  return (h = e == null ? void 0 : e.twitter) != null && h.enabled ? /* @__PURE__ */ n.createElement(A, {
     title: "Twitter",
     onClick: d,
     info: m,
@@ -350,7 +350,7 @@ function W({
     }
     return r;
   }, [e]);
-  return !(e != null && e.wallet) || !i.length ? null : /* @__PURE__ */ n.createElement(C, {
+  return !(e != null && e.wallet) || !i.length ? null : /* @__PURE__ */ n.createElement(A, {
     title: "Wallet",
     onClick: () => console.log("wallet button clicked"),
     info: i,
@@ -374,7 +374,7 @@ function G({
     if (!(!i || !s || !(e != null && e.id) || y))
       try {
         h(""), m(!0);
-        const { error: v } = await M({
+        const { error: v } = await $({
           appId: i,
           wallet: s,
           chain: e.chain,
@@ -412,7 +412,7 @@ function z({
       console.error("HypeDayReact: projectId and appId props are required.");
       return;
     }
-    d(!0), y(!1), $({ appId: e, projectId: i, walletAddress: s }).then((u) => t(u)).catch((u) => {
+    d(!0), y(!1), x({ appId: e, projectId: i, walletAddress: s }).then((u) => t(u)).catch((u) => {
       console.error("HypeDayReact: Error fetching project data", u), y(!0);
     }).finally(() => d(!1));
   }, [e, i, s]);
@@ -440,11 +440,11 @@ function z({
     projectData: r,
     appId: e,
     walletAddress: s
-  }), /* @__PURE__ */ n.createElement(U, {
+  }), /* @__PURE__ */ n.createElement(M, {
     projectData: r,
     appId: e,
     walletAddress: s
-  }), /* @__PURE__ */ n.createElement(x, {
+  }), /* @__PURE__ */ n.createElement(U, {
     projectData: r,
     ref: f
   }), /* @__PURE__ */ n.createElement(G, {
@@ -452,14 +452,20 @@ function z({
     appId: e,
     walletAddress: s,
     inputRef: f
-  }), /* @__PURE__ */ n.createElement("span", {
-    style: { fontSize: "0.8em", float: "right", paddingTop: 12 }
-  }, "Powered by", " ", /* @__PURE__ */ n.createElement("a", {
+  }), /* @__PURE__ */ n.createElement("div", {
+    style: {
+      fontSize: "0.8em",
+      width: "100%",
+      display: "flex",
+      justifyContent: "flex-end",
+      paddingTop: 12
+    }
+  }, /* @__PURE__ */ n.createElement("span", null, "Powered by", " ", /* @__PURE__ */ n.createElement("a", {
     href: "https://hype.day",
     target: "_blank",
     rel: "noreferrer",
     style: { textDecoration: "none" }
-  }, "Hype.Day")));
+  }, "Hype.Day"))));
 }
 export {
   z as default
