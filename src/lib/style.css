@@ -97,7 +97,8 @@
   background-color: var(--blue600);
 }
 
-.hypeday-button:disabled {
+.hypeday-button:disabled,
+.hypeday-register-button:disabled {
   cursor: not-allowed;
 }
 

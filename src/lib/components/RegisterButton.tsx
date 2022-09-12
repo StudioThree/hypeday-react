@@ -45,12 +45,23 @@ export default function RegisterButton({
     }
   };
 
+  const isButtonDisabled =
+    isLoading ||
+    !walletAddress ||
+    projectData?.userInfo?.registered ||
+    (projectData?.discord?.enabled &&
+      !projectData?.userInfo?.discord?.username) ||
+    (projectData?.discord2?.enabled &&
+      !projectData?.userInfo?.discord?.username) ||
+    (projectData?.twitter?.enabled &&
+      !projectData?.userInfo?.twitter?.username);
+
   return (
     <>
       <button
         className="hypeday-register-button"
         onClick={handleRegister}
-        disabled={isLoading}
+        disabled={isButtonDisabled}
       >
         {isLoading && <div className="hypeday-spinner hypeday-btn-spinner" />}
         <span style={{ visibility: isLoading ? "hidden" : "initial" }}>

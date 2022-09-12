@@ -35,7 +35,7 @@ export function getProject({
     `${BASE_URL}/getProject?` +
       new URLSearchParams({
         appid: appId,
-        userid: walletAddress || "",
+        wallet: walletAddress || "",
         projectid: projectId,
       }),
     requestOptions
