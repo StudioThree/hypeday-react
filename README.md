@@ -28,6 +28,6 @@ import "hypeday-react/dist/style.css";
   userId="OitNn0A1Ehs8sia1XwoN" // optional, encrypted user wallet address
 />;
 ```
-To get the project id go to https://testing.hype.day/ and create a project, project id will be in the url.
+To get the project id go to https://testing.hype.day/ and create a project. The project id will be in the url once you click "Create my Project" button. For instance vy6kki7aU5EBZf5GC8pf in https://hype.day/projects/vy6kki7aU5EBZf5GC8pf/edit is the project id. It is unique for each project.
 
 To override the default styles, you can inject your own CSS **after** importing the css file. See [style.css](src/lib/style.css) for the default styles.
