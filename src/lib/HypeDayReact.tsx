@@ -5,7 +5,7 @@ import OpenResponseSection from "./components/OpenResponseSection";
 import SignupAccessSection from "./components/SignupAccessSection";
 import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
-import { getProject } from "./api";
+import { getProject, setAuthorizationHeader } from "./api";
 import "./style.css";
 import RegisterButton from "./components/RegisterButton";
 
@@ -13,12 +13,15 @@ interface HypeDayReactProps {
   appId: string;
   projectId: string;
   walletAddress?: string;
+  userToken?: string;
 }
 
+// TODO: Remove walletAddress from props
 export default function HypeDayReact({
   appId,
   projectId,
   walletAddress,
+  userToken,
 }: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
   const [isLoading, setIsLoading] = useState(true);
@@ -43,6 +46,10 @@ export default function HypeDayReact({
       })
       .finally(() => setIsLoading(false));
   }, [appId, projectId, walletAddress]);
+
+  useEffect(() => {
+    setAuthorizationHeader(userToken);
+  }, [userToken]);
 
   useEffect(() => {
     fetchProjectData();
@@ -78,17 +85,20 @@ export default function HypeDayReact({
         projectData={projectData}
         appId={appId}
         walletAddress={walletAddress}
+        doesTokenExist={!!userToken}
       />
       <DiscordSection
         projectData={projectData}
         appId={appId}
         walletAddress={walletAddress}
+        doesTokenExist={!!userToken}
       />
       <OpenResponseSection projectData={projectData} ref={inputRef} />
       <RegisterButton
         projectData={projectData}
         appId={appId}
         walletAddress={walletAddress}
+        doesTokenExist={!!userToken}
         inputRef={inputRef}
       />
       <div
