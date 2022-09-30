@@ -6,11 +6,11 @@ import Section from "./Section";
 export default function TwitterSection({
   projectData,
   appId,
-  walletAddress,
+  hasUser,
 }: {
   projectData?: GetProjectResponse;
   appId: string;
-  walletAddress?: string;
+  hasUser: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -80,15 +80,13 @@ export default function TwitterSection({
   }, [projectData]);
 
   const handleConnect = async () => {
-    if (!appId || !walletAddress || !projectData?.id) return;
+    if (!appId || !hasUser || !projectData?.id) return;
 
     try {
       setIsLoading(true);
       const { url } = await getOauthUrl({
         provider: "twitter",
         appId,
-        walletAddress,
-        chain: projectData.chain,
         projectId: projectData.id,
         returnUrl: window.location.href,
       });
@@ -109,7 +107,7 @@ export default function TwitterSection({
       onClick={handleConnect}
       info={info}
       rightText={projectData?.userInfo?.twitter?.username}
-      buttonDisabled={!walletAddress}
+      buttonDisabled={!hasUser}
       isLoading={isLoading}
     />
   );

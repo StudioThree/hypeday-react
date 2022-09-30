@@ -5,20 +5,20 @@ import OpenResponseSection from "./components/OpenResponseSection";
 import SignupAccessSection from "./components/SignupAccessSection";
 import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
-import { getProject } from "./api";
+import { getProject, setAuthorizationHeader } from "./api";
 import "./style.css";
 import RegisterButton from "./components/RegisterButton";
 
 interface HypeDayReactProps {
   appId: string;
   projectId: string;
-  walletAddress?: string;
+  userToken?: string;
 }
 
 export default function HypeDayReact({
   appId,
   projectId,
-  walletAddress,
+  userToken,
 }: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
   const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +33,7 @@ export default function HypeDayReact({
 
     setIsLoading(true);
     setError("");
-    getProject({ appId, projectId, walletAddress })
+    getProject({ appId, projectId })
       .then((data) => setProjectData(data))
       .catch((err) => {
         console.error("HypeDayReact: Error fetching project data", err);
@@ -42,7 +42,11 @@ export default function HypeDayReact({
         );
       })
       .finally(() => setIsLoading(false));
-  }, [appId, projectId, walletAddress]);
+  }, [appId, projectId]);
+
+  useEffect(() => {
+    setAuthorizationHeader(userToken);
+  }, [userToken]);
 
   useEffect(() => {
     fetchProjectData();
@@ -77,18 +81,18 @@ export default function HypeDayReact({
       <TwitterSection
         projectData={projectData}
         appId={appId}
-        walletAddress={walletAddress}
+        hasUser={!!userToken}
       />
       <DiscordSection
         projectData={projectData}
         appId={appId}
-        walletAddress={walletAddress}
+        hasUser={!!userToken}
       />
       <OpenResponseSection projectData={projectData} ref={inputRef} />
       <RegisterButton
         projectData={projectData}
         appId={appId}
-        walletAddress={walletAddress}
+        hasUser={!!userToken}
         inputRef={inputRef}
       />
       <div

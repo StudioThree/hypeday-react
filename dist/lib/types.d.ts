@@ -1,5 +1,5 @@
-export declare type EvmChains = "ethereum" | "polygon" | "avalanche";
-export declare type SupportedChains = EvmChains | "solana" | "flow";
+declare type EvmChains = "ethereum" | "polygon" | "avalanche";
+declare type SupportedChains = EvmChains | "solana" | "flow";
 interface DiscordRequirement {
     enabled?: boolean;
     isServerRequired?: boolean;

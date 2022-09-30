@@ -1,21 +1,17 @@
-import type { SupportedChains } from "./types";
-export declare function getProject({ appId, projectId, walletAddress, }: {
+export declare function setAuthorizationHeader(token: string | undefined): void;
+export declare function getProject({ appId, projectId, }: {
     appId: string;
     projectId: string;
-    walletAddress?: string;
 }): Promise<any>;
-export declare function getOauthUrl({ provider, appId, projectId, chain, walletAddress, returnUrl, }: {
+export declare function getOauthUrl({ provider, appId, projectId, returnUrl, }: {
     provider: "twitter" | "discord";
     appId: string;
     projectId: string;
-    chain: SupportedChains;
-    walletAddress: string;
     returnUrl: string;
+    userToken?: string;
 }): Promise<any>;
-export declare function register({ appId, projectId, chain, wallet, customField, }: {
+export declare function register({ appId, projectId, customField, }: {
     appId: string;
     projectId: string;
-    chain: SupportedChains;
-    wallet: string;
     customField: string;
 }): Promise<any>;
