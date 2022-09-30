@@ -5,14 +5,12 @@ import type { GetProjectResponse } from "../types";
 export default function RegisterButton({
   projectData,
   appId,
-  walletAddress,
-  doesTokenExist,
+  hasUser,
   inputRef,
 }: {
   projectData?: GetProjectResponse;
   appId: string;
-  walletAddress?: string;
-  doesTokenExist: boolean;
+  hasUser: boolean;
   inputRef: React.RefObject<HTMLInputElement>;
 }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -24,21 +22,13 @@ export default function RegisterButton({
   }, [projectData]);
 
   const handleRegister = async () => {
-    if (
-      !appId ||
-      (!walletAddress && !doesTokenExist) ||
-      !projectData?.id ||
-      isRegistered
-    )
-      return;
+    if (!appId || !hasUser || !projectData?.id || isRegistered) return;
 
     try {
       setError("");
       setIsLoading(true);
       const { error } = await register({
         appId,
-        wallet: walletAddress,
-        chain: projectData.chain,
         projectId: projectData.id,
         customField: inputRef?.current?.value || "",
       });
@@ -58,7 +48,7 @@ export default function RegisterButton({
 
   const isButtonDisabled =
     isLoading ||
-    (!walletAddress && !doesTokenExist) ||
+    !hasUser ||
     (projectData?.discord?.enabled &&
       !projectData?.userInfo?.discord?.username) ||
     (projectData?.discord2?.enabled &&

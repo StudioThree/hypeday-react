@@ -6,13 +6,11 @@ import Section from "./Section";
 export default function DiscordSection({
   projectData,
   appId,
-  walletAddress,
-  doesTokenExist,
+  hasUser,
 }: {
   projectData?: GetProjectResponse;
   appId: string;
-  walletAddress?: string;
-  doesTokenExist: boolean;
+  hasUser: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -66,16 +64,13 @@ export default function DiscordSection({
   }, [projectData]);
 
   const handleConnect = async () => {
-    if (!appId || (!walletAddress && !doesTokenExist) || !projectData?.id)
-      return;
+    if (!appId || !hasUser || !projectData?.id) return;
 
     try {
       setIsLoading(true);
       const { url } = await getOauthUrl({
         provider: "discord",
         appId,
-        walletAddress,
-        chain: projectData.chain,
         projectId: projectData.id,
         returnUrl: window.location.href,
       });
@@ -98,7 +93,7 @@ export default function DiscordSection({
       onClick={handleConnect}
       info={info}
       rightText={projectData?.userInfo?.discord?.username}
-      buttonDisabled={!walletAddress && !doesTokenExist}
+      buttonDisabled={!hasUser}
       isLoading={isLoading}
     />
   );

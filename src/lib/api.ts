@@ -1,5 +1,3 @@
-import type { SupportedChains } from "./types";
-
 const BASE_URL = "https://apitest.hype.day";
 const headers = new Headers({
   "Content-Type": "application/json",
@@ -27,11 +25,9 @@ function handleResponse(response: Response) {
 export function getProject({
   appId,
   projectId,
-  walletAddress,
 }: {
   appId: string;
   projectId: string;
-  walletAddress?: string;
 }) {
   const requestOptions = {
     method: "GET",
@@ -42,7 +38,6 @@ export function getProject({
     `${BASE_URL}/getProject?` +
       new URLSearchParams({
         appid: appId,
-        wallet: walletAddress || "",
         projectid: projectId,
       }),
     requestOptions
@@ -53,15 +48,11 @@ export function getOauthUrl({
   provider,
   appId,
   projectId,
-  chain,
-  walletAddress,
   returnUrl,
 }: {
   provider: "twitter" | "discord";
   appId: string;
   projectId: string;
-  chain: SupportedChains;
-  walletAddress?: string;
   returnUrl: string;
   userToken?: string;
 }) {
@@ -70,8 +61,6 @@ export function getOauthUrl({
     headers,
     body: JSON.stringify({
       appId,
-      chain,
-      walletAddress,
       projectId,
       returnUrl,
     }),
@@ -86,14 +75,10 @@ export function getOauthUrl({
 export function register({
   appId,
   projectId,
-  chain,
-  wallet,
   customField,
 }: {
   appId: string;
   projectId: string;
-  chain: SupportedChains;
-  wallet?: string;
   customField: string;
 }) {
   const requestOptions = {
@@ -101,8 +86,6 @@ export function register({
     headers,
     body: JSON.stringify({
       appId,
-      chain,
-      wallet,
       projectId,
       customField,
     }),
