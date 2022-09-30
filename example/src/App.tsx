@@ -5,13 +5,13 @@ import "./App.css";
 
 function App() {
   const [projectId, setProjectId] = useState("OqdTSUuzrCIbapvSQWbL");
-  const [walletAddress, setWalletAddress] = useState("");
+  const [userToken, setUserToken] = useState("");
   const [loadingInitial, setLoadingInitial] = useState(true);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setProjectId(params.get("projectId") || "OqdTSUuzrCIbapvSQWbL");
-    setWalletAddress(params.get("walletAddress") || "");
+    setUserToken(params.get("userToken") || "");
     setLoadingInitial(false);
   }, []);
 
@@ -22,7 +22,7 @@ function App() {
       <HypeDayReact
         appId="9zUeQuZ2IYUVR6DOousn"
         projectId={projectId}
-        walletAddress={walletAddress}
+        userToken={userToken}
       />
     </div>
   );
