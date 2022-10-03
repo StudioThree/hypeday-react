@@ -1,5 +1,5 @@
 import n, { useState as w, useMemo as T, useEffect as A, useRef as L, useCallback as $ } from "react";
-const C = "https://apitest.hype.day", q = new Headers({
+const C = "https://api.hype.day", q = new Headers({
   "Content-Type": "application/json"
 });
 function x(e) {
