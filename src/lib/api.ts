@@ -1,4 +1,4 @@
-const BASE_URL = "https://apitest.hype.day";
+const BASE_URL = "https://api.hype.day";
 const headers = new Headers({
   "Content-Type": "application/json",
 });
