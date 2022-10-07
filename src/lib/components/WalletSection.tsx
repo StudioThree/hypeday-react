@@ -20,9 +20,11 @@ const chainToCurrency = {
 function WalletSection({
   projectData,
   appId,
+  hasUser,
 }: {
   projectData?: GetProjectResponse;
   appId: string;
+  hasUser: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [walletAddr, setWalletAddr] = useState("");
@@ -127,6 +129,7 @@ function WalletSection({
       info={info}
       isLoading={isLoading}
       rightText={walletAddr}
+      buttonDisabled={!hasUser}
     />
   );
 }
@@ -134,13 +137,19 @@ function WalletSection({
 export default function WalletSectionWrapper({
   projectData,
   appId,
+  hasUser,
 }: {
   projectData?: GetProjectResponse;
   appId: string;
+  hasUser: boolean;
 }) {
   return (
     <SolanaWrapper>
-      <WalletSection projectData={projectData} appId={appId} />
+      <WalletSection
+        projectData={projectData}
+        appId={appId}
+        hasUser={hasUser}
+      />
     </SolanaWrapper>
   );
 }
