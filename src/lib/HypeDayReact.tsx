@@ -5,7 +5,7 @@ import OpenResponseSection from "./components/OpenResponseSection";
 import SignupAccessSection from "./components/SignupAccessSection";
 import TwitterSection from "./components/TwitterSection";
 import WalletSection from "./components/WalletSection";
-import { getProject, setAuthorizationHeader } from "./api";
+import { getProject, setAuthorizationHeader, setEnv } from "./api";
 import "./style.css";
 import RegisterButton from "./components/RegisterButton";
 
@@ -13,12 +13,14 @@ interface HypeDayReactProps {
   appId: string;
   projectId: string;
   userToken?: string;
+  testing?: boolean;
 }
 
 export default function HypeDayReact({
   appId,
   projectId,
   userToken,
+  testing = false,
 }: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +49,10 @@ export default function HypeDayReact({
   useEffect(() => {
     setAuthorizationHeader(userToken);
   }, [userToken]);
+
+  useEffect(() => {
+    setEnv(testing);
+  }, [testing]);
 
   useEffect(() => {
     fetchProjectData();
