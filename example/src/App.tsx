@@ -4,12 +4,14 @@ import "hypeday-react/dist/style.css";
 import "./App.css";
 
 function App() {
+  const [appId, setAppId] = useState("123");
   const [projectId, setProjectId] = useState("OqdTSUuzrCIbapvSQWbL");
   const [userToken, setUserToken] = useState("");
   const [loadingInitial, setLoadingInitial] = useState(true);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
+    setAppId(params.get("appId") || "123");
     setProjectId(params.get("projectId") || "OqdTSUuzrCIbapvSQWbL");
     setUserToken(params.get("userToken") || "");
     setLoadingInitial(false);
@@ -20,7 +22,8 @@ function App() {
   return (
     <div className="App">
       <HypeDayReact
-        appId="9zUeQuZ2IYUVR6DOousn"
+        testing={true}
+        appId={appId}
         projectId={projectId}
         userToken={userToken}
       />

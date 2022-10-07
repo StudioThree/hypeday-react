@@ -7,6 +7,7 @@ function App() {
   return (
     <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
       <HypeDayReact
+        testing={true}
         appId="123"
         projectId="OqdTSUuzrCIbapvSQWbL"
         userToken={testToken}
