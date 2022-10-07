@@ -116,8 +116,7 @@ function WalletSection({
     loginWithSolana();
   }, [appId, setIsLoading, connected, publicKey, signMessage, disconnect]);
 
-  if (!projectData?.wallet) return null;
-  if (!info.length) return null;
+  if (projectData?.wallet?.required === false) return null;
 
   return (
     <Section

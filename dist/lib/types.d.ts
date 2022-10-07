@@ -48,6 +48,7 @@ export interface GetProjectResponse {
         accountCreated?: string;
     };
     wallet?: {
+        required: boolean;
         balance?: string;
         isBalanceRequired?: boolean;
         isNftRequired?: boolean;
