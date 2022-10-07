@@ -1,4 +1,6 @@
+/// <reference types="react" />
 import type { GetProjectResponse } from "../types";
-export default function WalletSection({ projectData, }: {
+export default function WalletSectionWrapper({ projectData, appId, }: {
     projectData?: GetProjectResponse;
-}): JSX.Element | null;
+    appId: string;
+}): JSX.Element;

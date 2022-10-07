@@ -3,6 +3,15 @@ export declare function getProject({ appId, projectId, }: {
     appId: string;
     projectId: string;
 }): Promise<any>;
+export declare function addWallet(data: {
+    appId: string;
+    address: string;
+}): Promise<any>;
+export declare function verifyWallet(data: {
+    appId: string;
+    address: string;
+    signature: string;
+}): Promise<any>;
 export declare function getOauthUrl({ provider, appId, projectId, returnUrl, }: {
     provider: "twitter" | "discord";
     appId: string;

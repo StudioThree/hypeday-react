@@ -1,3 +1,4 @@
+/// <reference types="react" />
 interface SectionProps {
     title: string;
     buttonDisabled?: boolean;
