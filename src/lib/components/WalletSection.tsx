@@ -1,6 +1,13 @@
-import { useMemo } from "react";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { Base58 } from "@ethersproject/basex";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { addWallet, verifyWallet } from "../api";
 import type { GetProjectResponse } from "../types";
 import Section from "./Section";
+import { SolanaWrapper } from "./SolanaWrapper";
+import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
+import { shortenWalletAddress } from "../helpers";
 
 const chainToCurrency = {
   ethereum: "ETH",
@@ -10,11 +17,19 @@ const chainToCurrency = {
   flow: "FLOW",
 };
 
-export default function WalletSection({
+function WalletSection({
   projectData,
+  appId,
 }: {
   projectData?: GetProjectResponse;
+  appId: string;
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [walletAddr, setWalletAddr] = useState("");
+  const { setVisible } = useWalletModal();
+  const { connected, publicKey, signMessage, disconnect } = useWallet();
+  const isLoggingIn = useRef(false);
+
   const info = useMemo(() => {
     if (!projectData?.wallet) return [];
 
@@ -58,15 +73,74 @@ export default function WalletSection({
     return infoArray;
   }, [projectData]);
 
+  useEffect(() => {
+    async function loginWithSolana() {
+      if (!connected || !publicKey || !signMessage || isLoggingIn.current)
+        return;
+
+      try {
+        isLoggingIn.current = true;
+        setIsLoading(true);
+
+        const address = publicKey.toBase58();
+
+        const { nonce } = await addWallet({ appId, address });
+
+        const encodedMessage = new TextEncoder().encode(nonce);
+        const signedMessage = Base58.encode(await signMessage(encodedMessage));
+
+        await verifyWallet({
+          address,
+          signature: signedMessage,
+          appId,
+        });
+
+        setWalletAddr(shortenWalletAddress(publicKey.toString()));
+      } catch (err) {
+        disconnect();
+        if (
+          (err as Error).message !== "User rejected the request." &&
+          (err as Error).name !== WalletNotConnectedError.name
+        )
+          console.error("error", err);
+        // TODO: show error message
+      } finally {
+        setIsLoading(false);
+
+        isLoggingIn.current = false;
+      }
+    }
+
+    loginWithSolana();
+  }, [appId, setIsLoading, connected, publicKey, signMessage, disconnect]);
+
   if (!projectData?.wallet) return null;
   if (!info.length) return null;
 
   return (
     <Section
       title="Wallet"
-      onClick={() => console.log("wallet button clicked")}
+      onClick={() => {
+        if (walletAddr) return;
+        setVisible(true);
+      }}
       info={info}
-      showButton={false}
+      isLoading={isLoading}
+      rightText={walletAddr}
     />
+  );
+}
+
+export default function WalletSectionWrapper({
+  projectData,
+  appId,
+}: {
+  projectData?: GetProjectResponse;
+  appId: string;
+}) {
+  return (
+    <SolanaWrapper>
+      <WalletSection projectData={projectData} appId={appId} />
+    </SolanaWrapper>
   );
 }

@@ -1,3 +1,4 @@
+/// <reference types="react" />
 interface HypeDayReactProps {
     appId: string;
     projectId: string;

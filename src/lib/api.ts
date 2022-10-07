@@ -11,6 +11,7 @@ export function setAuthorizationHeader(token: string | undefined) {
 
 function handleResponse(response: Response) {
   return response.text().then((text) => {
+    if (text === "OK") return text;
     const data = text && JSON.parse(text);
 
     if (!response.ok) {
@@ -42,6 +43,32 @@ export function getProject({
       }),
     requestOptions
   ).then(handleResponse);
+}
+
+export function addWallet(data: { appId: string; address: string }) {
+  const chain = "solana";
+  const requestOptions = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ chain, ...data }),
+  };
+
+  return fetch(`${BASE_URL}/addWallet`, requestOptions).then(handleResponse);
+}
+
+export function verifyWallet(data: {
+  appId: string;
+  address: string;
+  signature: string;
+}) {
+  const chain = "solana";
+  const requestOptions = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ chain, ...data }),
+  };
+
+  return fetch(`${BASE_URL}/verifyWallet`, requestOptions).then(handleResponse);
 }
 
 export function getOauthUrl({

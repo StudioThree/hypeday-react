@@ -77,7 +77,7 @@ export default function HypeDayReact({
   return (
     <div className="hypeday-wrapper">
       <SignupAccessSection projectData={projectData} />
-      <WalletSection projectData={projectData} />
+      <WalletSection projectData={projectData} appId={appId} />
       <TwitterSection
         projectData={projectData}
         appId={appId}
