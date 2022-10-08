@@ -29,6 +29,21 @@ import "hypeday-react/dist/style.css";
 />;
 ```
 
-To get the project id go to https://testing.hype.day/ and create a project. The project id will be in the url once you click "Create my Project" button. For instance vy6kki7aU5EBZf5GC8pf in https://hype.day/projects/vy6kki7aU5EBZf5GC8pf/edit is the project id. It is unique for each project.
+#### Token
+
+Token algo should be an ES256
+
+Token payload format (see https://jwt.io/ for details):
+```
+{
+  iss: "https://your-web-site.com",
+  aud: "https://hype.day",
+  sub: "testuserid",
+  // exp is optional
+  exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 10,
+}
+```
+
+To get the project id go to https://hype.day/ and create a project. The project id will be in the url once you click "Create my Project" button. For instance vy6kki7aU5EBZf5GC8pf in https://hype.day/projects/vy6kki7aU5EBZf5GC8pf/edit is the project id. It is unique for each project.
 
 To override the default styles, you can inject your own CSS **after** importing the css file. See [style.css](src/lib/style.css) for the default styles.
