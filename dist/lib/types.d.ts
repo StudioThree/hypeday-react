@@ -19,6 +19,7 @@ interface UserInfo {
     };
     registered?: boolean;
     email?: string;
+    walletAddress?: string;
 }
 export interface GetProjectResponse {
     id: string;

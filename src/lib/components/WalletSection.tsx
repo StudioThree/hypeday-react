@@ -36,6 +36,11 @@ function WalletSection({
     if (!projectData?.wallet) return [];
 
     const { wallet } = projectData;
+    setWalletAddr(
+      projectData.userInfo?.walletAddress
+        ? shortenWalletAddress(projectData.userInfo.walletAddress)
+        : ""
+    );
     const infoArray = [];
 
     if (wallet?.isBalanceRequired) {

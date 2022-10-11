@@ -17,6 +17,7 @@ interface UserInfo {
   twitter?: { username: string };
   registered?: boolean;
   email?: string;
+  walletAddress?: string;
 }
 
 export interface GetProjectResponse {

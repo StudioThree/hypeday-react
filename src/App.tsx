@@ -9,7 +9,7 @@ function App() {
       <HypeDayReact
         testing={true}
         appId="123"
-        projectId="OqdTSUuzrCIbapvSQWbL"
+        projectId="ZymMrMJK1mrZbUPAbcMH"
         userToken={testToken}
       />
     </div>
