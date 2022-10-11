@@ -15,7 +15,13 @@ Run `npm run dev` to start Vite in development mode. `main.tsx` and `App.tsx` ar
 To install:
 
 ```bash
-npm i github:StudioThree/hypeday-react
+npm i github:StudioThree/hypeday-react#v0.0.1
+```
+
+Or with yarn:
+
+```bash
+yarn add https://github.com/StudioThree/hypeday-react.git#v0.0.1
 ```
 
 ```tsx
@@ -35,6 +41,7 @@ import "hypeday-react/dist/style.css";
 Token algo should be an ES256
 
 Token payload format (see https://jwt.io/ for details):
+
 ```
 {
   iss: "https://your-web-site.com",
