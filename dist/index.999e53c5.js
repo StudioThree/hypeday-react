@@ -12722,7 +12722,7 @@ class Sd extends Ei {
         throw new Nn();
       let t;
       try {
-        t = (await import("./index.7baa1add.js")).default;
+        t = (await import("./index.6049a39e.js")).default;
       } catch (s) {
         throw new V0(s == null ? void 0 : s.message, s);
       }
@@ -12866,23 +12866,32 @@ function kd({
   }, [r]);
   return Ne(() => {
     async function k() {
-      if (!(!p || !m || !A || T.current))
+      var R;
+      if (!(((R = r == null ? void 0 : r.userInfo) == null ? void 0 : R.walletAddress) || !p || !m || !A || T.current))
         try {
           T.current = !0, s(!0);
-          const R = m.toBase58(), { nonce: U } = await Zc({ appId: t, address: R }), D = new TextEncoder().encode(U), L = pd.encode(await A(D));
+          const U = m.toBase58(), { nonce: D } = await Zc({ appId: t, address: U }), L = new TextEncoder().encode(D), H = pd.encode(await A(L));
           await Xc({
-            address: R,
-            signature: L,
+            address: U,
+            signature: H,
             appId: t
           }), c(Ma(m.toString()));
-        } catch (R) {
-          S(), R.message !== "User rejected the request." && R.name !== ye.name && console.error("error", R);
+        } catch (U) {
+          S(), U.message !== "User rejected the request." && U.name !== ye.name && console.error("error", U);
         } finally {
           s(!1), T.current = !1;
         }
     }
     k();
-  }, [t, s, p, m, A, S]), ((C = r == null ? void 0 : r.wallet) == null ? void 0 : C.required) === !1 ? null : /* @__PURE__ */ O.createElement(Ds, {
+  }, [
+    t,
+    r,
+    s,
+    p,
+    m,
+    A,
+    S
+  ]), ((C = r == null ? void 0 : r.wallet) == null ? void 0 : C.required) === !1 ? null : /* @__PURE__ */ O.createElement(Ds, {
     title: "Wallet",
     onClick: () => {
       i || u(!0);

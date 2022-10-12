@@ -82,8 +82,15 @@ function WalletSection({
 
   useEffect(() => {
     async function loginWithSolana() {
-      if (!connected || !publicKey || !signMessage || isLoggingIn.current)
+      if (
+        projectData?.userInfo?.walletAddress ||
+        !connected ||
+        !publicKey ||
+        !signMessage ||
+        isLoggingIn.current
+      ) {
         return;
+      }
 
       try {
         isLoggingIn.current = true;
@@ -119,7 +126,15 @@ function WalletSection({
     }
 
     loginWithSolana();
-  }, [appId, setIsLoading, connected, publicKey, signMessage, disconnect]);
+  }, [
+    appId,
+    projectData,
+    setIsLoading,
+    connected,
+    publicKey,
+    signMessage,
+    disconnect,
+  ]);
 
   if (projectData?.wallet?.required === false) return null;
 
