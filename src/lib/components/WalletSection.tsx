@@ -31,6 +31,7 @@ function WalletSection({
   const { setVisible } = useWalletModal();
   const { connected, publicKey, signMessage, disconnect } = useWallet();
   const isLoggingIn = useRef(false);
+  const isButtonClicked = useRef(false);
 
   const info = useMemo(() => {
     if (!projectData?.wallet) return [];
@@ -83,6 +84,7 @@ function WalletSection({
   useEffect(() => {
     async function loginWithSolana() {
       if (
+        !isButtonClicked.current ||
         projectData?.userInfo?.walletAddress ||
         !connected ||
         !publicKey ||
@@ -122,6 +124,7 @@ function WalletSection({
         setIsLoading(false);
 
         isLoggingIn.current = false;
+        isButtonClicked.current = false;
       }
     }
 
@@ -144,6 +147,7 @@ function WalletSection({
       onClick={() => {
         if (walletAddr) return;
         setVisible(true);
+        isButtonClicked.current = true;
       }}
       info={info}
       isLoading={isLoading}
