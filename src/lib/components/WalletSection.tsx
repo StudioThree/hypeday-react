@@ -2,6 +2,7 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { Base58 } from "@ethersproject/basex";
 import { useEffect, useMemo, useRef, useState } from "react";
+import ReactModal from "react-modal";
 import { addWallet, verifyWallet } from "../api";
 import type { GetProjectResponse } from "../types";
 import Section from "./Section";
@@ -27,6 +28,7 @@ function WalletSection({
   hasUser: boolean;
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isMobileModalVisible, setIsMobileModalVisible] = useState(false);
   const [walletAddr, setWalletAddr] = useState("");
   const { setVisible } = useWalletModal();
   const { connected, publicKey, signMessage, disconnect } = useWallet();
@@ -139,21 +141,83 @@ function WalletSection({
     disconnect,
   ]);
 
+  const login = () => {
+    if (walletAddr) return;
+    setVisible(true);
+    isButtonClicked.current = true;
+  };
+
+  const checkIsMobile = () => {
+    const isMobile =
+      Math.min(window.screen.width, window.screen.height) < 768 ||
+      navigator.userAgent.indexOf("Mobi") > -1;
+    const urlParams = new URLSearchParams(window.location.search);
+    const phantomApp = urlParams.get("phantomApp");
+
+    if (isMobile && !phantomApp) {
+      return setIsMobileModalVisible(true);
+    }
+    login();
+  };
+
+  const openSolanaDeeplink = async () => {
+    try {
+      const params = new URLSearchParams();
+      params.append("phantomApp", "1");
+      params.append("ref", "hypeday");
+      const phantomLink =
+        "https://phantom.app/ul/browse/" +
+        encodeURIComponent(window.location.href + "?" + params.toString());
+      window.open(phantomLink, "_blank");
+    } catch (err: unknown) {
+      console.error(err);
+    }
+  };
+
   if (projectData?.wallet?.required === false) return null;
 
   return (
-    <Section
-      title="Wallet"
-      onClick={() => {
-        if (walletAddr) return;
-        setVisible(true);
-        isButtonClicked.current = true;
-      }}
-      info={info}
-      isLoading={isLoading}
-      rightText={walletAddr}
-      buttonDisabled={!hasUser}
-    />
+    <>
+      <ReactModal
+        appElement={document.body as HTMLElement}
+        isOpen={isMobileModalVisible}
+        onRequestClose={() => setIsMobileModalVisible(false)}
+        contentLabel={"Open in Phantom Mobile App Modal"}
+        overlayClassName={"hypeday-modal-overlay"}
+        className={"hypeday-modal-content"}
+      >
+        <h3 className="hypeday-h3">Open in Phantom Mobile App?</h3>
+        <div
+          className="hypeday-modal-close"
+          onClick={() => setIsMobileModalVisible(false)}
+        >
+          &times;
+        </div>
+        <button
+          className="hypeday-button hypeday-modal-button"
+          onClick={openSolanaDeeplink}
+        >
+          Yes
+        </button>
+        <button
+          className="hypeday-button hypeday-modal-button"
+          onClick={() => {
+            setIsMobileModalVisible(false);
+            login();
+          }}
+        >
+          Other ways to connect
+        </button>
+      </ReactModal>
+      <Section
+        title="Wallet"
+        onClick={checkIsMobile}
+        info={info}
+        isLoading={isLoading}
+        rightText={walletAddr}
+        buttonDisabled={!hasUser}
+      />
+    </>
   );
 }
 

@@ -33,6 +33,7 @@
     "@types/node": "^16.11.56",
     "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
+    "@types/react-modal": "^3.13.1",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
     "@vitejs/plugin-react": "^2.0.1",
@@ -67,6 +68,7 @@
     "@solana/wallet-adapter-react": "^0.15.20",
     "@solana/wallet-adapter-react-ui": "^0.9.18",
     "@solana/wallet-adapter-wallets": "^0.19.1",
-    "@solana/web3.js": "^1.63.1"
+    "@solana/web3.js": "^1.63.1",
+    "react-modal": "^3.16.1"
   }
 }
