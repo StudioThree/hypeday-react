@@ -15,7 +15,7 @@ Run `npm run dev` to start Vite in development mode. `main.tsx` and `App.tsx` ar
 To install:
 
 ```bash
-npm i github:StudioThree/hypeday-react#v0.0.3
+npm i github:StudioThree/hypeday-react#v0.0.5
 ```
 
 Or with yarn:
