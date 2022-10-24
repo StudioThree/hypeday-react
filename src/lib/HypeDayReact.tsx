@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { GetProjectResponse } from "./types";
+import type { GetProjectResponse, Logger } from "./types";
 import DiscordSection from "./components/DiscordSection";
 import OpenResponseSection from "./components/OpenResponseSection";
 import SignupAccessSection from "./components/SignupAccessSection";
@@ -12,6 +12,7 @@ import RegisterButton from "./components/RegisterButton";
 interface HypeDayReactProps {
   appId: string;
   projectId: string;
+  logger?: Logger;
   userToken?: string;
   testing?: boolean;
 }
@@ -21,6 +22,7 @@ export default function HypeDayReact({
   projectId,
   userToken,
   testing = false,
+  logger,
 }: HypeDayReactProps) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
   const [isLoading, setIsLoading] = useState(true);
@@ -38,13 +40,18 @@ export default function HypeDayReact({
     getProject({ appId, projectId })
       .then((data) => setProjectData(data))
       .catch((err) => {
+        logger?.error(
+          "HypeDayReact: Error fetching project data",
+          "hype01",
+          err
+        );
         console.error("HypeDayReact: Error fetching project data", err);
         setError(
           err.message || "Something went wrong. Please check your connection."
         );
       })
       .finally(() => setIsLoading(false));
-  }, [appId, projectId]);
+  }, [appId, projectId, logger]);
 
   useEffect(() => {
     setAuthorizationHeader(userToken);
@@ -87,22 +94,26 @@ export default function HypeDayReact({
         projectData={projectData}
         appId={appId}
         hasUser={!!userToken}
+        logger={logger}
       />
       <TwitterSection
         projectData={projectData}
         appId={appId}
         hasUser={!!userToken}
+        logger={logger}
       />
       <DiscordSection
         projectData={projectData}
         appId={appId}
         hasUser={!!userToken}
+        logger={logger}
       />
       <OpenResponseSection projectData={projectData} ref={inputRef} />
       <RegisterButton
         projectData={projectData}
         appId={appId}
         hasUser={!!userToken}
+        logger={logger}
         inputRef={inputRef}
       />
       <div

@@ -33,6 +33,26 @@ import "hypeday-react/dist/style.css";
   appId="YOUR_APP_ID" // required, you can request this from Hype.Day
   projectId="OqdTSUuzrCIbapvSQWbL" // required, Hype.Day project ID
   userToken="JWT_TOKEN_OF_THE_USER" // optional, JWT token of the user
+  logger={{
+    info(
+      message: string,
+      eventCode: string,
+      data: { [key: string]: string | number | boolean | undefined }
+    ) {
+      console.log(message, eventCode, data);
+    },
+    warning(
+      message: string,
+      eventCode: string,
+      data: { [key: string]: string | number | boolean | undefined }
+    ) {
+      console.log(message, eventCode, data);
+    },
+    error(message: string, eventCode: string, error: unknown) {
+      console.log(message, eventCode, error);
+    },
+  }} // optional, logger object with info, warning, and error methods.
+  // These methods will be called with 3 parameters: message, eventCode, and data/error.
 />;
 ```
 

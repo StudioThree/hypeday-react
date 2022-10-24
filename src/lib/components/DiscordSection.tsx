@@ -1,17 +1,14 @@
 import { useMemo, useState } from "react";
 import { getOauthUrl } from "../api";
-import type { GetProjectResponse } from "../types";
+import type { SectionProps } from "../types";
 import Section from "./Section";
 
 export default function DiscordSection({
   projectData,
   appId,
   hasUser,
-}: {
-  projectData?: GetProjectResponse;
-  appId: string;
-  hasUser: boolean;
-}) {
+  logger,
+}: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const info = useMemo(() => {
@@ -78,6 +75,11 @@ export default function DiscordSection({
       window.location.assign(url);
     } catch (err) {
       console.error(err);
+      logger?.error(
+        "HypeDayReact: Error getting Discord oauth url",
+        "hype05",
+        err
+      );
     } finally {
       setIsLoading(false);
     }

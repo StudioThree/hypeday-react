@@ -4,7 +4,7 @@ import { Base58 } from "@ethersproject/basex";
 import { useEffect, useMemo, useRef, useState } from "react";
 import ReactModal from "react-modal";
 import { addWallet, verifyWallet } from "../api";
-import type { GetProjectResponse } from "../types";
+import type { SectionProps } from "../types";
 import Section from "./Section";
 import { SolanaWrapper } from "./SolanaWrapper";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
@@ -18,15 +18,7 @@ const chainToCurrency = {
   flow: "FLOW",
 };
 
-function WalletSection({
-  projectData,
-  appId,
-  hasUser,
-}: {
-  projectData?: GetProjectResponse;
-  appId: string;
-  hasUser: boolean;
-}) {
+function WalletSection({ projectData, appId, hasUser, logger }: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileModalVisible, setIsMobileModalVisible] = useState(false);
   const [walletAddr, setWalletAddr] = useState("");
@@ -114,14 +106,21 @@ function WalletSection({
         });
 
         setWalletAddr(shortenWalletAddress(publicKey.toString()));
+        logger?.info("HypeDayReact: Wallet connected", "hype03", {
+          address: publicKey.toString(),
+          projectId: projectData?.id,
+          chain: projectData?.chain,
+        });
       } catch (err) {
         disconnect();
         if (
           (err as Error).message !== "User rejected the request." &&
           (err as Error).name !== WalletNotConnectedError.name
-        )
+        ) {
           console.error("error", err);
-        // TODO: show error message
+          logger?.error("HypeDayReact: Error connecting wallet", "hype02", err);
+          // TODO: show error message
+        }
       } finally {
         setIsLoading(false);
 
@@ -132,6 +131,7 @@ function WalletSection({
 
     loginWithSolana();
   }, [
+    logger,
     appId,
     projectData,
     setIsLoading,
@@ -225,17 +225,15 @@ export default function WalletSectionWrapper({
   projectData,
   appId,
   hasUser,
-}: {
-  projectData?: GetProjectResponse;
-  appId: string;
-  hasUser: boolean;
-}) {
+  logger,
+}: SectionProps) {
   return (
     <SolanaWrapper>
       <WalletSection
         projectData={projectData}
         appId={appId}
         hasUser={hasUser}
+        logger={logger}
       />
     </SolanaWrapper>
   );

@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react";
 import { register } from "../api";
-import type { GetProjectResponse } from "../types";
+import type { SectionProps } from "../types";
 
 export default function RegisterButton({
   projectData,
   appId,
   hasUser,
   inputRef,
-}: {
-  projectData?: GetProjectResponse;
-  appId: string;
-  hasUser: boolean;
-  inputRef: React.RefObject<HTMLInputElement>;
-}) {
+  logger,
+}: SectionProps & { inputRef: React.RefObject<HTMLInputElement> }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
@@ -35,12 +31,18 @@ export default function RegisterButton({
 
       if (error) {
         console.error("Register error", error);
+        logger?.error("HypeDayReact: Error registering user", "hype06", error);
         return setError(error.message);
       }
 
       setIsRegistered(true);
+      logger?.info("HypeDayReact: User registered", "hype07", {
+        projectId: projectData?.id,
+        chain: projectData?.chain,
+      });
     } catch (err) {
       console.error(err);
+      logger?.error("HypeDayReact: Error registering user", "hype08", err);
     } finally {
       setIsLoading(false);
     }

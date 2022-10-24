@@ -1,17 +1,14 @@
 import { useMemo, useState } from "react";
 import { getOauthUrl } from "../api";
-import type { GetProjectResponse } from "../types";
+import type { SectionProps } from "../types";
 import Section from "./Section";
 
 export default function TwitterSection({
   projectData,
   appId,
   hasUser,
-}: {
-  projectData?: GetProjectResponse;
-  appId: string;
-  hasUser: boolean;
-}) {
+  logger,
+}: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const info = useMemo(() => {
@@ -94,6 +91,11 @@ export default function TwitterSection({
       window.location.assign(url);
     } catch (err) {
       console.error(err);
+      logger?.error(
+        "HypeDayReact: Error getting Twitter oauth url",
+        "hype04",
+        err
+      );
     } finally {
       setIsLoading(false);
     }
