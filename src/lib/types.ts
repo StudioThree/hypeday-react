@@ -59,6 +59,7 @@ export interface GetProjectResponse {
     };
   };
   userInfo?: UserInfo;
+  showLink: boolean;
 }
 
 export interface SectionProps {

@@ -8,6 +8,7 @@ import WalletSection from "./components/WalletSection";
 import { getProject, setAuthorizationHeader, setEnv } from "./api";
 import "./style.css";
 import RegisterButton from "./components/RegisterButton";
+import HypeDayLink from "./components/HypeDayLink";
 
 interface HypeDayReactProps {
   appId: string;
@@ -116,27 +117,7 @@ export default function HypeDayReact({
         logger={logger}
         inputRef={inputRef}
       />
-      <div
-        style={{
-          fontSize: "0.8em",
-          width: "100%",
-          display: "flex",
-          justifyContent: "flex-end",
-          paddingTop: 12,
-        }}
-      >
-        <span>
-          Powered by{" "}
-          <a
-            href="https://hype.day"
-            target="_blank"
-            rel="noreferrer"
-            style={{ textDecoration: "none" }}
-          >
-            Hype.Day
-          </a>
-        </span>
-      </div>
+      <HypeDayLink projectData={projectData} />
     </div>
   );
 }
