@@ -8,6 +8,9 @@ import WalletSection from "./components/WalletSection";
 import { getProject, setAuthorizationHeader, setEnv } from "./api";
 import "./style.css";
 import RegisterButton from "./components/RegisterButton";
+import useRegistrationTimeContext, {
+  RegistrationTimeProvider,
+} from "./context/RegistrationTime.context";
 import HypeDayLink from "./components/HypeDayLink";
 
 interface HypeDayReactProps {
@@ -18,7 +21,7 @@ interface HypeDayReactProps {
   testing?: boolean;
 }
 
-export default function HypeDayReact({
+function HypeDayReact({
   appId,
   projectId,
   userToken,
@@ -29,6 +32,7 @@ export default function HypeDayReact({
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const { setData } = useRegistrationTimeContext();
 
   const fetchProjectData = useCallback(async () => {
     if (!projectId || !appId) {
@@ -39,7 +43,10 @@ export default function HypeDayReact({
     setIsLoading(true);
     setError("");
     getProject({ appId, projectId })
-      .then((data) => setProjectData(data))
+      .then((data) => {
+        setProjectData(data);
+        setData(data);
+      })
       .catch((err) => {
         logger?.error(
           "HypeDayReact: Error fetching project data",
@@ -52,7 +59,7 @@ export default function HypeDayReact({
         );
       })
       .finally(() => setIsLoading(false));
-  }, [appId, projectId, logger]);
+  }, [appId, setData, projectId, logger]);
 
   useEffect(() => {
     setAuthorizationHeader(userToken);
@@ -90,7 +97,7 @@ export default function HypeDayReact({
 
   return (
     <div className="hypeday-wrapper">
-      <SignupAccessSection projectData={projectData} />
+      <SignupAccessSection />
       <WalletSection
         projectData={projectData}
         appId={appId}
@@ -119,5 +126,13 @@ export default function HypeDayReact({
       />
       <HypeDayLink projectData={projectData} />
     </div>
+  );
+}
+
+export default function WrappedHypeDayReact(props: HypeDayReactProps) {
+  return (
+    <RegistrationTimeProvider>
+      <HypeDayReact {...props} />
+    </RegistrationTimeProvider>
   );
 }

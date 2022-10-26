@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import type { GetProjectResponse } from "../types";
+import useRegistrationTimeContext, {
+  RegistrationStatus,
+} from "../context/RegistrationTime.context";
 import DateCountdown from "./DateCountdown";
 
 function SectionBase({
@@ -19,73 +20,35 @@ function SectionBase({
   );
 }
 
-export default function SignupAccessSection({
-  projectData,
-}: {
-  projectData?: GetProjectResponse;
-}) {
-  const [isRegistrationNotYetStarted, setIsRegistrationNotYetStarted] =
-    useState<boolean>();
+export default function SignupAccessSection() {
+  const { status, dateString } = useRegistrationTimeContext();
 
-  const isRegistrationClosed =
-    projectData?.signupAccess?.isEndDateRequired &&
-    projectData?.signupAccess?.endDate &&
-    new Date(projectData?.signupAccess?.endDate).getTime() < Date.now();
-
-  useEffect(() => {
-    if (projectData?.signupAccess?.isStartDateRequired) {
-      setIsRegistrationNotYetStarted(
-        !!(
-          projectData?.signupAccess?.isStartDateRequired &&
-          projectData?.signupAccess?.startDate &&
-          new Date(projectData?.signupAccess?.startDate).getTime() > Date.now()
-        )
-      );
-    }
-  }, [projectData]);
-
-  useEffect(() => {
-    if (isRegistrationNotYetStarted && projectData?.signupAccess?.startDate) {
-      const id = setTimeout(
-        () => setIsRegistrationNotYetStarted(false),
-        new Date(projectData?.signupAccess?.startDate).getTime() - Date.now()
-      );
-
-      return () => clearTimeout(id);
-    }
-  }, [isRegistrationNotYetStarted, projectData?.signupAccess?.startDate]);
-
-  if (isRegistrationClosed && projectData.signupAccess?.endDate) {
+  if (status === RegistrationStatus.closed) {
     return (
       <SectionBase title="Registration is closed">
         Registration is closed on{" "}
-        {new Date(projectData.signupAccess?.endDate)?.toUTCString()}. Thank you
-        for your interest.
+        {new Date(dateString as string)?.toUTCString()}. Thank you for your
+        interest.
       </SectionBase>
     );
   }
 
-  if (isRegistrationNotYetStarted && projectData?.signupAccess?.startDate) {
+  if (status === RegistrationStatus.willOpen) {
     return (
       <SectionBase title="Registration starts in:">
         <DateCountdown
-          dateString={projectData?.signupAccess?.startDate}
+          dateString={dateString as string}
           message="Registration is open."
         />
       </SectionBase>
     );
   }
 
-  if (
-    !isRegistrationClosed &&
-    !isRegistrationNotYetStarted &&
-    projectData?.signupAccess?.isEndDateRequired &&
-    projectData?.signupAccess?.endDate
-  ) {
+  if (status === RegistrationStatus.willClose) {
     return (
       <SectionBase title="Registration ends in:">
         <DateCountdown
-          dateString={projectData?.signupAccess?.endDate}
+          dateString={dateString as string}
           message="Registration is closed."
         />
       </SectionBase>
