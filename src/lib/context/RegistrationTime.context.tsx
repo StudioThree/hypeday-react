@@ -44,7 +44,6 @@ export function RegistrationTimeProvider({
     const endDate = projectData?.signupAccess?.isEndDateRequired
       ? new Date(projectData?.signupAccess?.endDate as string).getTime()
       : null;
-    console.log(startDate, endDate, now);
 
     // no time restrictions, so registration is always open
     if (!startDate && !endDate) {
