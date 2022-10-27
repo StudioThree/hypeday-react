@@ -60,5 +60,21 @@ export interface GetProjectResponse {
         };
     };
     userInfo?: UserInfo;
+    showLink: boolean;
+}
+export interface SectionProps {
+    projectData?: GetProjectResponse;
+    appId: string;
+    hasUser: boolean;
+    logger?: Logger;
+}
+export declare class Logger {
+    info(message: string, eventCode: string, data?: {
+        [key: string]: string | number | boolean | undefined;
+    }): void;
+    warning(message: string, eventCode: string, data?: {
+        [key: string]: string | number | boolean | undefined;
+    }): void;
+    error(message: string, eventCode: string, error: unknown): void;
 }
 export {};

@@ -1,8 +1,5 @@
 /// <reference types="react" />
-import type { GetProjectResponse } from "../types";
-export default function RegisterButton({ projectData, appId, hasUser, inputRef, }: {
-    projectData?: GetProjectResponse;
-    appId: string;
-    hasUser: boolean;
+import type { SectionProps } from "../types";
+export default function RegisterButton({ projectData, appId, hasUser, inputRef, logger, }: SectionProps & {
     inputRef: React.RefObject<HTMLInputElement>;
 }): JSX.Element;

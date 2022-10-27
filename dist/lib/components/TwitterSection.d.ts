@@ -1,7 +1,3 @@
 /// <reference types="react" />
-import type { GetProjectResponse } from "../types";
-export default function TwitterSection({ projectData, appId, hasUser, }: {
-    projectData?: GetProjectResponse;
-    appId: string;
-    hasUser: boolean;
-}): JSX.Element | null;
+import type { SectionProps } from "../types";
+export default function TwitterSection({ projectData, appId, hasUser, logger, }: SectionProps): JSX.Element | null;
