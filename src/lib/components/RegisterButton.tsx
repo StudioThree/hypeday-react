@@ -7,7 +7,7 @@ import type { SectionProps } from "../types";
 
 const buttonTextByStatus = {
   [RegistrationStatus.willOpen]: "Registration opening soon",
-  [RegistrationStatus.open]: "Register",
+  [RegistrationStatus.alwaysOpen]: "Register",
   [RegistrationStatus.willClose]: "Register",
   [RegistrationStatus.closed]: "Registration is closed",
 };

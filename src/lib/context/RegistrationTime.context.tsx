@@ -10,7 +10,7 @@ import { GetProjectResponse } from "../types";
 
 export enum RegistrationStatus {
   willOpen = "willOpen",
-  open = "open",
+  alwaysOpen = "alwaysOpen",
   willClose = "willClose",
   closed = "closed",
 }
@@ -32,7 +32,7 @@ export function RegistrationTimeProvider({
 }) {
   const [projectData, setProjectData] = useState<GetProjectResponse>();
   const [status, setStatus] = useState<RegistrationStatus>(
-    RegistrationStatus.open
+    RegistrationStatus.alwaysOpen
   );
   const [dateString, setDateString] = useState<string>();
 
@@ -48,7 +48,7 @@ export function RegistrationTimeProvider({
 
     // no time restrictions, so registration is always open
     if (!startDate && !endDate) {
-      setStatus(RegistrationStatus.open);
+      setStatus(RegistrationStatus.alwaysOpen);
       return;
     }
 
@@ -58,7 +58,7 @@ export function RegistrationTimeProvider({
 
       const id = setTimeout(() => {
         setStatus(
-          endDate ? RegistrationStatus.willClose : RegistrationStatus.open
+          endDate ? RegistrationStatus.willClose : RegistrationStatus.alwaysOpen
         );
         setDateString(projectData?.signupAccess?.endDate);
       }, startDate - now);
@@ -75,7 +75,7 @@ export function RegistrationTimeProvider({
         return () => clearTimeout(id);
       }
 
-      setStatus(RegistrationStatus.open);
+      setStatus(RegistrationStatus.alwaysOpen);
       return;
     }
 
