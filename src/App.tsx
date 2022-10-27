@@ -8,7 +8,7 @@ function App() {
     <div style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
       <HypeDayReact
         testing={true}
-        appId="123"
+        appId="AWGOvkDPkSzRxwebZ4Gv"
         projectId="ZymMrMJK1mrZbUPAbcMH"
         userToken={testToken}
       />
