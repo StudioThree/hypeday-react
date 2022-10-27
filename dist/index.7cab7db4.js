@@ -216,7 +216,7 @@ function El({
   Ft(() => {
     var E, _, I, R, T, L, P, F;
     const d = Date.now(), w = (E = e == null ? void 0 : e.signupAccess) != null && E.isStartDateRequired ? new Date((_ = e == null ? void 0 : e.signupAccess) == null ? void 0 : _.startDate).getTime() : null, v = (I = e == null ? void 0 : e.signupAccess) != null && I.isEndDateRequired ? new Date((R = e == null ? void 0 : e.signupAccess) == null ? void 0 : R.endDate).getTime() : null;
-    if (console.log(w, v, d), !w && !v) {
+    if (!w && !v) {
       o("alwaysOpen");
       return;
     }
@@ -14420,7 +14420,7 @@ class ay extends eo {
         throw new ti();
       let e;
       try {
-        e = (await import("./index.e88fcb96.js")).default;
+        e = (await import("./index.f5037ea9.js")).default;
       } catch (o) {
         throw new mp(o == null ? void 0 : o.message, o);
       }
