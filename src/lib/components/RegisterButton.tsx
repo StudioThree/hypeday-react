@@ -1,6 +1,16 @@
 import { useEffect, useState } from "react";
 import { register } from "../api";
+import useRegistrationTimeContext, {
+  RegistrationStatus,
+} from "../context/RegistrationTime.context";
 import type { SectionProps } from "../types";
+
+const buttonTextByStatus = {
+  [RegistrationStatus.willOpen]: "Registration opening soon",
+  [RegistrationStatus.alwaysOpen]: "Register",
+  [RegistrationStatus.willClose]: "Register",
+  [RegistrationStatus.closed]: "Registration is closed",
+};
 
 export default function RegisterButton({
   projectData,
@@ -12,6 +22,7 @@ export default function RegisterButton({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
+  const { status } = useRegistrationTimeContext();
 
   useEffect(() => {
     setIsRegistered(!!projectData?.userInfo?.registered);
@@ -50,6 +61,8 @@ export default function RegisterButton({
 
   const isButtonDisabled =
     isLoading ||
+    status === RegistrationStatus.closed ||
+    status === RegistrationStatus.willOpen ||
     !hasUser ||
     (projectData?.discord?.enabled &&
       !projectData?.userInfo?.discord?.username) ||
@@ -67,7 +80,7 @@ export default function RegisterButton({
       >
         {isLoading && <div className="hypeday-spinner hypeday-btn-spinner" />}
         <span style={{ visibility: isLoading ? "hidden" : "initial" }}>
-          {isRegistered ? "Registered! 🎉" : "Register"}
+          {isRegistered ? "Registered! 🎉" : buttonTextByStatus[status]}
         </span>
       </button>
       {!!error && <span className="hypeday-register-error">{error}</span>}
