@@ -5,6 +5,9 @@ import { visualizer } from "rollup-plugin-visualizer";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
+  server: {
+    host: true,
+  },
   plugins: [
     react({
       jsxRuntime: "classic",
