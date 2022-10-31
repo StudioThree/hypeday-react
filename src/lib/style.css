@@ -123,9 +123,11 @@
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   transition: background-color 0.25s;
+  white-space: nowrap;
 }
 
 .hypeday-button-gray:hover {
+  color: rgba(255, 255, 255, 0.9);
   background-color: #383a44 !important;
 }
 
