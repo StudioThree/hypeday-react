@@ -48,7 +48,7 @@ export default function DiscordSection({
               </div>
 
               <a
-                className="hypeday-button hypeday-button-gray hypeday-discord-req-action-button"
+                className="hypeday-button-gray hypeday-discord-req-action-button"
                 href={field?.serverLink || "/"}
                 target="_blank"
                 rel="noreferrer"

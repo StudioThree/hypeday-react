@@ -34,7 +34,7 @@ export default function TwitterSection({
                   href={`https://twitter.com/${account.trim()}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="hypeday-button hypeday-button-gray"
+                  className="hypeday-button-gray"
                 >
                   Follow
                 </a>
@@ -67,7 +67,7 @@ export default function TwitterSection({
               href={twitter.retweetUrl}
               target="_blank"
               rel="noreferrer"
-              className="hypeday-button hypeday-button-gray"
+              className="hypeday-button-gray"
             >
               Retweet
             </a>

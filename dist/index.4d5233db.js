@@ -148,7 +148,7 @@ function El({
         }, /* @__PURE__ */ D.createElement("strong", null, F == null ? void 0 : F.serverDisplayName)), " ", "server on Discord", F.isShouldJoinBeforeRequired ? /* @__PURE__ */ D.createElement(D.Fragment, null, " ", "before", " ", /* @__PURE__ */ D.createElement("strong", null, new Date(
           (F == null ? void 0 : F.shouldJoinBefore) || ""
         ).toLocaleDateString())) : null), /* @__PURE__ */ D.createElement("a", {
-          className: "hypeday-button hypeday-button-gray hypeday-discord-req-action-button",
+          className: "hypeday-button-gray hypeday-discord-req-action-button",
           href: (F == null ? void 0 : F.serverLink) || "/",
           target: "_blank",
           rel: "noreferrer"
@@ -2036,7 +2036,7 @@ function zf({
         href: `https://twitter.com/${O.trim()}`,
         target: "_blank",
         rel: "noreferrer",
-        className: "hypeday-button hypeday-button-gray"
+        className: "hypeday-button-gray"
       }, "Follow")))));
       N.push(F);
     }
@@ -2052,7 +2052,7 @@ function zf({
         href: E.retweetUrl,
         target: "_blank",
         rel: "noreferrer",
-        className: "hypeday-button hypeday-button-gray"
+        className: "hypeday-button-gray"
       }, "Retweet")));
       N.push(P);
     }
@@ -14481,7 +14481,7 @@ class uy extends to {
         throw new ni();
       let e;
       try {
-        e = (await import("./index.0e3a05f6.js")).default;
+        e = (await import("./index.af349c76.js")).default;
       } catch (o) {
         throw new Rg(o == null ? void 0 : o.message, o);
       }
