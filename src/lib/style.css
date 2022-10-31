@@ -208,6 +208,10 @@
   padding: 16px;
 }
 
+.hypeday-modal-p {
+  margin: 24px 0 12px 0;
+}
+
 .hypeday-modal-button {
   background-color: #4299e1;
   margin-top: 16px;

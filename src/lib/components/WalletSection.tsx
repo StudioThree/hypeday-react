@@ -2,13 +2,13 @@ import { useWallet } from "@solana/wallet-adapter-react";
 import { useWalletModal } from "@solana/wallet-adapter-react-ui";
 import { Base58 } from "@ethersproject/basex";
 import { useEffect, useMemo, useRef, useState } from "react";
-import ReactModal from "react-modal";
 import { addWallet, verifyWallet } from "../api";
 import type { SectionProps } from "../types";
 import Section from "./Section";
 import { SolanaWrapper } from "./SolanaWrapper";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
-import { shortenWalletAddress } from "../helpers";
+import { isMobile, shortenWalletAddress } from "../helpers";
+import HypeModal from "./HypeModal";
 
 const chainToCurrency = {
   ethereum: "ETH",
@@ -148,13 +148,10 @@ function WalletSection({ projectData, appId, hasUser, logger }: SectionProps) {
   };
 
   const checkIsMobile = () => {
-    const isMobile =
-      Math.min(window.screen.width, window.screen.height) < 768 ||
-      navigator.userAgent.indexOf("Mobi") > -1;
     const urlParams = new URLSearchParams(window.location.search);
     const phantomApp = urlParams.get("phantomApp");
 
-    if (isMobile && !phantomApp) {
+    if (isMobile() && !phantomApp) {
       return setIsMobileModalVisible(true);
     }
     login();
@@ -178,21 +175,11 @@ function WalletSection({ projectData, appId, hasUser, logger }: SectionProps) {
 
   return (
     <>
-      <ReactModal
-        appElement={document.body as HTMLElement}
+      <HypeModal
         isOpen={isMobileModalVisible}
         onRequestClose={() => setIsMobileModalVisible(false)}
-        contentLabel={"Open in Phantom Mobile App Modal"}
-        overlayClassName={"hypeday-modal-overlay"}
-        className={"hypeday-modal-content"}
+        title="Open in Phantom Mobile App?"
       >
-        <h3 className="hypeday-h3">Open in Phantom Mobile App?</h3>
-        <div
-          className="hypeday-modal-close"
-          onClick={() => setIsMobileModalVisible(false)}
-        >
-          &times;
-        </div>
         <button
           className="hypeday-button hypeday-modal-button"
           onClick={openSolanaDeeplink}
@@ -208,7 +195,7 @@ function WalletSection({ projectData, appId, hasUser, logger }: SectionProps) {
         >
           Other ways to connect
         </button>
-      </ReactModal>
+      </HypeModal>
       <Section
         title="Wallet"
         onClick={checkIsMobile}

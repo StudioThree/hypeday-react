@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { getOauthUrl } from "../api";
+import { isMobile } from "../helpers";
 import type { SectionProps } from "../types";
+import HypeModal from "./HypeModal";
 import Section from "./Section";
 
 export default function TwitterSection({
@@ -10,6 +12,7 @@ export default function TwitterSection({
   logger,
 }: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [isMobileModalVisible, setIsMobileModalVisible] = useState(false);
 
   const info = useMemo(() => {
     if (!projectData?.twitter?.enabled) return [];
@@ -88,6 +91,13 @@ export default function TwitterSection({
         returnUrl: window.location.href,
       });
 
+      if (isMobile()) {
+        // workaround for android
+        // https://twittercommunity.com/t/web-oauth-2-0-is-broken-on-android-if-twitter-app-is-installed/169698/10
+        window.open(url, "_blank");
+        window.open(url, "_blank");
+      }
+      // for ios and desktop
       window.location.assign(url);
     } catch (err) {
       console.error(err);
@@ -104,13 +114,40 @@ export default function TwitterSection({
   if (!projectData?.twitter?.enabled) return null;
 
   return (
-    <Section
-      title="Twitter"
-      onClick={handleConnect}
-      info={info}
-      rightText={projectData?.userInfo?.twitter?.username}
-      buttonDisabled={!hasUser}
-      isLoading={isLoading}
-    />
+    <>
+      <HypeModal
+        isOpen={isMobileModalVisible}
+        onRequestClose={() => setIsMobileModalVisible(false)}
+      >
+        <p className="hypeday-modal-p">
+          Next, you will be redirected to Twitter to complete the connection
+          request. Please ignore the &apos;Open in the app&apos; prompts and
+          stay in the browser. Twitter app does not support
+          establishing/authorizing connections in the app.
+        </p>
+        <button
+          className="hypeday-button hypeday-modal-button"
+          onClick={() => {
+            setIsMobileModalVisible(false);
+            handleConnect();
+          }}
+        >
+          Ok
+        </button>
+      </HypeModal>
+      <Section
+        title="Twitter"
+        onClick={() => {
+          if (isMobile()) {
+            return setIsMobileModalVisible(true);
+          }
+          handleConnect();
+        }}
+        info={info}
+        rightText={projectData?.userInfo?.twitter?.username}
+        buttonDisabled={!hasUser}
+        isLoading={isLoading}
+      />
+    </>
   );
 }
