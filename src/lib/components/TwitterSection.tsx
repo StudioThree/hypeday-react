@@ -24,18 +24,9 @@ export default function TwitterSection({
       const followList = twitter?.follow?.split(",");
       const followReq = (
         <>
-          <ul style={{ listStyle: "none", padding: 0, margin: "1.5rem 0" }}>
+          <ul className="hypeday-req-list">
             {followList?.map((account: string) => (
-              <li
-                key={account}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  margin: ".5rem 0",
-                }}
-              >
+              <li key={account} className="hypeday-req-list-item">
                 <span>
                   Follow <strong>@{account}</strong> on Twitter
                 </span>
@@ -43,7 +34,7 @@ export default function TwitterSection({
                   href={`https://twitter.com/${account.trim()}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="hypeday-button gray"
+                  className="hypeday-button hypeday-button-gray"
                 >
                   Follow
                 </a>
@@ -58,20 +49,12 @@ export default function TwitterSection({
     if (twitter?.isRetweetRequired) {
       const retweetReq = (
         <>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-between",
-              marginBottom: "1rem",
-            }}
-          >
+          <div className="hypeday-req-list-item">
             <div>
               Retweet{" "}
               <a
                 href={twitter.retweetUrl}
-                style={{ textDecoration: "none" }}
+                className="hypeday-a-text-decoration-none"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -84,7 +67,7 @@ export default function TwitterSection({
               href={twitter.retweetUrl}
               target="_blank"
               rel="noreferrer"
-              className="hypeday-button gray"
+              className="hypeday-button hypeday-button-gray"
             >
               Retweet
             </a>

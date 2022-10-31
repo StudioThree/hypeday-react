@@ -29,6 +29,7 @@
   width: 360px;
   padding: 24px;
   border-radius: 8px;
+  opacity: 0.9;
 }
 
 .hypeday-h3 {
@@ -84,7 +85,7 @@
   color: var(--white);
 }
 
-.hypeday-button.gray,
+.hypeday-button-gray,
 .hypeday-button {
   border-radius: 4px;
   border: none;
@@ -100,9 +101,10 @@
   color: var(--white);
   cursor: pointer;
   transition: background-color 0.25s;
+  white-space: nowrap;
 }
 
-.hypeday-button.gray {
+.hypeday-button-gray {
   border-radius: 20px;
   border: none;
   padding: 4px 16px;
@@ -120,7 +122,7 @@
   transition: background-color 0.25s;
 }
 
-.hypeday-button.gray:hover {
+.hypeday-button-gray:hover {
   background-color: #383a44;
 }
 
@@ -244,4 +246,27 @@
 
 .hypeday-modal-button:hover {
   background-color: #2b6cb0;
+}
+
+.hypeday-req-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+}
+
+.hypeday-req-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.hypeday-discord-req-action-button {
+  margin-bottom: auto;
+  margin-left: 2rem;
+}
+
+.hypeday-a-text-decoration-none {
+  text-decoration: none;
 }

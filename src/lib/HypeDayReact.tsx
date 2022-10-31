@@ -96,7 +96,7 @@ function HypeDayReact({
   }
 
   return (
-    <div className="hypeday-wrapper" style={{ opacity: 0.9 }}>
+    <div className="hypeday-wrapper">
       <SignupAccessSection />
       <WalletSection
         projectData={projectData}

@@ -27,13 +27,7 @@ export default function DiscordSection({
       if (field.isServerRequired) {
         const serverReq = (
           <>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-around",
-              }}
-            >
+            <div className="hypeday-req-list-item">
               <div>
                 Join the{" "}
                 <a href={field?.serverLink} target="_blank" rel="noreferrer">
@@ -54,12 +48,7 @@ export default function DiscordSection({
               </div>
 
               <a
-                className="hypeday-button gray"
-                style={{
-                  whiteSpace: "nowrap",
-                  marginBottom: "auto",
-                  marginLeft: "2rem",
-                }}
+                className="hypeday-button hypeday-button-gray hypeday-discord-req-action-button"
                 href={field?.serverLink || "/"}
                 target="_blank"
                 rel="noreferrer"
