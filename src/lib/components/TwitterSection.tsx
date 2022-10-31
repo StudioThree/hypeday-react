@@ -20,6 +20,80 @@ export default function TwitterSection({
     const { twitter } = projectData;
     const infoArray = [];
 
+    if (twitter?.isFollowRequired) {
+      const followList = twitter?.follow?.split(",");
+      const followReq = (
+        <>
+          <ul style={{ listStyle: "none", padding: 0, margin: "1.5rem 0" }}>
+            {followList?.map((account: string) => (
+              <li
+                key={account}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  margin: ".5rem 0",
+                }}
+              >
+                <span>
+                  Follow <strong>@{account}</strong> on Twitter
+                </span>
+                <a
+                  href={`https://twitter.com/${account.trim()}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hypeday-button gray"
+                >
+                  Follow
+                </a>
+              </li>
+            ))}
+          </ul>
+        </>
+      );
+      infoArray.push(followReq);
+    }
+
+    if (twitter?.isRetweetRequired) {
+      const retweetReq = (
+        <>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginBottom: "1rem",
+            }}
+          >
+            <div>
+              Retweet{" "}
+              <a
+                href={twitter.retweetUrl}
+                style={{ textDecoration: "none" }}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <strong>this</strong>
+              </a>{" "}
+              on Twitter
+            </div>
+
+            <a
+              href={twitter.retweetUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hypeday-button gray"
+            >
+              Retweet
+            </a>
+          </div>
+        </>
+      );
+      infoArray.push(retweetReq);
+    }
+
     if (twitter?.isAccountCreatedRequired) {
       const creationReq = (
         <>
@@ -32,29 +106,6 @@ export default function TwitterSection({
       infoArray.push(creationReq);
     }
 
-    if (twitter?.isFollowRequired) {
-      const followList = twitter?.follow?.split(",");
-      const followReq = (
-        <>
-          Follow these account(s):
-          <ul>
-            {followList?.map((account: string) => (
-              <li key={account}>
-                <a
-                  href={`https://twitter.com/${account.trim()}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <strong>@{account}</strong>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </>
-      );
-      infoArray.push(followReq);
-    }
-
     if (twitter?.isMinFollowersRequired) {
       const minFollowersReq = (
         <>
@@ -62,18 +113,6 @@ export default function TwitterSection({
         </>
       );
       infoArray.push(minFollowersReq);
-    }
-
-    if (twitter?.isRetweetRequired) {
-      const retweetReq = (
-        <>
-          Retweet{" "}
-          <a href={twitter.retweetUrl} target="_blank" rel="noreferrer">
-            <strong>this tweet</strong>
-          </a>
-        </>
-      );
-      infoArray.push(retweetReq);
     }
 
     return infoArray;

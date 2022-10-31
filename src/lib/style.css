@@ -84,6 +84,7 @@
   color: var(--white);
 }
 
+.hypeday-button.gray,
 .hypeday-button {
   border-radius: 4px;
   border: none;
@@ -99,6 +100,28 @@
   color: var(--white);
   cursor: pointer;
   transition: background-color 0.25s;
+}
+
+.hypeday-button.gray {
+  border-radius: 20px;
+  border: none;
+  padding: 4px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font-size: 0.9em;
+  font-weight: normal;
+  text-decoration: none;
+  font-family: inherit;
+  background-color: #2b2d35;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.hypeday-button.gray:hover {
+  background-color: #383a44;
 }
 
 .hypeday-button:hover {
