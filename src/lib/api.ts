@@ -21,7 +21,8 @@ function handleResponse(response: Response) {
     const data = text && JSON.parse(text);
 
     if (!response.ok) {
-      const error = (data && data.message) || response.statusText;
+      const error = data?.error?.message || response.statusText;
+      console.error(error);
       return Promise.reject(error);
     }
 
