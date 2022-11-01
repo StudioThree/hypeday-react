@@ -25,7 +25,7 @@ export default function HypeDayLink({
           href="https://hype.day"
           target="_blank"
           rel="noreferrer"
-          style={{ textDecoration: "none" }}
+          className="hypeday-a-text-decoration-none"
         >
           Hype.Day
         </a>
