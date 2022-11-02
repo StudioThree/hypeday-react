@@ -9,6 +9,7 @@ import { SolanaWrapper } from "./SolanaWrapper";
 import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { isMobile, shortenWalletAddress } from "../helpers";
 import HypeModal from "./HypeModal";
+import useTokenWallet from "../hooks/useTokenWallet";
 
 const chainToCurrency = {
   ethereum: "ETH",
@@ -18,7 +19,13 @@ const chainToCurrency = {
   flow: "FLOW",
 };
 
-function WalletSection({ projectData, appId, hasUser, logger }: SectionProps) {
+function WalletSection({
+  projectData,
+  appId,
+  hasUser,
+  token,
+  logger,
+}: SectionProps & { token: string }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileModalVisible, setIsMobileModalVisible] = useState(false);
   const [walletAddr, setWalletAddr] = useState("");
@@ -26,16 +33,22 @@ function WalletSection({ projectData, appId, hasUser, logger }: SectionProps) {
   const { connected, publicKey, signMessage, disconnect } = useWallet();
   const isLoggingIn = useRef(false);
   const isButtonClicked = useRef(false);
+  const tokenWallet = useTokenWallet(token, projectData.chain);
+
+  useEffect(() => {
+    setWalletAddr(shortenWalletAddress(tokenWallet));
+  }, [tokenWallet]);
 
   const info = useMemo(() => {
     if (!projectData?.wallet) return [];
 
     const { wallet } = projectData;
-    setWalletAddr(
-      projectData.userInfo?.walletAddress
-        ? shortenWalletAddress(projectData.userInfo.walletAddress)
-        : ""
-    );
+
+    // If there is a wallet in the token, use that
+    if (!tokenWallet && projectData.userInfo?.walletAddress) {
+      setWalletAddr(shortenWalletAddress(projectData.userInfo?.walletAddress));
+    }
+
     const infoArray = [];
 
     if (wallet?.isBalanceRequired) {
@@ -73,7 +86,7 @@ function WalletSection({ projectData, appId, hasUser, logger }: SectionProps) {
     }
 
     return infoArray;
-  }, [projectData]);
+  }, [projectData, tokenWallet]);
 
   useEffect(() => {
     async function loginWithSolana() {
@@ -212,14 +225,16 @@ export default function WalletSectionWrapper({
   projectData,
   appId,
   hasUser,
+  token,
   logger,
-}: SectionProps) {
+}: SectionProps & { token: string }) {
   return (
     <SolanaWrapper>
       <WalletSection
         projectData={projectData}
         appId={appId}
         hasUser={hasUser}
+        token={token}
         logger={logger}
       />
     </SolanaWrapper>

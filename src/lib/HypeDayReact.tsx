@@ -16,8 +16,8 @@ import HypeDayLink from "./components/HypeDayLink";
 interface HypeDayReactProps {
   appId: string;
   projectId: string;
+  userToken: string;
   logger?: Logger;
-  userToken?: string;
   testing?: boolean;
 }
 
@@ -84,7 +84,7 @@ function HypeDayReact({
     );
   }
 
-  if (error) {
+  if (error || !projectData) {
     return (
       <div className="hypeday-wrapper">
         <span className="hypeday-error">{error}</span>
@@ -102,6 +102,7 @@ function HypeDayReact({
         projectData={projectData}
         appId={appId}
         hasUser={!!userToken}
+        token={userToken}
         logger={logger}
       />
       <TwitterSection
