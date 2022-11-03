@@ -40,10 +40,12 @@ export interface GetProjectResponse {
     enabled?: boolean;
     isFollowRequired?: boolean;
     isRetweetRequired?: boolean;
+    isLikeRequired?: boolean;
     isMinFollowersRequired?: boolean;
     isAccountCreatedRequired?: boolean;
     follow?: string;
     retweetUrl?: string;
+    likeUrl?: string;
     minFollowers?: number;
     accountCreated?: string;
   };
