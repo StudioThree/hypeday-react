@@ -21,12 +21,7 @@ function App() {
 
   return (
     <div className="App">
-      <HypeDayReact
-        testing={true}
-        appId={appId}
-        projectId={projectId}
-        userToken={userToken}
-      />
+      <HypeDayReact appId={appId} projectId={projectId} userToken={userToken} />
     </div>
   );
 }

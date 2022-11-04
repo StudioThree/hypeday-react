@@ -1,13 +1,7 @@
-const prodUrl = "https://api.hype.day";
-const testingUrl = "https://apitest.hype.day";
-let BASE_URL = "https://api.hype.day";
+const BASE_URL = "https://api.hype.day";
 const headers = new Headers({
   "Content-Type": "application/json",
 });
-
-export function setEnv(testing: boolean) {
-  BASE_URL = testing ? testingUrl : prodUrl;
-}
 
 export function setAuthorizationHeader(token: string | undefined) {
   token

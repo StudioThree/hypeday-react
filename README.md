@@ -29,7 +29,6 @@ import HypeDayReact from "hypeday-react";
 import "hypeday-react/dist/style.css";
 
 <HypeDayReact
-  testing={false} // optional, default false. If true, will use the testing.hype.day and related blockchain's testnet / devnet. This will require a project ID from the testing.hype.day website.
   appId="YOUR_APP_ID" // required, you can request this from Hype.Day
   projectId="OqdTSUuzrCIbapvSQWbL" // required, Hype.Day project ID
   userToken="JWT_TOKEN_OF_THE_USER" // optional, JWT token of the user
