@@ -1,5 +1,5 @@
 declare type EvmChains = "ethereum" | "polygon" | "avalanche";
-declare type SupportedChains = EvmChains | "solana" | "flow";
+export declare type SupportedChains = EvmChains | "solana" | "flow";
 interface DiscordRequirement {
     enabled?: boolean;
     isServerRequired?: boolean;
@@ -41,10 +41,12 @@ export interface GetProjectResponse {
         enabled?: boolean;
         isFollowRequired?: boolean;
         isRetweetRequired?: boolean;
+        isLikeRequired?: boolean;
         isMinFollowersRequired?: boolean;
         isAccountCreatedRequired?: boolean;
         follow?: string;
         retweetUrl?: string;
+        likeUrl?: string;
         minFollowers?: number;
         accountCreated?: string;
     };
@@ -63,10 +65,20 @@ export interface GetProjectResponse {
     showLink: boolean;
 }
 export interface SectionProps {
-    projectData?: GetProjectResponse;
+    projectData: GetProjectResponse;
     appId: string;
     hasUser: boolean;
     logger?: Logger;
+}
+export interface HypeJWTPayload {
+    iss: string;
+    sub: string;
+    aud: string;
+    exp: number;
+    email?: string;
+    wallets?: {
+        [K in SupportedChains]?: string;
+    };
 }
 export declare class Logger {
     info(message: string, eventCode: string, data?: {

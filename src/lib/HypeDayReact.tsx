@@ -18,7 +18,6 @@ interface HypeDayReactProps {
   projectId: string;
   userToken: string;
   logger?: Logger;
-  userToken?: string;
 }
 
 function HypeDayReact({

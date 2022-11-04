@@ -1,4 +1,3 @@
-export declare function setEnv(testing: boolean): void;
 export declare function setAuthorizationHeader(token: string | undefined): void;
 export declare function getProject({ appId, projectId, }: {
     appId: string;
