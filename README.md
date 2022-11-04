@@ -31,7 +31,7 @@ import "hypeday-react/dist/style.css";
 <HypeDayReact
   appId="YOUR_APP_ID" // required, you can request this from Hype.Day
   projectId="OqdTSUuzrCIbapvSQWbL" // required, Hype.Day project ID
-  userToken="JWT_TOKEN_OF_THE_USER" // optional, JWT token of the user
+  userToken="JWT_TOKEN_OF_THE_USER" // required, JWT token of the user
   logger={{
     info(
       message: string,
@@ -66,8 +66,12 @@ Token payload format (see https://jwt.io/ for details):
   iss: "https://your-web-site.com",
   aud: "https://hype.day",
   sub: "testuserid",
-  // exp is optional
   exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 10,
+  // email is optional
+  email: "user@domain.com",
+  // wallets is optional, key must be one of these and should match the project's chain:
+  // ethereum, polygon, avalanche, solana, flow
+  wallets: { ethereum: "0x69E5F8349D18930f99432612eCC10E9A7B8Fb3B2" }
 }
 ```
 

@@ -69,6 +69,7 @@
     "@solana/wallet-adapter-react-ui": "^0.9.18",
     "@solana/wallet-adapter-wallets": "^0.19.1",
     "@solana/web3.js": "^1.63.1",
+    "jwt-decode": "^3.1.2",
     "react-modal": "^3.16.1"
   }
 }
