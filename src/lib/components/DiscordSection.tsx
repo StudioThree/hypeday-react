@@ -27,20 +27,37 @@ export default function DiscordSection({
       if (field.isServerRequired) {
         const serverReq = (
           <>
-            Join the{" "}
-            <a href={field?.serverLink} target="_blank" rel="noreferrer">
-              <strong>{field?.serverDisplayName}</strong>
-            </a>{" "}
-            server on Discord
-            {field.isShouldJoinBeforeRequired ? (
-              <>
-                {" "}
-                before{" "}
-                <strong>
-                  {new Date(field?.shouldJoinBefore || "").toLocaleString()}
-                </strong>
-              </>
-            ) : null}
+            <div className="hypeday-req-list-item">
+              <div>
+                Join the{" "}
+                <a href={field?.serverLink} target="_blank" rel="noreferrer">
+                  <strong>{field?.serverDisplayName}</strong>
+                </a>{" "}
+                server on Discord
+                {field.isShouldJoinBeforeRequired ? (
+                  <>
+                    {" "}
+                    before{" "}
+                    <strong>
+                      {new Date(
+                        field?.shouldJoinBefore || ""
+                      ).toLocaleDateString()}
+                    </strong>
+                  </>
+                ) : null}
+              </div>
+
+              <a
+                className="hypeday-button-gray hypeday-discord-req-action-button"
+                href={field?.serverLink || "/"}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <span>
+                  Join the <b>{field?.serverDisplayName || "test"}</b>
+                </span>
+              </a>
+            </div>
           </>
         );
         infoArray.push(serverReq);
