@@ -77,6 +77,37 @@ export default function TwitterSection({
       infoArray.push(retweetReq);
     }
 
+    if (twitter?.isLikeRequired) {
+      const likeReq = (
+        <>
+          <div className="hypeday-req-list-item">
+            <div>
+              Like{" "}
+              <a
+                href={twitter.likeUrl}
+                className="hypeday-a-text-decoration-none"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <strong>this</strong>
+              </a>{" "}
+              on Twitter
+            </div>
+
+            <a
+              href={twitter.likeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="hypeday-button-gray"
+            >
+              Like
+            </a>
+          </div>
+        </>
+      );
+      infoArray.push(likeReq);
+    }
+
     if (twitter?.isAccountCreatedRequired) {
       const creationReq = (
         <>
