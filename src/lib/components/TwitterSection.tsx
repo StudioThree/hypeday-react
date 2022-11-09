@@ -3,6 +3,7 @@ import { getOauthUrl } from "../api";
 import { isMobile } from "../helpers";
 import type { SectionProps } from "../types";
 import HypeModal from "./HypeModal";
+import RequiredIndicator from "./RequiredIndicator";
 import Section from "./Section";
 
 export default function TwitterSection({
@@ -29,6 +30,7 @@ export default function TwitterSection({
               <li key={account} className="hypeday-req-list-item">
                 <span>
                   Follow <strong>@{account}</strong> on Twitter
+                  <RequiredIndicator required={!twitter.isFollowOptional} />
                 </span>
                 <a
                   href={`https://twitter.com/${account.trim()}`}
@@ -61,6 +63,7 @@ export default function TwitterSection({
                 <strong>this</strong>
               </a>{" "}
               on Twitter
+              <RequiredIndicator required={!twitter.isRetweetOptional} />
             </div>
 
             <a
@@ -92,6 +95,7 @@ export default function TwitterSection({
                 <strong>this</strong>
               </a>{" "}
               on Twitter
+              <RequiredIndicator required={!twitter.isLikeOptional} />
             </div>
 
             <a
@@ -115,6 +119,7 @@ export default function TwitterSection({
           <strong>
             {new Date(twitter?.accountCreated || "").toLocaleDateString()}
           </strong>
+          <RequiredIndicator required={!twitter.isAccountCreatedOptional} />
         </>
       );
       infoArray.push(creationReq);
@@ -124,6 +129,7 @@ export default function TwitterSection({
       const minFollowersReq = (
         <>
           Have at least <b>{twitter.minFollowers} follower(s)</b>
+          <RequiredIndicator required={!twitter.isMinFollowersOptional} />
         </>
       );
       infoArray.push(minFollowersReq);

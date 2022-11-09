@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { getOauthUrl } from "../api";
 import type { SectionProps } from "../types";
+import RequiredIndicator from "./RequiredIndicator";
 import Section from "./Section";
 
 export default function DiscordSection({
@@ -34,17 +35,7 @@ export default function DiscordSection({
                   <strong>{field?.serverDisplayName}</strong>
                 </a>{" "}
                 server on Discord
-                {field.isShouldJoinBeforeRequired ? (
-                  <>
-                    {" "}
-                    before{" "}
-                    <strong>
-                      {new Date(
-                        field?.shouldJoinBefore || ""
-                      ).toLocaleDateString()}
-                    </strong>
-                  </>
-                ) : null}
+                <RequiredIndicator required={!discord?.isServerOptional} />
               </div>
 
               <a
@@ -54,7 +45,7 @@ export default function DiscordSection({
                 rel="noreferrer"
               >
                 <span>
-                  Join the <b>{field?.serverDisplayName || "test"}</b>
+                  Join the <b>{field?.serverDisplayName}</b>
                 </span>
               </a>
             </div>
@@ -63,11 +54,27 @@ export default function DiscordSection({
         infoArray.push(serverReq);
       }
 
+      if (field.isShouldJoinBeforeRequired) {
+        const shouldJoinBeforeReq = (
+          <>
+            before{" "}
+            <strong>
+              {new Date(field?.shouldJoinBefore || "").toLocaleDateString()}
+            </strong>
+            <RequiredIndicator
+              required={!discord?.isShouldJoinBeforeOptional}
+            />
+          </>
+        );
+        infoArray.push(shouldJoinBeforeReq);
+      }
+
       if (field.isRoleRequired) {
         const roleReq = (
           <>
             and have the &quot;{field?.roleDisplayNames?.join(", ")}&quot;
             role(s)
+            <RequiredIndicator required={!discord?.isRoleOptional} />
           </>
         );
         infoArray.push(roleReq);
