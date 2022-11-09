@@ -12,6 +12,7 @@ import useRegistrationTimeContext, {
   RegistrationTimeProvider,
 } from "./context/RegistrationTime.context";
 import HypeDayLink from "./components/HypeDayLink";
+import useUserContext, { UserProvider } from "./context/user.context";
 
 interface HypeDayReactProps {
   appId: string;
@@ -31,6 +32,7 @@ function HypeDayReact({
   const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const { setData } = useRegistrationTimeContext();
+  const { setDiscordData, setTwitterData } = useUserContext();
 
   const fetchProjectData = useCallback(async () => {
     if (!projectId || !appId) {
@@ -44,6 +46,8 @@ function HypeDayReact({
       .then((data) => {
         setProjectData(data);
         setData(data);
+        setDiscordData(data.userInfo?.discord);
+        setTwitterData(data.userInfo?.twitter);
       })
       .catch((err) => {
         logger?.error(
@@ -57,7 +61,7 @@ function HypeDayReact({
         );
       })
       .finally(() => setIsLoading(false));
-  }, [appId, setData, projectId, logger]);
+  }, [appId, setData, setDiscordData, setTwitterData, projectId, logger]);
 
   useEffect(() => {
     setAuthorizationHeader(userToken);
@@ -126,8 +130,10 @@ function HypeDayReact({
 
 export default function WrappedHypeDayReact(props: HypeDayReactProps) {
   return (
-    <RegistrationTimeProvider>
-      <HypeDayReact {...props} />
-    </RegistrationTimeProvider>
+    <UserProvider>
+      <RegistrationTimeProvider>
+        <HypeDayReact {...props} />
+      </RegistrationTimeProvider>
+    </UserProvider>
   );
 }

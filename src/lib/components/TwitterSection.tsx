@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { getOauthUrl } from "../api";
+import useUserContext from "../context/user.context";
 import { isMobile } from "../helpers";
 import type { SectionProps } from "../types";
 import HypeModal from "./HypeModal";
@@ -13,6 +14,7 @@ export default function TwitterSection({
 }: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileModalVisible, setIsMobileModalVisible] = useState(false);
+  const { twitterData } = useUserContext();
 
   const info = useMemo(() => {
     if (!projectData?.twitter?.enabled) return [];
@@ -197,7 +199,7 @@ export default function TwitterSection({
           handleConnect();
         }}
         info={info}
-        rightText={projectData?.userInfo?.twitter?.username}
+        rightText={twitterData?.username}
         buttonDisabled={!hasUser}
         isLoading={isLoading}
       />

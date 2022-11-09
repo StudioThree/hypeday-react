@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { register } from "../api";
+import { DISCORD_CLEAR_CODES, TWITTER_CLEAR_CODES } from "../constants";
 import useRegistrationTimeContext, {
   RegistrationStatus,
 } from "../context/RegistrationTime.context";
+import useUserContext from "../context/user.context";
 import type { SectionProps } from "../types";
 
 const buttonTextByStatus = {
@@ -23,6 +25,8 @@ export default function RegisterButton({
   const [error, setError] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const { status } = useRegistrationTimeContext();
+  const { twitterData, discordData, setTwitterData, setDiscordData } =
+    useUserContext();
 
   useEffect(() => {
     setIsRegistered(!!projectData?.userInfo?.registered);
@@ -43,6 +47,15 @@ export default function RegisterButton({
       if (error) {
         console.error("Register error", error);
         logger?.error("HypeDayReact: Error registering user", "hype06", error);
+
+        if (TWITTER_CLEAR_CODES.includes(error.code)) {
+          setTwitterData(undefined);
+        }
+
+        if (DISCORD_CLEAR_CODES.includes(error.code)) {
+          setDiscordData(undefined);
+        }
+
         return setError(error.message);
       }
 
@@ -64,12 +77,9 @@ export default function RegisterButton({
     status === RegistrationStatus.closed ||
     status === RegistrationStatus.willOpen ||
     !hasUser ||
-    (projectData?.discord?.enabled &&
-      !projectData?.userInfo?.discord?.username) ||
-    (projectData?.discord2?.enabled &&
-      !projectData?.userInfo?.discord?.username) ||
-    (projectData?.twitter?.enabled &&
-      !projectData?.userInfo?.twitter?.username);
+    (projectData?.discord?.enabled && !discordData?.username) ||
+    (projectData?.discord2?.enabled && !discordData?.username) ||
+    (projectData?.twitter?.enabled && !twitterData?.username);
 
   return (
     <>

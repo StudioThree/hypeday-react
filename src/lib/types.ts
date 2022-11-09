@@ -12,7 +12,7 @@ interface DiscordRequirement {
   shouldJoinBefore?: string;
 }
 
-interface UserInfo {
+export interface UserInfo {
   discord?: { username: string };
   twitter?: { username: string };
   registered?: boolean;
