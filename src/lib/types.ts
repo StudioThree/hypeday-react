@@ -62,6 +62,14 @@ export interface GetProjectResponse {
     balance?: string;
     isBalanceRequired?: boolean;
     isBalanceOptional?: boolean;
+    isTokenRequired?: boolean;
+    isTokenOptional?: boolean;
+    token?: {
+      address: string;
+      symbol: string;
+      url: string;
+      balance: string;
+    };
     isNftRequired?: boolean;
     isNftOptional?: boolean;
     nftCollection?: {

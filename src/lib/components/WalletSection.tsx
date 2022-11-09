@@ -72,6 +72,22 @@ function WalletSection({
       infoArray.push(balanceRq);
     }
 
+    if (wallet?.isTokenRequired) {
+      const tokenReq = (
+        <>
+          Have at least{" "}
+          <strong>
+            <a href={wallet.token?.url} target="_blank" rel="noreferrer">
+              {wallet.token?.balance} {wallet.token?.symbol}
+            </a>
+          </strong>{" "}
+          in your wallet
+          <RequiredIndicator required={!wallet.isTokenOptional} />
+        </>
+      );
+      infoArray.push(tokenReq);
+    }
+
     if (wallet?.isNftRequired) {
       const { nftCollection } = wallet;
       const nftRq = (
