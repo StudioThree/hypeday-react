@@ -55,8 +55,7 @@ function HypeDayReact({
         setError(
           typeof err === "string"
             ? err
-            : err.message ||
-                "Something went wrong. Please check your connection."
+            : err.message || "Something went wrong. Please try again later."
         );
       })
       .finally(() => setIsLoading(false));
