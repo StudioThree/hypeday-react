@@ -10,6 +10,7 @@ import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
 import { isMobile, shortenWalletAddress } from "../helpers";
 import HypeModal from "./HypeModal";
 import useTokenWallet from "../hooks/useTokenWallet";
+import RequiredIndicator from "./RequiredIndicator";
 
 const chainToCurrency = {
   ethereum: "ETH",
@@ -65,6 +66,7 @@ function WalletSection({
               " "}
           </strong>
           in your wallet
+          <RequiredIndicator required={!wallet.isBalanceOptional} />
         </>
       );
       infoArray.push(balanceRq);
@@ -80,6 +82,7 @@ function WalletSection({
               {nftCollection?.name}
             </a>
           </strong>
+          <RequiredIndicator required={!wallet.isNftOptional} />
         </>
       );
       infoArray.push(nftRq);
