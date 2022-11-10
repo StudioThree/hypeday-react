@@ -57,7 +57,9 @@ function HypeDayReact({
         );
         console.error("HypeDayReact: Error fetching project data", err);
         setError(
-          err.message || "Something went wrong. Please check your connection."
+          typeof err === "string"
+            ? err
+            : err.message || "Something went wrong. Please try again later."
         );
       })
       .finally(() => setIsLoading(false));
