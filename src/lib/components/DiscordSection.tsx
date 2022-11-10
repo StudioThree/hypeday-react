@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { getOauthUrl } from "../api";
+import useUserContext from "../context/user.context";
 import type { SectionProps } from "../types";
 import RequiredIndicator from "./RequiredIndicator";
 import Section from "./Section";
@@ -11,6 +12,7 @@ export default function DiscordSection({
   logger,
 }: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const { discordData } = useUserContext();
 
   const info = useMemo(() => {
     if (!projectData?.discord?.enabled && !projectData?.discord2?.enabled) {
@@ -118,7 +120,7 @@ export default function DiscordSection({
       title="Discord"
       onClick={handleConnect}
       info={info}
-      rightText={projectData?.userInfo?.discord?.username}
+      rightText={discordData?.username}
       buttonDisabled={!hasUser}
       isLoading={isLoading}
     />
