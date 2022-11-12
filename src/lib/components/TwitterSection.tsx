@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { getOauthUrl } from "../api";
 import useUserContext from "../context/user.context";
-import { isMobile } from "../helpers";
+import { getErrorMessage, isMobile } from "../helpers";
 import type { SectionProps } from "../types";
 import HypeModal from "./HypeModal";
 import RequiredIndicator from "./RequiredIndicator";
@@ -15,6 +15,7 @@ export default function TwitterSection({
 }: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileModalVisible, setIsMobileModalVisible] = useState(false);
+  const [error, setError] = useState("");
   const { twitterData } = useUserContext();
 
   const info = useMemo(() => {
@@ -162,6 +163,7 @@ export default function TwitterSection({
       window.location.assign(url);
     } catch (err) {
       console.error(err);
+      setError(getErrorMessage(err));
       logger?.error(
         "HypeDayReact: Error getting Twitter oauth url",
         "hype04",
@@ -208,6 +210,7 @@ export default function TwitterSection({
         rightText={twitterData?.username}
         buttonDisabled={!hasUser}
         isLoading={isLoading}
+        errorMessage={error}
       />
     </>
   );

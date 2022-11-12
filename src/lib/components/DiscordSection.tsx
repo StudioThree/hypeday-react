@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { getOauthUrl } from "../api";
 import useUserContext from "../context/user.context";
+import { getErrorMessage } from "../helpers";
 import type { SectionProps } from "../types";
 import RequiredIndicator from "./RequiredIndicator";
 import Section from "./Section";
@@ -12,6 +13,7 @@ export default function DiscordSection({
   logger,
 }: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const { discordData } = useUserContext();
 
   const info = useMemo(() => {
@@ -101,6 +103,7 @@ export default function DiscordSection({
       window.location.assign(url);
     } catch (err) {
       console.error(err);
+      setError(getErrorMessage(err));
       logger?.error(
         "HypeDayReact: Error getting Discord oauth url",
         "hype05",
@@ -123,6 +126,7 @@ export default function DiscordSection({
       rightText={discordData?.username}
       buttonDisabled={!hasUser}
       isLoading={isLoading}
+      errorMessage={error}
     />
   );
 }

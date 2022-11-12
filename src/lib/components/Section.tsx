@@ -6,6 +6,7 @@ interface SectionProps {
   info: (JSX.Element | string)[];
   isLoading?: boolean;
   showButton?: boolean;
+  errorMessage?: string;
 }
 
 export default function Section({
@@ -16,6 +17,7 @@ export default function Section({
   info,
   isLoading = false,
   showButton = true,
+  errorMessage,
 }: SectionProps) {
   return (
     <section className="hypeday-section">
@@ -37,6 +39,7 @@ export default function Section({
           </button>
         )}
       </header>
+      {!!errorMessage && <span className="hypeday-error">{errorMessage}</span>}
       {info.map((el, i) => (
         <span key={i} className="hypeday-info">
           {el}
