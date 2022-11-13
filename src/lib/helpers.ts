@@ -9,3 +9,15 @@ export function isMobile() {
     navigator.userAgent.indexOf("Mobi") > -1
   );
 }
+
+export function getErrorMessage(error: unknown) {
+  const defaultMessage = "Something went wrong. Please try again later.";
+
+  if (typeof error === "string") {
+    return error;
+  } else if ((error as { message?: string })?.message) {
+    return (error as { message: string }).message;
+  } else {
+    return defaultMessage;
+  }
+}
