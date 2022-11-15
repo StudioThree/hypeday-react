@@ -3,14 +3,17 @@ export declare type SupportedChains = EvmChains | "solana" | "flow";
 interface DiscordRequirement {
     enabled?: boolean;
     isServerRequired?: boolean;
+    isServerOptional?: boolean;
     isRoleRequired?: boolean;
+    isRoleOptional?: boolean;
     isShouldJoinBeforeRequired?: boolean;
+    isShouldJoinBeforeOptional?: boolean;
     serverDisplayName?: string;
     serverLink?: string;
     roleDisplayNames?: string[];
     shouldJoinBefore?: string;
 }
-interface UserInfo {
+export interface UserInfo {
     discord?: {
         username: string;
     };
@@ -40,10 +43,15 @@ export interface GetProjectResponse {
     twitter?: {
         enabled?: boolean;
         isFollowRequired?: boolean;
+        isFollowOptional?: boolean;
         isRetweetRequired?: boolean;
+        isRetweetOptional?: boolean;
         isLikeRequired?: boolean;
+        isLikeOptional?: boolean;
         isMinFollowersRequired?: boolean;
+        isMinFollowersOptional?: boolean;
         isAccountCreatedRequired?: boolean;
+        isAccountCreatedOptional?: boolean;
         follow?: string;
         retweetUrl?: string;
         likeUrl?: string;
@@ -54,7 +62,17 @@ export interface GetProjectResponse {
         required: boolean;
         balance?: string;
         isBalanceRequired?: boolean;
+        isBalanceOptional?: boolean;
+        isTokenRequired?: boolean;
+        isTokenOptional?: boolean;
+        token?: {
+            address: string;
+            symbol: string;
+            url: string;
+            balance: string;
+        };
         isNftRequired?: boolean;
+        isNftOptional?: boolean;
         nftCollection?: {
             chain?: SupportedChains;
             name?: string;
