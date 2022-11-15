@@ -48,9 +48,7 @@ export default function DiscordSection({
                 target="_blank"
                 rel="noreferrer"
               >
-                <span>
-                  Join the <b>{field?.serverDisplayName}</b>
-                </span>
+                <span>Join</span>
               </a>
             </div>
           </>
