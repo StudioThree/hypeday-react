@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import type { GetProjectResponse, Logger } from "./types";
 import DiscordSection from "./components/DiscordSection";
 import OpenResponseSection from "./components/OpenResponseSection";
@@ -130,7 +130,7 @@ function HypeDayReact({
   );
 }
 
-export default function WrappedHypeDayReact(props: HypeDayReactProps) {
+export default memo(function WrappedHypeDayReact(props: HypeDayReactProps) {
   return (
     <UserProvider>
       <RegistrationTimeProvider>
@@ -138,4 +138,4 @@ export default function WrappedHypeDayReact(props: HypeDayReactProps) {
       </RegistrationTimeProvider>
     </UserProvider>
   );
-}
+});
