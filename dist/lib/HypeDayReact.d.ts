@@ -6,5 +6,5 @@ interface HypeDayReactProps {
     userToken: string;
     logger?: Logger;
 }
-export default function WrappedHypeDayReact(props: HypeDayReactProps): JSX.Element;
-export {};
+declare const _default: import("react").NamedExoticComponent<HypeDayReactProps>;
+export default _default;
