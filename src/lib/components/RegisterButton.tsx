@@ -5,6 +5,7 @@ import useRegistrationTimeContext, {
   RegistrationStatus,
 } from "../context/RegistrationTime.context";
 import useUserContext from "../context/user.context";
+import { getErrorMessage } from "../helpers";
 import type { SectionProps } from "../types";
 
 const buttonTextByStatus = {
@@ -67,6 +68,7 @@ export default function RegisterButton({
     } catch (err) {
       console.error(err);
       logger?.error("HypeDayReact: Error registering user", "hype08", err);
+      setError(getErrorMessage(err));
     } finally {
       setIsLoading(false);
     }
