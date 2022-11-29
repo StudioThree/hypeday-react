@@ -55,11 +55,17 @@ export function RegistrationTimeProvider({
       setStatus(RegistrationStatus.willOpen);
       setDateString(projectData?.signupAccess?.startDate as string);
 
-      const id = setTimeout(() => {
+      let id = setTimeout(() => {
         setStatus(
           endDate ? RegistrationStatus.willClose : RegistrationStatus.alwaysOpen
         );
         setDateString(projectData?.signupAccess?.endDate);
+        if (endDate) {
+          id = setTimeout(() => {
+            setStatus(RegistrationStatus.closed);
+            setDateString(projectData?.signupAccess?.endDate as string);
+          }, endDate - Date.now());
+        }
       }, startDate - now);
       return () => clearTimeout(id);
     }
