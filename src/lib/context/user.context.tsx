@@ -4,8 +4,10 @@ import { UserInfo } from "../types";
 interface UserContextType {
   discordData?: UserInfo["discord"];
   twitterData?: UserInfo["twitter"];
+  email?: UserInfo["email"];
   setDiscordData: (data: UserInfo["discord"] | undefined) => void;
   setTwitterData: (data: UserInfo["twitter"] | undefined) => void;
+  setEmail: (data: UserInfo["email"] | undefined) => void;
 }
 
 const UserContext = createContext<UserContextType>({} as UserContextType);
@@ -13,15 +15,18 @@ const UserContext = createContext<UserContextType>({} as UserContextType);
 export function UserProvider({ children }: { children: ReactNode }) {
   const [discordData, setDiscordData] = useState<UserInfo["discord"]>();
   const [twitterData, setTwitterData] = useState<UserInfo["twitter"]>();
+  const [email, setEmail] = useState<UserInfo["email"]>();
 
   const memoizedValue = useMemo(
     () => ({
       discordData,
       twitterData,
+      email,
       setDiscordData,
       setTwitterData,
+      setEmail,
     }),
-    [discordData, setDiscordData, twitterData, setTwitterData]
+    [discordData, twitterData, email]
   );
 
   return (

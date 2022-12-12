@@ -78,6 +78,9 @@ export interface GetProjectResponse {
       url?: string;
     };
   };
+  email?: {
+    isEmailRequired: boolean;
+  };
   userInfo?: UserInfo;
   showLink: boolean;
 }

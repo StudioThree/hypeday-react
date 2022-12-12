@@ -7,6 +7,7 @@ interface SectionProps {
   isLoading?: boolean;
   showButton?: boolean;
   errorMessage?: string;
+  style?: React.CSSProperties;
 }
 
 export default function Section({
@@ -18,9 +19,10 @@ export default function Section({
   isLoading = false,
   showButton = true,
   errorMessage,
+  style,
 }: SectionProps) {
   return (
-    <section className="hypeday-section">
+    <section className="hypeday-section" style={style}>
       <header className="hypeday-section-header">
         <h3 className="hypeday-h3">{title}</h3>
         {showButton && (
