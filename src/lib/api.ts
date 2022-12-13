@@ -75,6 +75,36 @@ export function verifyWallet(data: {
   return fetch(`${BASE_URL}/verifyWallet`, requestOptions).then(handleResponse);
 }
 
+export function addNewEmail(data: {
+  appId: string;
+  email: string;
+  emailPermission: boolean;
+}) {
+  const requestOptions = {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  };
+
+  return fetch(`${BASE_URL}/addNewEmail`, requestOptions).then(handleResponse);
+}
+
+export function verifyNewEmail(data: {
+  appId: string;
+  email: string;
+  otp: string;
+}) {
+  const requestOptions = {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  };
+
+  return fetch(`${BASE_URL}/verifyNewEmail`, requestOptions).then(
+    handleResponse
+  );
+}
+
 export function getOauthUrl({
   provider,
   appId,

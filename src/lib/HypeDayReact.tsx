@@ -13,6 +13,7 @@ import useRegistrationTimeContext, {
 } from "./context/RegistrationTime.context";
 import HypeDayLink from "./components/HypeDayLink";
 import useUserContext, { UserProvider } from "./context/user.context";
+import EmailSection from "./components/EmailSection";
 
 interface HypeDayReactProps {
   appId: string;
@@ -32,7 +33,7 @@ function HypeDayReact({
   const [error, setError] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const { setData } = useRegistrationTimeContext();
-  const { setDiscordData, setTwitterData } = useUserContext();
+  const { setDiscordData, setTwitterData, setEmail } = useUserContext();
 
   const fetchProjectData = useCallback(async () => {
     if (!projectId || !appId) {
@@ -48,6 +49,7 @@ function HypeDayReact({
         setData(data);
         setDiscordData(data.userInfo?.discord);
         setTwitterData(data.userInfo?.twitter);
+        setEmail(data.userInfo?.email);
       })
       .catch((err) => {
         logger?.error(
@@ -63,7 +65,15 @@ function HypeDayReact({
         );
       })
       .finally(() => setIsLoading(false));
-  }, [appId, setData, setDiscordData, setTwitterData, projectId, logger]);
+  }, [
+    appId,
+    setData,
+    setDiscordData,
+    setTwitterData,
+    setEmail,
+    projectId,
+    logger,
+  ]);
 
   useEffect(() => {
     setAuthorizationHeader(userToken);
@@ -103,6 +113,12 @@ function HypeDayReact({
         appId={appId}
         hasUser={!!userToken}
         token={userToken}
+        logger={logger}
+      />
+      <EmailSection
+        projectData={projectData}
+        appId={appId}
+        hasUser={!!userToken}
         logger={logger}
       />
       <TwitterSection
