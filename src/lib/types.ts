@@ -1,4 +1,4 @@
-type EvmChains = "ethereum" | "polygon" | "avalanche";
+export type EvmChains = "ethereum" | "polygon" | "avalanche" | "klaytn";
 export type SupportedChains = EvmChains | "solana" | "flow";
 
 interface DiscordRequirement {

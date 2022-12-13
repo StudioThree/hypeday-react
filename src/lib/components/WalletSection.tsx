@@ -1,16 +1,10 @@
-import { useWallet } from "@solana/wallet-adapter-react";
-import { useWalletModal } from "@solana/wallet-adapter-react-ui";
-import { Base58 } from "@ethersproject/basex";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { addWallet, verifyWallet } from "../api";
-import type { SectionProps } from "../types";
+import { useEffect, useMemo, useState } from "react";
+import type { EvmChains, SectionProps } from "../types";
 import Section from "./Section";
-import { SolanaWrapper } from "./SolanaWrapper";
-import { WalletNotConnectedError } from "@solana/wallet-adapter-base";
-import { isMobile, shortenWalletAddress } from "../helpers";
-import HypeModal from "./HypeModal";
+import { getErrorMessage, shortenWalletAddress } from "../helpers";
 import useTokenWallet from "../hooks/useTokenWallet";
 import RequiredIndicator from "./RequiredIndicator";
+import useEvmWallet from "../hooks/useEvmWallet";
 
 const chainToCurrency = {
   ethereum: "ETH",
@@ -20,21 +14,17 @@ const chainToCurrency = {
   flow: "FLOW",
 };
 
-function WalletSection({
+export default function WalletSection({
   projectData,
   appId,
   hasUser,
   token,
   logger,
 }: SectionProps & { token: string }) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isMobileModalVisible, setIsMobileModalVisible] = useState(false);
+  const [error, setError] = useState("");
   const [walletAddr, setWalletAddr] = useState("");
-  const { setVisible } = useWalletModal();
-  const { connected, publicKey, signMessage, disconnect } = useWallet();
-  const isLoggingIn = useRef(false);
-  const isButtonClicked = useRef(false);
   const tokenWallet = useTokenWallet(token, projectData.chain);
+  const { evmConnect, evmLoading, evmElement } = useEvmWallet(appId);
 
   useEffect(() => {
     setWalletAddr(shortenWalletAddress(tokenWallet));
@@ -107,99 +97,25 @@ function WalletSection({
     return infoArray;
   }, [projectData, tokenWallet]);
 
-  useEffect(() => {
-    async function loginWithSolana() {
-      if (
-        !isButtonClicked.current ||
-        projectData?.userInfo?.walletAddress ||
-        !connected ||
-        !publicKey ||
-        !signMessage ||
-        isLoggingIn.current
-      ) {
-        return;
-      }
+  const handleConnect = async () => {
+    setError("");
+    const result = await evmConnect(projectData.chain as EvmChains);
 
-      try {
-        isLoggingIn.current = true;
-        setIsLoading(true);
-
-        const address = publicKey.toBase58();
-
-        const { nonce } = await addWallet({ appId, address });
-
-        const encodedMessage = new TextEncoder().encode(nonce);
-        const signedMessage = Base58.encode(await signMessage(encodedMessage));
-
-        await verifyWallet({
-          address,
-          signature: signedMessage,
-          appId,
-        });
-
-        setWalletAddr(shortenWalletAddress(publicKey.toString()));
-        logger?.info("HypeDayReact: Wallet connected", "hype03", {
-          address: publicKey.toString(),
-          projectId: projectData?.id,
-          chain: projectData?.chain,
-        });
-      } catch (err) {
-        disconnect();
-        if (
-          (err as Error).message !== "User rejected the request." &&
-          (err as Error).name !== WalletNotConnectedError.name
-        ) {
-          console.error("error", err);
-          logger?.error("HypeDayReact: Error connecting wallet", "hype02", err);
-          // TODO: show error message
-        }
-      } finally {
-        setIsLoading(false);
-
-        isLoggingIn.current = false;
-        isButtonClicked.current = false;
-      }
+    if (result?.error) {
+      logger?.error(
+        "HypeDayReact: Error connecting wallet",
+        "hype02",
+        result.error
+      );
+      setError(getErrorMessage(result.error));
     }
 
-    loginWithSolana();
-  }, [
-    logger,
-    appId,
-    projectData,
-    setIsLoading,
-    connected,
-    publicKey,
-    signMessage,
-    disconnect,
-  ]);
-
-  const login = () => {
-    if (walletAddr) return;
-    setVisible(true);
-    isButtonClicked.current = true;
-  };
-
-  const checkIsMobile = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const phantomApp = urlParams.get("phantomApp");
-
-    if (isMobile() && !phantomApp) {
-      return setIsMobileModalVisible(true);
-    }
-    login();
-  };
-
-  const openSolanaDeeplink = async () => {
-    try {
-      const params = new URLSearchParams();
-      params.append("phantomApp", "1");
-      params.append("ref", "hypeday");
-      const phantomLink =
-        "https://phantom.app/ul/browse/" +
-        encodeURIComponent(window.location.href + "?" + params.toString());
-      window.open(phantomLink, "_blank");
-    } catch (err: unknown) {
-      console.error(err);
+    if (result?.address) {
+      logger?.info("HypeDayReact: Wallet connected", "hype03", {
+        address: result.address,
+        chain: projectData.chain,
+      });
+      setWalletAddr(shortenWalletAddress(result.address));
     }
   };
 
@@ -207,55 +123,16 @@ function WalletSection({
 
   return (
     <>
-      <HypeModal
-        isOpen={isMobileModalVisible}
-        onRequestClose={() => setIsMobileModalVisible(false)}
-        title="Open in Phantom Mobile App?"
-      >
-        <button
-          className="hypeday-button hypeday-modal-button"
-          onClick={openSolanaDeeplink}
-        >
-          Yes
-        </button>
-        <button
-          className="hypeday-button hypeday-modal-button"
-          onClick={() => {
-            setIsMobileModalVisible(false);
-            login();
-          }}
-        >
-          Other ways to connect
-        </button>
-      </HypeModal>
       <Section
         title="Wallet"
-        onClick={checkIsMobile}
+        onClick={handleConnect}
         info={info}
-        isLoading={isLoading}
+        isLoading={evmLoading}
         rightText={walletAddr}
         buttonDisabled={!hasUser}
+        errorMessage={error}
       />
+      {evmElement}
     </>
-  );
-}
-
-export default function WalletSectionWrapper({
-  projectData,
-  appId,
-  hasUser,
-  token,
-  logger,
-}: SectionProps & { token: string }) {
-  return (
-    <SolanaWrapper>
-      <WalletSection
-        projectData={projectData}
-        appId={appId}
-        hasUser={hasUser}
-        token={token}
-        logger={logger}
-      />
-    </SolanaWrapper>
   );
 }

@@ -46,12 +46,15 @@ export function getProject({
   ).then(handleResponse);
 }
 
-export function addWallet(data: { appId: string; address: string }) {
-  const chain = "solana";
+export function addWallet(data: {
+  appId: string;
+  address: string;
+  chain: string;
+}) {
   const requestOptions = {
     method: "POST",
     headers,
-    body: JSON.stringify({ chain, ...data }),
+    body: JSON.stringify(data),
   };
 
   return fetch(`${BASE_URL}/addWallet`, requestOptions).then(handleResponse);
@@ -61,12 +64,12 @@ export function verifyWallet(data: {
   appId: string;
   address: string;
   signature: string;
+  chain: string;
 }) {
-  const chain = "solana";
   const requestOptions = {
     method: "POST",
     headers,
-    body: JSON.stringify({ chain, ...data }),
+    body: JSON.stringify(data),
   };
 
   return fetch(`${BASE_URL}/verifyWallet`, requestOptions).then(handleResponse);
