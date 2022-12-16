@@ -18,7 +18,6 @@ const buttonTextByStatus = {
 export default function RegisterButton({
   projectData,
   appId,
-  hasUser,
   inputRef,
   logger,
 }: SectionProps & { inputRef: React.RefObject<HTMLInputElement> }) {
@@ -26,15 +25,20 @@ export default function RegisterButton({
   const [error, setError] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const { status } = useRegistrationTimeContext();
-  const { twitterData, discordData, setTwitterData, setDiscordData } =
-    useUserContext();
+  const {
+    twitterData,
+    discordData,
+    setTwitterData,
+    setDiscordData,
+    shouldLogin,
+  } = useUserContext();
 
   useEffect(() => {
     setIsRegistered(!!projectData?.userInfo?.registered);
   }, [projectData]);
 
   const handleRegister = async () => {
-    if (!appId || !hasUser || !projectData?.id || isRegistered) return;
+    if (!appId || shouldLogin || !projectData?.id || isRegistered) return;
 
     try {
       setError("");
@@ -78,7 +82,7 @@ export default function RegisterButton({
     isLoading ||
     status === RegistrationStatus.closed ||
     status === RegistrationStatus.willOpen ||
-    !hasUser ||
+    shouldLogin ||
     (projectData?.discord?.enabled && !discordData?.username) ||
     (projectData?.discord2?.enabled && !discordData?.username) ||
     (projectData?.twitter?.enabled && !twitterData?.username);

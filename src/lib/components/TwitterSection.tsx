@@ -10,13 +10,12 @@ import Section from "./Section";
 export default function TwitterSection({
   projectData,
   appId,
-  hasUser,
   logger,
 }: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [isMobileModalVisible, setIsMobileModalVisible] = useState(false);
   const [error, setError] = useState("");
-  const { twitterData } = useUserContext();
+  const { twitterData, shouldLogin } = useUserContext();
 
   const info = useMemo(() => {
     if (!projectData?.twitter?.enabled) return [];
@@ -142,7 +141,7 @@ export default function TwitterSection({
   }, [projectData]);
 
   const handleConnect = async () => {
-    if (!appId || !hasUser || !projectData?.id) return;
+    if (!appId || !projectData?.id) return;
 
     try {
       setIsLoading(true);
@@ -208,7 +207,7 @@ export default function TwitterSection({
         }}
         info={info}
         rightText={twitterData?.username}
-        buttonDisabled={!hasUser}
+        buttonDisabled={shouldLogin}
         isLoading={isLoading}
         errorMessage={error}
       />

@@ -1,7 +1,13 @@
 import { useCallback, useRef, useState } from "react";
 import { IProviderOptions } from "web3modal";
-import { addWallet, verifyWallet } from "../api";
+import {
+  addWallet,
+  loginWithWallet,
+  verifyWallet,
+  verifyWalletLogin,
+} from "../api";
 import HypeModal from "../components/HypeModal";
+import useUserContext from "../context/user.context";
 import { isMobile } from "../helpers";
 import { EvmChains } from "../types";
 
@@ -28,6 +34,7 @@ export default function useEvmWallet(appId: string) {
   const [loading, setIsLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const chainRef = useRef<EvmChains>("ethereum");
+  const { shouldLogin, setUserToken, fetchProjectData } = useUserContext();
 
   const connect = useCallback(
     async (chain: EvmChains = "ethereum") => {
@@ -74,17 +81,30 @@ export default function useEvmWallet(appId: string) {
         const provider = new Web3Provider(instance);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
-        const { nonce } = await addWallet({ appId, chain, address });
+        const { nonce } = await (shouldLogin
+          ? loginWithWallet({ appId, chain, address })
+          : addWallet({ appId, chain, address }));
         const signature = await signer.signMessage(nonce);
 
-        await verifyWallet({
-          address,
-          signature,
-          chain,
-          appId,
-        });
+        if (shouldLogin) {
+          const { token } = await verifyWalletLogin({
+            appId,
+            chain,
+            address,
+            signature,
+          });
 
-        return { address };
+          setUserToken(token);
+        } else {
+          await verifyWallet({
+            address,
+            signature,
+            chain,
+            appId,
+          });
+        }
+
+        fetchProjectData();
       } catch (err: unknown) {
         if (err === "Modal closed by user") return null;
         if (
@@ -112,7 +132,7 @@ export default function useEvmWallet(appId: string) {
         setIsLoading(false);
       }
     },
-    [appId]
+    [appId, shouldLogin, setUserToken, fetchProjectData]
   );
 
   const checkIsMobile = useCallback(

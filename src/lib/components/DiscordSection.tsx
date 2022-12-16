@@ -9,12 +9,11 @@ import Section from "./Section";
 export default function DiscordSection({
   projectData,
   appId,
-  hasUser,
   logger,
 }: SectionProps) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const { discordData } = useUserContext();
+  const { discordData, shouldLogin } = useUserContext();
 
   const info = useMemo(() => {
     if (!projectData?.discord?.enabled && !projectData?.discord2?.enabled) {
@@ -87,7 +86,7 @@ export default function DiscordSection({
   }, [projectData]);
 
   const handleConnect = async () => {
-    if (!appId || !hasUser || !projectData?.id) return;
+    if (!appId || !projectData?.id) return;
 
     try {
       setIsLoading(true);
@@ -122,7 +121,7 @@ export default function DiscordSection({
       onClick={handleConnect}
       info={info}
       rightText={discordData?.username}
-      buttonDisabled={!hasUser}
+      buttonDisabled={shouldLogin}
       isLoading={isLoading}
       errorMessage={error}
     />

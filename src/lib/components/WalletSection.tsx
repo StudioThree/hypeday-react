@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { EvmChains, SectionProps } from "../types";
 import Section from "./Section";
-import { getErrorMessage, shortenWalletAddress } from "../helpers";
-import useTokenWallet from "../hooks/useTokenWallet";
+import { getErrorMessage } from "../helpers";
 import RequiredIndicator from "./RequiredIndicator";
 import useEvmWallet from "../hooks/useEvmWallet";
+import useUserContext from "../context/user.context";
 
 const chainToCurrency = {
   ethereum: "ETH",
@@ -17,28 +17,16 @@ const chainToCurrency = {
 export default function WalletSection({
   projectData,
   appId,
-  hasUser,
-  token,
   logger,
-}: SectionProps & { token: string }) {
+}: SectionProps) {
   const [error, setError] = useState("");
-  const [walletAddr, setWalletAddr] = useState("");
-  const tokenWallet = useTokenWallet(token, projectData.chain);
+  const { walletAddr } = useUserContext();
   const { evmConnect, evmLoading, evmElement } = useEvmWallet(appId);
-
-  useEffect(() => {
-    setWalletAddr(shortenWalletAddress(tokenWallet));
-  }, [tokenWallet]);
 
   const info = useMemo(() => {
     if (!projectData?.wallet) return [];
 
     const { wallet } = projectData;
-
-    // If there is a wallet in the token, use that
-    if (!tokenWallet && projectData.userInfo?.walletAddress) {
-      setWalletAddr(shortenWalletAddress(projectData.userInfo?.walletAddress));
-    }
 
     const infoArray = [];
 
@@ -95,7 +83,7 @@ export default function WalletSection({
     }
 
     return infoArray;
-  }, [projectData, tokenWallet]);
+  }, [projectData]);
 
   const handleConnect = async () => {
     setError("");
@@ -110,13 +98,10 @@ export default function WalletSection({
       setError(getErrorMessage(result.error));
     }
 
-    if (result?.address) {
-      logger?.info("HypeDayReact: Wallet connected", "hype03", {
-        address: result.address,
-        chain: projectData.chain,
-      });
-      setWalletAddr(shortenWalletAddress(result.address));
-    }
+    logger?.info("HypeDayReact: Wallet connected", "hype03", {
+      address: walletAddr,
+      chain: projectData.chain,
+    });
   };
 
   if (projectData?.wallet?.required === false) return null;
@@ -129,7 +114,6 @@ export default function WalletSection({
         info={info}
         isLoading={evmLoading}
         rightText={walletAddr}
-        buttonDisabled={!hasUser}
         errorMessage={error}
       />
       {evmElement}
