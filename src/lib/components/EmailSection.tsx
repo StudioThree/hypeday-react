@@ -7,7 +7,6 @@ import EmailModal from "./EmailModal";
 export default function EmailSection({
   projectData,
   appId,
-  hasUser,
   logger,
 }: SectionProps) {
   const [error, setError] = useState("");
@@ -24,7 +23,6 @@ export default function EmailSection({
         style={{ marginBottom: 0 }}
         info={[]}
         rightText={email || "Verify"}
-        buttonDisabled={!hasUser}
         errorMessage={error}
       />
       <EmailModal

@@ -21,6 +21,8 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      querystring: "rollup-plugin-node-polyfills/polyfills/qs",
+      url: "rollup-plugin-node-polyfills/polyfills/url",
       http: "rollup-plugin-node-polyfills/polyfills/http",
       https: "rollup-plugin-node-polyfills/polyfills/http",
       stream: "rollup-plugin-node-polyfills/polyfills/stream",

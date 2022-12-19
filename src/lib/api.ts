@@ -1,12 +1,16 @@
-const BASE_URL = "https://api.hype.day";
+const BASE_URL = "http://localhost:5001/hype-testing/us-central1";
 const headers = new Headers({
   "Content-Type": "application/json",
 });
 
-export function setAuthorizationHeader(token: string | undefined) {
+export function setAuthorizationHeader(token?: string) {
   token
     ? headers.set("Authorization", `Bearer ${token}`)
     : headers.delete("Authorization");
+}
+
+export function setApiKeyHeader(apiKey?: string) {
+  apiKey ? headers.set("X-Api-Key", apiKey) : headers.delete("X-Api-Key");
 }
 
 function handleResponse(response: Response) {
@@ -15,6 +19,10 @@ function handleResponse(response: Response) {
     const data = text && JSON.parse(text);
 
     if (!response.ok) {
+      if (response.status === 401) {
+        localStorage?.removeItem("hypeUserToken");
+      }
+
       const error = data?.error?.message || response.statusText;
       console.error(error);
       return Promise.reject(error);
@@ -46,6 +54,35 @@ export function getProject({
   ).then(handleResponse);
 }
 
+export function loginWithWallet(data: {
+  appId: string;
+  address: string;
+  chain: string;
+}) {
+  const requestOptions = {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  };
+
+  return fetch(`${BASE_URL}/login`, requestOptions).then(handleResponse);
+}
+
+export function verifyWalletLogin(data: {
+  appId: string;
+  address: string;
+  chain: string;
+  signature: string;
+}) {
+  const requestOptions = {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  };
+
+  return fetch(`${BASE_URL}/verify`, requestOptions).then(handleResponse);
+}
+
 export function addWallet(data: {
   appId: string;
   address: string;
@@ -73,6 +110,36 @@ export function verifyWallet(data: {
   };
 
   return fetch(`${BASE_URL}/verifyWallet`, requestOptions).then(handleResponse);
+}
+
+export function loginWithEmail(data: {
+  appId: string;
+  email: string;
+  emailPermission: boolean;
+}) {
+  const requestOptions = {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  };
+
+  return fetch(`${BASE_URL}/loginWithEmail`, requestOptions).then(
+    handleResponse
+  );
+}
+
+export function verifyEmail(data: {
+  appId: string;
+  email: string;
+  otp: string;
+}) {
+  const requestOptions = {
+    method: "POST",
+    headers,
+    body: JSON.stringify(data),
+  };
+
+  return fetch(`${BASE_URL}/verifyEmail`, requestOptions).then(handleResponse);
 }
 
 export function addNewEmail(data: {

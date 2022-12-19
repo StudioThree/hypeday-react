@@ -13,7 +13,8 @@ function App() {
       <HypeDayReact
         appId="AWGOvkDPkSzRxwebZ4Gv"
         projectId="ZymMrMJK1mrZbUPAbcMH"
-        userToken={testTokenWithAddr}
+        apiKey="12345"
+        // userToken={testTokenWithAddr}
       />
     </div>
   );

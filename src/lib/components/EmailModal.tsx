@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
-import { addNewEmail, verifyNewEmail } from "../api";
+import {
+  addNewEmail,
+  loginWithEmail,
+  verifyEmail,
+  verifyNewEmail,
+} from "../api";
 import useUserContext from "../context/user.context";
 import { getErrorMessage } from "../helpers";
 import { Logger } from "../types";
@@ -20,7 +25,13 @@ export default function EmailModal({
   appId,
   logger,
 }: EmailModalProps) {
-  const { email: userEmail, setEmail: setUserEmail } = useUserContext();
+  const {
+    email: userEmail,
+    setEmail: setUserEmail,
+    shouldLogin,
+    fetchProjectData,
+    setUserToken,
+  } = useUserContext();
   const [isLoading, setIsLoading] = useState(false);
   const [step, setStep] = useState<"one" | "two">("one");
   const emailRef = useRef("");
@@ -40,8 +51,11 @@ export default function EmailModal({
     emailRef.current = email;
 
     try {
+      setError("");
       setIsLoading(true);
-      await addNewEmail({ appId, email, emailPermission });
+      await (shouldLogin
+        ? loginWithEmail({ appId, email, emailPermission })
+        : addNewEmail({ appId, email, emailPermission }));
       logger?.info(
         "HypeDayReact: User requested email verification",
         "hype09",
@@ -70,11 +84,21 @@ export default function EmailModal({
     if (!emailRef.current) return;
 
     try {
+      setError("");
       setIsLoading(true);
-      await verifyNewEmail({ appId, email: emailRef.current, otp });
+      const { token } = await (shouldLogin
+        ? verifyEmail({ appId, email: emailRef.current, otp })
+        : verifyNewEmail({ appId, email: emailRef.current, otp }));
       setUserEmail(emailRef.current);
       setStep("one");
       onClose();
+
+      if (shouldLogin) {
+        setUserToken(token);
+      }
+
+      fetchProjectData();
+
       logger?.info("HypeDayReact: User verified email address", "hype11", {
         email: emailRef.current,
       });
