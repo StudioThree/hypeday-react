@@ -15,13 +15,13 @@ Run `npm run dev` to start Vite in development mode. `main.tsx` and `App.tsx` ar
 To install:
 
 ```bash
-npm i github:StudioThree/hypeday-react#v0.0.10
+npm i github:StudioThree/hypeday-react#v0.1.0
 ```
 
 Or with yarn:
 
 ```bash
-yarn add https://github.com/StudioThree/hypeday-react.git#v0.0.10
+yarn add https://github.com/StudioThree/hypeday-react.git#v0.1.0
 ```
 
 ```tsx
@@ -31,7 +31,8 @@ import "hypeday-react/dist/style.css";
 <HypeDayReact
   appId="YOUR_APP_ID" // required, you can request this from Hype.Day
   projectId="OqdTSUuzrCIbapvSQWbL" // required, Hype.Day project ID
-  userToken="JWT_TOKEN_OF_THE_USER" // required, JWT token of the user
+  apiKey="YOUR_API_KEY" // required, you can request this from Hype.Day
+  userToken="JWT_TOKEN_OF_THE_USER" // required if apiKey is not provided, JWT token of the user
   logger={{
     info(
       message: string,

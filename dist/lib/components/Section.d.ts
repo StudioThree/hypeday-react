@@ -8,6 +8,7 @@ interface SectionProps {
     isLoading?: boolean;
     showButton?: boolean;
     errorMessage?: string;
+    style?: React.CSSProperties;
 }
-export default function Section({ title, rightText, buttonDisabled, onClick, info, isLoading, showButton, errorMessage, }: SectionProps): JSX.Element;
+export default function Section({ title, rightText, buttonDisabled, onClick, info, isLoading, showButton, errorMessage, style, }: SectionProps): JSX.Element;
 export {};

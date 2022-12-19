@@ -1,5 +1,5 @@
 /// <reference types="react" />
 import { GetProjectResponse } from "../types";
-export default function HypeDayLink({ projectData, }: {
+export default function Footer({ projectData, }: {
     projectData?: GetProjectResponse;
-}): JSX.Element | null;
+}): JSX.Element;

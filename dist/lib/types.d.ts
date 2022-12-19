@@ -1,5 +1,19 @@
-declare type EvmChains = "ethereum" | "polygon" | "avalanche";
+export declare type EvmChains = "ethereum" | "polygon" | "avalanche" | "klaytn";
 export declare type SupportedChains = EvmChains | "solana" | "flow";
+interface HypeDayReactPropsCommon {
+    appId: string;
+    projectId: string;
+    logger?: Logger;
+}
+interface HypeDayReactPropsWithUserToken extends HypeDayReactPropsCommon {
+    userToken: string;
+    apiKey?: undefined;
+}
+interface HypeDayReactPropsWithAPIKey extends HypeDayReactPropsCommon {
+    userToken?: undefined;
+    apiKey: string;
+}
+export declare type HypeDayReactProps = HypeDayReactPropsWithUserToken | HypeDayReactPropsWithAPIKey;
 interface DiscordRequirement {
     enabled?: boolean;
     isServerRequired?: boolean;
@@ -79,13 +93,15 @@ export interface GetProjectResponse {
             url?: string;
         };
     };
+    email?: {
+        isEmailRequired: boolean;
+    };
     userInfo?: UserInfo;
     showLink: boolean;
 }
 export interface SectionProps {
     projectData: GetProjectResponse;
     appId: string;
-    hasUser: boolean;
     logger?: Logger;
 }
 export interface HypeJWTPayload {
