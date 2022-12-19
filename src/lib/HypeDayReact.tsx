@@ -11,7 +11,7 @@ import RegisterButton from "./components/RegisterButton";
 import useRegistrationTimeContext, {
   RegistrationTimeProvider,
 } from "./context/RegistrationTime.context";
-import HypeDayLink from "./components/HypeDayLink";
+import Footer from "./components/Footer";
 import useUserContext, { UserProvider } from "./context/user.context";
 import EmailSection from "./components/EmailSection";
 
@@ -141,7 +141,7 @@ function HypeDayReact({
         logger={logger}
         inputRef={inputRef}
       />
-      <HypeDayLink projectData={projectData} />
+      <Footer projectData={projectData} />
     </div>
   );
 }
