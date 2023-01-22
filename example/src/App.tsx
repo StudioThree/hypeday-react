@@ -4,18 +4,18 @@ import "hypeday-react/dist/style.css";
 import "./App.css";
 
 const testToken =
-  "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL21hdGNoZGF5LmNvbSIsImF1ZCI6Imh0dHBzOi8vaHlwZS5kYXkiLCJzdWIiOiJ0ZXN0dXNlcmlkIiwid2FsbGV0cyI6eyJzb2xhbmEiOiI5UlRKYXc2N2RneVZFaHZ4WjczQnZpbVU2ZFhnM004YTJETTdVUURaa3IxTSIsImV0aGVyZXVtIjoiMHg2OUU1RjgzNDlEMTg5MzBmOTk0MzI2MTJlQ0MxMEU5QTdCOEZiM0IyIn0sImV4cCI6MTY3NjAyMzU5NCwiaWF0IjoxNjY3MzgzNTk0fQ.abFhWoc6lSEDS3mG9oFcbTz-fcCv6RpoukAMbxjXjAaqiv1XFnqIZMFsyjk71GIS-HDWZPxCbUyRPVuN6vqliw";
+  "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwczovL2h5cGUuZGF5IiwiYXVkIjoiaHR0cHM6Ly9oeXBlLmRheSIsInN1YiI6Ik1ZLVRFU1QtVVNFUi1JRCIsIndhbGxldHMiOnsic29sYW5hIjoiOVJUSmF3NjdkZ3lWRWh2eFo3M0J2aW1VNmRYZzNNOGEyRE03VVFEWmtyMU0iLCJldGhlcmV1bSI6IjB4NjlFNUY4MzQ5RDE4OTMwZjk5NDMyNjEyZUNDMTBFOUE3QjhGYjNCMiJ9LCJleHAiOjE3NjA4MDIxNzEsImlhdCI6MTY3NDQwMjE3MX0.13g_iLSTkjjjjsu0pupfHY3ZCkNMxOF50NEKUTzzncTWY_ocQ6eoQgCi98WNDIkE7Du1hL6E1Bf6Yj3BwiHh2A";
 
 function App() {
-  const [appId, setAppId] = useState("MMYGytREfQnxQqpX7Byy");
-  const [projectId, setProjectId] = useState("0aYbsCbSE0gxsgQqbaRf");
+  const [appId, setAppId] = useState("jPKQoBHT0aQyucI4e8zS");
+  const [projectId, setProjectId] = useState("TYjK36qiIzlJM8s0OYSC");
   const [userToken, setUserToken] = useState("");
   const [loadingInitial, setLoadingInitial] = useState(true);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setAppId(params.get("appId") || "MMYGytREfQnxQqpX7Byy");
-    setProjectId(params.get("projectId") || "0aYbsCbSE0gxsgQqbaRf");
+    setAppId(params.get("appId") || "jPKQoBHT0aQyucI4e8zS");
+    setProjectId(params.get("projectId") || "TYjK36qiIzlJM8s0OYSC");
     setUserToken(params.get("userToken") || testToken);
     setLoadingInitial(false);
   }, []);
