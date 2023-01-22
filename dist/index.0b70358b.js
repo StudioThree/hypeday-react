@@ -1,6 +1,6 @@
 import a, { createContext as Ht, useState as H, useEffect as Oe, useMemo as Fe, useContext as Dt, useCallback as De, useRef as yt, memo as an } from "react";
 import sn from "react-dom";
-const oe = "http://localhost:5001/hype-testing/us-central1", Q = new Headers({
+const oe = "https://api.hype.day", Q = new Headers({
   "Content-Type": "application/json"
 });
 function Qe(e) {
@@ -2482,10 +2482,10 @@ function Br(e) {
           { default: _ },
           { Web3Provider: T }
         ] = await Promise.all([
-          import("./index.d5921325.js").then((A) => A.i),
-          import("./index.8826e032.js").then((A) => A.i),
-          import("./index.3fb0da53.js").then((A) => A.i),
-          import("./index.0e4aca51.js")
+          import("./index.8a9029d2.js").then((A) => A.i),
+          import("./index.3eba34fb.js").then((A) => A.i),
+          import("./index.15e0083c.js").then((A) => A.i),
+          import("./index.bf651600.js")
         ]), C = {
           walletconnect: {
             package: O,

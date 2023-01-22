@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5001/hype-testing/us-central1";
+const BASE_URL = "https://api.hype.day";
 const headers = new Headers({
   "Content-Type": "application/json",
 });
